@@ -30,3 +30,4 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set list listchars=tab:\ \ ,trail:·
+set scrolloff=7
