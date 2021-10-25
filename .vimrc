@@ -18,9 +18,11 @@ autocmd BufNewFile *.java call NewJava()
 
 inoremap {<CR> <CR>{<CR>}<Up><CR><Tab>
 inoremap ( ()<Left>
+inoremap { {}<Left>
 inoremap [ []<Left>
 
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ')' ? '<Right>' : ')'
+inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == '}' ? '<Right>' : '}'
 inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == ']' ? '<Right>' : ']'
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? '<Right>' : '""<Left>'
 inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "'" ? '<Right>' : "''<Left>"
@@ -30,5 +32,13 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set list listchars=tab:\ \ ,trail:·
+set list listchars=trail:·,tab:»·
 set scrolloff=7
+
+set splitright
+set splitbelow
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
