@@ -1,0 +1,44 @@
+
+
+CC=gcc
+CFLAGS=-g -Wall
+SRC=src
+OBJ=obj
+SRCS=$(wildcard $(SRC)/*.c) $(patsubst %.c, $(SRC)/%.c, $(wildcard *.c))
+OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
+BINDIR=bin
+BIN=$(BINDIR)/main
+
+
+all:$(SRC) $(OBJ) $(BINDIR) $(BIN)
+
+run:$(BIN)
+	@echo "\n"
+	@./$(BIN)
+	@echo "\n"
+
+$(BIN): $(OBJS)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJ)/%.o:: $(SRC)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ)/%.o:: %.c
+	$(CC) $(CFLAGS) -c $(SRC)/$< -o $@
+
+*.c: ;
+
+$(SRC):
+	mkdir $@
+	mv *.c $@
+
+$(OBJ) $(BINDIR):
+	mkdir $@
+
+clean:
+	$(RM) -rf $(BINDIR)/* $(OBJ)/*
+
+cleandirs: clean
+	mv $(SRC)/* .
+	rmdir $(BINDIR) $(OBJ) $(SRC)
+

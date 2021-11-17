@@ -14,6 +14,7 @@ command Java w|!javac.exe % && java.exe %:r
 autocmd BufNewFile *.cpp 0r ~/.vim/templates/cxxSkeleton.cxx
 autocmd BufNewFile *.cxx 0r ~/.vim/templates/cxxSkeleton.cxx
 autocmd BufNewFile *.c 0r ~/.vim/templates/skeleton.c
+autocmd BufNewFile Makefile 0r ~/.vim/templates/makeSkeleton.txt
 autocmd BufNewFile *.java call NewJava()
 
 inoremap {<CR> <CR>{<CR>}<Up><CR><Tab>
@@ -34,6 +35,8 @@ set shiftwidth=4
 set expandtab
 set list listchars=trail:·,tab:»·
 set scrolloff=7
+
+autocmd FileType make set noexpandtab
 
 set splitright
 set splitbelow
