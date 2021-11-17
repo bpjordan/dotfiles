@@ -8,6 +8,7 @@ SRCS=$(wildcard $(SRC)/*.c) $(patsubst %.c, $(SRC)/%.c, $(wildcard *.c))
 OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 BINDIR=bin
 BIN=$(BINDIR)/main
+DIRS=$(BINDIR) $(OBJ) $(SRC)
 
 
 all:$(SRC) $(OBJ) $(BINDIR) $(BIN)
@@ -40,5 +41,6 @@ clean:
 
 cleandirs: clean
 	mv $(SRC)/* .
-	rmdir $(BINDIR) $(OBJ) $(SRC)
+	rmdir $(DIRS)
 
+makedirs: $(DIRS)
