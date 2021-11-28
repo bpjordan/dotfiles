@@ -10,6 +10,9 @@ function! StatusLineGit()
     return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
+"Handle Plugins
+so ~/.vim/plugins.vim
+
 "Commands for quickly testing programs and scripts
 command Py w|!python3 %:.
 command Upload w|!arduino-cli.exe compile -u
