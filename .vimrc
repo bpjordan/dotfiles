@@ -1,14 +1,7 @@
 
 
 "Statusline
-function! GitBranch()
-    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatusLineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
+so ~/.vim/statusline.vim
 
 "Handle Plugins
 so ~/.vim/plugins.vim
@@ -21,9 +14,9 @@ command Java w|!javac.exe % && java.exe %:r
 
 "Boilerplate skeletons
 function! NewJava()
-	silent! 0r ~/.vim/templates/skeleton.java
-	2s/SKELETON/\=expand("%:t:r")/g
-	8s/START//g
+    silent! 0r ~/.vim/templates/skeleton.java
+    2s/SKELETON/\=expand("%:t:r")/g
+    8s/START//g
 endfunction
 
 autocmd BufNewFile *.cpp 0r ~/.vim/templates/cxxSkeleton.cxx
@@ -43,6 +36,15 @@ inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == '}' ? '<Right>' : '}'
 inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == ']' ? '<Right>' : ']'
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? '<Right>' : '""<Left>'
 inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "'" ? '<Right>' : "''<Left>"
+
+"Relative numberlines
+set number
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 "Settings related to whitespace
 set autoindent
