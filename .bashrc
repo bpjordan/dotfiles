@@ -109,7 +109,7 @@ if [ -f ~/.dotfiles/.bash_aliases ]; then
 	. ~/.dotfiles/.bash_aliases
 fi
 
-if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
+if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ] && ! [ -n "$VIM_TERMINAL"]; then
     /usr/bin/neofetch
 fi
 

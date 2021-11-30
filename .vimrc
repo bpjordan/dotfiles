@@ -1,6 +1,8 @@
 
+"Build Theme
+so ~/.vim/colors.vim
 
-"Statusline
+"Build statusline
 so ~/.vim/statusline.vim
 
 "Handle Plugins

@@ -7,7 +7,7 @@ endfunction
 
 function! StatusLineGit()
     let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?' Git: '.l:branchname.' ':''
+    return strlen(l:branchname) > 0?' git:'.l:branchname.' ':''
 endfunction
 
 function! StatusLineMode(mode)
@@ -56,19 +56,19 @@ augroup TrackCurrentWindow
     autocmd WinLeave * call setwinvar(winnr(), 'curr', 0)
     autocmd WinEnter * call setwinvar(winnr(), 'curr', 1)
 augroup END
+call setwinvar(winnr(), 'curr', 1)
 
-"Color Settings
-":so $VIMRUNTIME/syntax/hitest.vim
-hi ModeBlockColor cterm=none
-hi StatusLine cterm=none ctermbg=238
+set noshowmode
 
+"Actually building the thing starts here
 set laststatus=2
 set statusline=
 set statusline+=%#ModeBlockColor#
 set statusline+=%{IsCurrentWindow()?'\ \ \ '.StatusLineMode(mode()).'\ \ ':''}
 set statusline+=%#StatusLine#
-set statusline+=\ %f
-set statusline+=\ \ %{StatusLineGit()}
+set statusline+=\ %f%m%r%w
+set statusline+=\ %{StatusLineGit()}
 set statusline+=%=
 set statusline+=%y
-set statusline+=\ %l:%L
+set statusline+=\ col:%c
+set statusline+=\ %l/%L
