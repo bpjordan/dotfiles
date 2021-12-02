@@ -2,13 +2,18 @@
 
 
 function! GitBranch()
-    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return system("git -C ".expand('%:p:h')." rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
 
 function! StatusLineGit()
     let l:branchname = GitBranch()
     return strlen(l:branchname) > 0?' git:'.l:branchname.' ':''
 endfunction
+
+augroup updategitinfo
+    au!
+    autocmd BufEnter,FocusGained,BufWritePost * let b:gitinfo = StatusLineGit()
+augroup end
 
 function! StatusLineMode(mode)
     let l:modeReadable={
@@ -53,8 +58,8 @@ endfunction
 
 augroup TrackCurrentWindow
     autocmd!
-    autocmd WinLeave * call setwinvar(winnr(), 'curr', 0)
-    autocmd WinEnter * call setwinvar(winnr(), 'curr', 1)
+    autocmd WinLeave * silent call setwinvar(winnr(), 'curr', 0)
+    autocmd WinEnter * silent call setwinvar(winnr(), 'curr', 1)
 augroup END
 call setwinvar(winnr(), 'curr', 1)
 
@@ -67,7 +72,7 @@ set statusline+=%#ModeBlockColor#
 set statusline+=%{IsCurrentWindow()?'\ \ \ '.StatusLineMode(mode()).'\ \ ':''}
 set statusline+=%#StatusLine#
 set statusline+=\ %f%m%r%w
-set statusline+=\ %{StatusLineGit()}
+set statusline+=\ %{get(b:,'gitinfo','')}
 set statusline+=%=
 set statusline+=%y
 set statusline+=\ col:%c
