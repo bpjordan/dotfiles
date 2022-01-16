@@ -57,7 +57,14 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[35m\]\u@\h\[\033[00m\]:\[\033[31m\]\w \[\033[01;36m\]\$\[\033[00m\] '
+    if [ -n "$WSL_DISTRO_NAME" ]; then
+        host_string="WSL[$WSL_DISTRO_NAME]"
+    elif [ -n "$SSH_CLIENT" ]; then
+        host_string="SSH[\h]"
+    else
+        wsl_string="\h"
+    fi
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[35m\]\u@$host_string\[\033[00m\]:\[\033[31m\]\w \[\033[01;36m\]\$\[\033[00m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -123,6 +130,6 @@ fi
 PROMPT_DIRTRIM=4
 
 if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
-    /usr/bin/neofetch
+    /usr/bin/neofetch --disable packages
 fi
 
