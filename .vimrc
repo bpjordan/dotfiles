@@ -1,12 +1,12 @@
 
-"Build Theme
-so ~/.vim/colors.vim
-
 "Build statusline
 so ~/.vim/statusline.vim
 
 "Handle Plugins
 so ~/.vim/plugins.vim
+
+"Build Theme
+so ~/.vim/colors.vim
 
 "Commands for quickly testing programs and scripts
 command Py w|!python3 %:.

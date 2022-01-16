@@ -1,5 +1,5 @@
 
-color default
+"color default
 
 set cursorline
 
