@@ -2,7 +2,7 @@
 
 
 function! GitBranch()
-    return system("git -C ".expand('%:p:h')." rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return system("git -C '".expand('%:p:h')."' rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
 
 function! StatusLineGit()
