@@ -60,7 +60,7 @@ if [ "$color_prompt" = yes ]; then
     if [ -n "$WSL_DISTRO_NAME" ]; then
         host_string="WSL[$WSL_DISTRO_NAME]"
     elif [ -n "$SSH_CLIENT" ]; then
-        host_string="SSH[\h]"
+        host_string="SSH[$(hostname)]"
     else
         wsl_string="\h"
     fi
