@@ -2,9 +2,7 @@
 
 default=".vimrc .vim .bashrc .gitconfig"
 
-if [ $# -gt 0 ]; then
-    files="${@:-$default}"
-fi
+files="${@:-$default}"
 
 OLDDIR="$HOME/.dotfiles/old/"
 
