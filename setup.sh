@@ -4,10 +4,6 @@
 
 sudo apt install neofetch zsh -y
 
-#Migrate configuration files
-
-$HOME/.dotfiles/migrate.sh
-
 #Install Oh My Zsh and plugins
 
 if [[ ! -d $HOME/.oh-my-zsh ]]; then
@@ -25,4 +21,8 @@ else
     echo "Oh-my-zsh directory already exists"
 fi
 
+
+#Migrate configuration files
+
+$HOME/.dotfiles/migrate.sh
 
