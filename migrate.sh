@@ -14,8 +14,8 @@ fi
 
 for filename in $files; do
 
-    $file = "$HOME/.dotfiles/$filename"
-    $link = "$HOME/$filename"
+    file="$HOME/.dotfiles/$filename"
+    link="$HOME/$filename"
 
     echo "Migrating $file"
 
