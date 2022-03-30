@@ -11,7 +11,7 @@ PROMPT="%F{magenta}%n@%M%F{reset}:%F{red}%4~ %B%F{cyan}%(!.#.$) %b%F{reset}"
 PROMPT='%F{magenta}%n'
 if [[ -v WSL_DISTRO_NAME ]]; then
     PROMPT+="@${WSL_DISTRO_NAME}[WSL]"
-elif [[ -v $SSH_CLIENT ]]; then
+elif [[ -v SSH_CLIENT ]]; then
     PROMPT+="@%M[SSH]"
 else
     PROMPT+="@%M"
