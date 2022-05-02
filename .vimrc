@@ -28,7 +28,7 @@ autocmd BufNewFile Makefile 0r ~/.vim/templates/makeSkeleton.txt
 autocmd BufNewFile *.java call NewJava()
 
 "Autocompletion/closing of brackets, quotes, etc
-inoremap {<CR> <CR>{<CR>}<Up><CR><Tab>
+inoremap {<CR> {<CR>}<Up><END><CR>
 inoremap ( ()<Left>
 inoremap { {}<Left>
 inoremap [ []<Left>
