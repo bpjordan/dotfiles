@@ -101,6 +101,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
+export EDITOR=vim
+
 if [ -f ~/.bash_shortcuts ]; then
     . ~/.bash_shortcuts
 fi
