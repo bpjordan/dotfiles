@@ -2,7 +2,7 @@
 
 #Install all dependecies
 
-sudo apt install curl wget vim neofetch zsh -y
+sudo apt install curl wget vim neofetch zsh -y --ignore-missing
 
 #Install Oh My Zsh and plugins
 
