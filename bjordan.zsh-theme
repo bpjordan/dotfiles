@@ -12,7 +12,7 @@ PROMPT='%F{magenta}%n'
 if [[ -v WSL_DISTRO_NAME ]]; then
     PROMPT+="@${WSL_DISTRO_NAME}[WSL]"
 elif [[ -v SSH_CLIENT ]]; then
-    PROMPT+="@%M[SSH]"
+    PROMPT+="@%2m[SSH]"
 else
     PROMPT+="@%M"
 fi
