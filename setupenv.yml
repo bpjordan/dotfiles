@@ -60,6 +60,7 @@
         git:
             repo: https://github.com/bpjordan/dotfiles.git
             dest: ~/.dotfiles
+            force: true
 
       - name: Symlink theme
         file:
