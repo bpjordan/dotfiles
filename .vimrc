@@ -56,8 +56,10 @@ set shiftwidth=4
 set expandtab
 set list listchars=trail:·,tab:»·
 set scrolloff=7
+set modeline
 
 autocmd FileType make set noexpandtab
+autocmd FileType yaml set tabstop=2 shiftwidth=2 softtabstop=2
 
 "Setting related to split views
 set splitright
