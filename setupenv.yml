@@ -18,6 +18,12 @@
         become: true
         when: ansible_os_family == "Archlinux"
 
+      - name: Inastall aur ansible module
+        community.general.ansible_galaxy_install:
+          type: collection
+          name: kewlfft.aur
+        when: ansible_os_family == "Archlinux"
+
   roles:
   - cli
 
