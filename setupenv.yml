@@ -24,6 +24,6 @@
   - include_role:
       name: '{{ item }}'
     with_first_found:
-      files: 
-      - '{{ ansible_os_family }}'
-      skip: true
+      - files: 
+        - '{{ ansible_os_family }}'
+        skip: true
