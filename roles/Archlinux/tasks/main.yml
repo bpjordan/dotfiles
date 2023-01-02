@@ -1,13 +1,8 @@
 ---
 # tasks file for Archlinux
 
-- name: Inastall aur ansible module
-  community.general.ansible_galaxy_install:
-    type: collection
-    name: kewlfft.aur
-
 - name: Install yay package manager
-  aur:
+  kewlfft.aur:
     name: yay
     use: makepkg
     state: present
