@@ -20,6 +20,7 @@
   - picom
   - gnu-free-fonts
   - lxdm
+  - librsvg
 
 - name: Enable session manager
   systemd:

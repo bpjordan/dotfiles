@@ -9,11 +9,13 @@
             update_cache: true
             cache_valid_time: 3600
         become: true
-        when: ansible_os_family == Ubuntu
+        when: ansible_os_family == "Debian"
 
       - name: Update pacman cache
         pacman:
           update_cache: true
+        become: true
+        when: ansible_os_family == "Archlinux"
 
   roles:
   - cli
@@ -22,4 +24,6 @@
   - include_role:
       name: '{{ item }}'
     with_first_found:
-    - '{{ ansible_os_family }}'
+      files: 
+      - '{{ ansible_os_family }}'
+      skip: true
