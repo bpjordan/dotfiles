@@ -107,6 +107,10 @@ if [ -f ~/.bash_shortcuts ]; then
     . ~/.bash_shortcuts
 fi
 
+if [ -f "$HOME/.cargo/env " ]; then
+    . "$HOME/.cargo/env"
+fi
+
 if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
     /usr/bin/neofetch --disable packages
 fi

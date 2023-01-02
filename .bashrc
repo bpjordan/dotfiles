@@ -118,6 +118,10 @@ if [ -f ~/.dotfiles/.bash_aliases ]; then
 	. ~/.dotfiles/.bash_aliases
 fi
 
+if [ -f "$HOME/.cargo/env " ]; then
+    . "$HOME/.cargo/env"
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -134,4 +138,3 @@ PROMPT_DIRTRIM=4
 if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
     /usr/bin/neofetch --disable packages
 fi
-
