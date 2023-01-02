@@ -2,7 +2,7 @@
 # tasks file for Archlinux
 
 - name: Install yay package manager
-  kewlfft.aur:
+  kewlfft.aur.aur:
     name: yay
     use: makepkg
     state: present
