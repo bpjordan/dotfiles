@@ -1,7 +1,8 @@
+#!/usr/bin/env ansible-playbook
 ---
 
-- name: Setup personal shell environment
-  hosts: all
+- name: Setup local environment for personal machine
+  hosts: localhost
 
   pre_tasks:
       - name: Update apt-cache
@@ -26,4 +27,6 @@
     with_first_found:
       - files: 
         - '{{ ansible_os_family }}'
+        paths:
+        - 'roles'
         skip: true
