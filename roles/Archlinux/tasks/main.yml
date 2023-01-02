@@ -1,0 +1,27 @@
+---
+# tasks file for Archlinux
+
+- name: Install yay package manager
+  aur:
+    name: yay
+    use: makepkg
+    state: present
+
+- name: Install GUI packages
+  pacman:
+    pkg: '{{ item }}'
+    state: present
+  become: true
+  with_items:
+  - xorg-server
+  - xorg-xinit
+  - alacritty
+  - awesome
+  - picom
+  - gnu-free-fonts
+  - lxdm
+
+- name: Enable session manager
+  systemd:
+    name: lxdm
+    enabled: true

@@ -9,80 +9,17 @@
             update_cache: true
             cache_valid_time: 3600
         become: true
+        when: ansible_os_family == Ubuntu
+
+      - name: Update pacman cache
+        pacman:
+          update_cache: true
+
+  roles:
+  - cli
 
   tasks:
-      - name: Download dependency packages
-        apt:
-            name: "{{ item }}"
-            state: present
-        with_items:
-            - vim
-            - zsh
-        become: true
-
-      - name: Download optional packages
-        apt:
-            name: "{{ item }}"
-            state: present
-        with_items:
-            - curl
-            - wget
-            - neofetch
-        become: true
-        ignore_errors: true
-
-      - name: Check for Oh My Zsh
-        stat:
-            path: ~/.oh-my-zsh/oh-my-zsh.sh
-        register: omz
-
-      - name: Install Oh My Zsh
-        block:
-            - name: Download omz install script
-              get_url:
-                  url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-                  dest: /tmp/omz.sh
-                  mode: "777"
-
-            - name: Run omz install script
-              shell: /tmp/omz.sh --unattended
-        when: not omz.stat.exists
-
-      - name: OMZ Plugins are installed & up to date
-        git:
-            repo: "https://github.com/zsh-users/{{ item }}.git"
-            dest: "~/.oh-my-zsh/custom/plugins/{{ item }}"
-        with_items:
-            - zsh-autosuggestions
-            - zsh-syntax-highlighting
-
-      - name: Dotfiles repo is present and up to date
-        git:
-            repo: https://github.com/bpjordan/dotfiles.git
-            dest: ~/.dotfiles
-            force: true
-
-      - name: Symlink theme
-        file:
-            src: ~/.dotfiles/bjordan.zsh-theme
-            dest: ~/.oh-my-zsh/custom/themes/bjordan.zsh-theme
-            state: link
-
-      - name: Dotfiles are symlinked in home
-        file:
-            src: "~/.dotfiles/{{ item }}"
-            dest: "~/{{ item }}"
-            state: link
-            force: true
-        with_items:
-            - .vimrc
-            - .vim
-            - .bashrc
-            - .gitconfig
-            - .zshrc
-
-      - name: zsh set as default shell
-        user:
-            name: "{{ ansible_user }}"
-            shell: /usr/bin/zsh
-        become: true
+  - include_role:
+      name: '{{ item }}'
+    with_first_found:
+    - '{{ ansible_os_family }}'
