@@ -43,6 +43,11 @@
 - name: Configure lightdm greeter
   lineinfile:
     path: /etc/lightdm/lightdm.conf
-    search_string: greeter-session
-    line: greeter-session=lightdm-webkit2-greeter
+    search_string: "{{ item.param }}"
+    line: "{{ item.param }}={{ item.value }}"
   become: true
+  with_items:
+    - param: greeter-session
+      value: lightdm-webkit2-greeter
+    - param: user-session
+      value: awesome
