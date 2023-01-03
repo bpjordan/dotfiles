@@ -71,6 +71,7 @@
       - .bashrc
       - .gitconfig
       - .zshrc
+      - .config
 
 - name: zsh set as default shell
   user:

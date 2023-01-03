@@ -13,17 +13,21 @@
     state: present
   become: true
   with_items:
-  - xorg-server
+  - xorg
   - xorg-xinit
   - alacritty
   - awesome
   - picom
   - gnu-free-fonts
-  - lxdm
+  - archlinux-wallpaper
+  - nautilus
+  - lightdm
   - librsvg
+  - firefox
+  - code
 
 - name: Enable session manager
   systemd:
-    name: lxdm
+    name: lightdm
     enabled: true
   become: true
