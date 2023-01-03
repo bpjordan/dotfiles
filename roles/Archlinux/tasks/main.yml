@@ -22,6 +22,7 @@
   - archlinux-wallpaper
   - nautilus
   - lightdm
+  - lightdm-webkit2-greeter
   - librsvg
   - firefox
   - code
@@ -30,4 +31,11 @@
   systemd:
     name: lightdm
     enabled: true
+  become: true
+
+- name: Configure lightdm greeter
+  lineinfile:
+    path: /etc/lightdm/lightdm.conf
+    search_string: greeter-session
+    line: greeter-session=lightdm-webkit2-greeter
   become: true
