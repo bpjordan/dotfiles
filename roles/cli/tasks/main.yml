@@ -80,12 +80,12 @@
 
 - name: Config files are symlinked
   file:
-    src: "{{ item }}"
-    dest: ~/.config/
+    src: ~/.dotfiles/.config/{{ item }}
+    dest: ~/.config/{{ item }}
     state: link
     force: true
-  with_fileglob:
-    - "~/.dotfiles/.config/*"
+  with_items: 
+  - awesome
 
 - name: zsh set as default shell
   user:
