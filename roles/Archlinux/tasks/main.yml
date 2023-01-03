@@ -3,7 +3,7 @@
 
 - name: Install yay package manager
   kewlfft.aur.aur:
-    name: yay
+    name: yay-bin
     use: makepkg
     state: present
 
@@ -19,6 +19,7 @@
   - awesome
   - picom
   - gnu-free-fonts
+  - ttf-roboto
   - archlinux-wallpaper
   - nautilus
   - lightdm
