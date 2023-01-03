@@ -85,7 +85,7 @@
     state: link
     force: true
   with_fileglob:
-    path: "~/.dotfiles/.config/*"
+    - "~/.dotfiles/.config/*"
 
 - name: zsh set as default shell
   user:
