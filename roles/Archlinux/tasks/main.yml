@@ -26,8 +26,14 @@
   - lightdm-webkit2-greeter
   - librsvg
   - firefox
-  - code
 
+- name: Install AUR packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: present
+  with_items:
+   - vscodium-bin
 - name: Enable session manager
   systemd:
     name: lightdm
