@@ -71,7 +71,21 @@
       - .bashrc
       - .gitconfig
       - .zshrc
-      - .config
+      
+- name: Config directory exists
+  file:
+    path: ~/.config
+    state: directory
+    force: true
+
+- name: Config files are symlinked
+  file:
+    src: "~/.dotfiles/.config/{{ item | basename }}"
+    dest: ~/.config/{{ item | basename }}
+    state: link
+    force: true
+  with_fileglob:
+    path: "~/.dotfiles/.config/*"
 
 - name: zsh set as default shell
   user:
