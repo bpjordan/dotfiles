@@ -80,8 +80,8 @@
 
 - name: Config files are symlinked
   file:
-    src: "~/.dotfiles/.config/{{ item | basename }}"
-    dest: ~/.config/{{ item | basename }}
+    src: "{{ item }}"
+    dest: ~/.config/
     state: link
     force: true
   with_fileglob:
