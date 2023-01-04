@@ -19,6 +19,10 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- Custom widgets
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local batteryarc_widget = require('awesome-wm-widgets.batteryarc-widget.batteryarc')
+
 -- {{{ Error handling
 -- @DOC_ERROR_HANDLING@
 -- Check if awesome encountered an error during startup and fell back to
@@ -48,7 +52,7 @@ end
 -- {{{ Variable definitions
 -- @DOC_LOAD_THEME@
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(require('theme'))
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
@@ -66,6 +70,7 @@ modkey = "Mod4"
 -- @DOC_LAYOUT@
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.spiral,
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -73,10 +78,8 @@ awful.layout.layouts = {
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
@@ -222,7 +225,17 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+            volume_widget{
+                widget_type = 'arc',
+                thickness = 2,
+                size = 24,
+            },
+            batteryarc_widget({
+                font = "Play 8",
+                show_current_level = true,
+                arc_thickness = 2,
+                size = 24,
+            }),
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -325,8 +338,8 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run") end,
+              {description = "run dmenu", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -340,7 +353,12 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+    -- Volume
+    awful.key({}, "XF86AudioMute", function() volume_widget:toggle() end),
+    awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:inc(5) end),
+    awful.key({}, "XF86AudioLowerVolume", function() volume_widget:dec(5) end)
 )
 
 -- @DOC_CLIENT_KEYBINDINGS@
@@ -512,7 +530,7 @@ awful.rules.rules = {
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
       -- @DOC_CSD_TITLEBARS@
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -590,4 +608,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart applications
 awful.spawn.with_shell("picom")
-awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("nm-applet")
