@@ -114,3 +114,7 @@ fi
 if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
     /usr/bin/neofetch --disable packages
 fi
+
+case $TERM in
+    alacritty ) export COLORTERM=truecolor ;;
+esac

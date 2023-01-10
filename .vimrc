@@ -65,6 +65,18 @@ autocmd FileType yaml set tabstop=2 shiftwidth=2 softtabstop=2
 set splitright
 set splitbelow
 
+"Highlight matches as search is typed
+set incsearch
+
+"Enable mouse
+set mouse=a
+
+if $TERM == 'alacritty'
+    set ttymouse=sgr
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-K> <C-W><C-K>
