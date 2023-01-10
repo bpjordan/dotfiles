@@ -84,8 +84,9 @@
     dest: ~/.config/{{ item }}
     state: link
     force: true
-  with_items: 
+  with_items:
   - awesome
+  - alacritty
 
 - name: zsh set as default shell
   user:
