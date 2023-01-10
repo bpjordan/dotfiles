@@ -1,7 +1,7 @@
 ---
 # tasks file for cli
 
-- name: Download required packages
+- name: Download packages
   package:
       name: "{{ item }}"
       state: present
@@ -9,13 +9,6 @@
       - vim
       - zsh
       - git
-  become: true
-
-- name: Download optional packages
-  package:
-      name: "{{ item }}"
-      state: present
-  with_items:
       - curl
       - wget
       - neofetch
@@ -24,7 +17,7 @@
 
 - name: Check for Oh My Zsh
   stat:
-      path: ~/.oh-my-zsh/oh-my-zsh.sh
+      path: /home/{{ user }}/.oh-my-zsh/oh-my-zsh.sh
   register: omz
 
 - name: Install Oh My Zsh
@@ -42,7 +35,7 @@
 - name: OMZ Plugins are installed & up to date
   git:
       repo: "https://github.com/zsh-users/{{ item }}.git"
-      dest: "~/.oh-my-zsh/custom/plugins/{{ item }}"
+      dest: "/home/{{ user }}/.oh-my-zsh/custom/plugins/{{ item }}"
   with_items:
       - zsh-autosuggestions
       - zsh-syntax-highlighting
@@ -50,19 +43,19 @@
 - name: Dotfiles repo is present and up to date
   git:
       repo: https://github.com/bpjordan/dotfiles.git
-      dest: ~/.dotfiles
+      dest: /home/{{ user }}/.dotfiles
       force: true
 
 - name: Symlink theme
   file:
-      src: ~/.dotfiles/bjordan.zsh-theme
-      dest: ~/.oh-my-zsh/custom/themes/bjordan.zsh-theme
+      src: /home/{{ user }}/.dotfiles/bjordan.zsh-theme
+      dest: /home/{{ user }}/.oh-my-zsh/custom/themes/bjordan.zsh-theme
       state: link
 
 - name: Dotfiles are symlinked in home
   file:
-      src: "~/.dotfiles/{{ item }}"
-      dest: "~/{{ item }}"
+      src: "/home/{{ user }}/.dotfiles/{{ item }}"
+      dest: "/home/{{ user }}/{{ item }}"
       state: link
       force: true
   with_items:
@@ -74,14 +67,14 @@
       
 - name: Config directory exists
   file:
-    path: ~/.config
+    path: /home/{{ user }}/.config
     state: directory
     force: true
 
 - name: Config files are symlinked
   file:
-    src: ~/.dotfiles/.config/{{ item }}
-    dest: ~/.config/{{ item }}
+    src: /home/{{ user }}/.dotfiles/.config/{{ item }}
+    dest: /home/{{ user }}/.config/{{ item }}
     state: link
     force: true
   with_items:

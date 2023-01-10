@@ -1,12 +1,6 @@
 ---
 # tasks file for Archlinux
-
-- name: Install yay package manager
-  kewlfft.aur.aur:
-    name: yay-bin
-    use: makepkg
-    state: present
-
+#
 - name: Install GUI packages
   pacman:
     pkg: '{{ item }}'
@@ -15,7 +9,9 @@
   with_items: '{{ pacman_packages }}'
 
 - name: Create user for installing AUR packages
-  user: name=aur_builder
+  user:
+    name: aur_builder
+    system: true
   become: true
 
 - name: Add AUR user to sudoers
@@ -34,6 +30,19 @@
   with_items: '{{ aur_packages }}'
   become: true
   become_user: aur_builder
+
+- name: Create main user
+  user:
+    name: "{{ user }}"
+    state: present
+    shell: /usr/bin/zsh
+    groups: wheel, audio, video, optical, storage
+    generate_ssh_key: true
+
+- name: Create CLI environment for new user
+  include_role: cli
+  vars:
+    user: "{{ user }}"
 
 - name: Enable session manager
   systemd:

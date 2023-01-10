@@ -1,0 +1,16 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Setup local environment for personal machine
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - include_role:
+      name: '{{ item }}'
+    with_first_found:
+      - files: 
+        - '{{ ansible_os_family }}'
+        paths:
+        - 'roles'
+        skip: true

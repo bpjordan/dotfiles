@@ -1,9 +1,8 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- name: Setup local environment for personal machine
-  hosts: localhost
-  connection: local
+- name: Set up a shell environment
+  hosts: all
 
   pre_tasks:
       - name: Update apt-cache
@@ -13,27 +12,6 @@
         become: true
         when: ansible_os_family == "Debian"
 
-      - name: Update pacman cache
-        pacman:
-          update_cache: true
-        become: true
-        when: ansible_os_family == "Archlinux"
-
-      - name: Inastall aur ansible module
-        community.general.ansible_galaxy_install:
-          type: collection
-          name: kewlfft.aur
-        when: ansible_os_family == "Archlinux"
-
   roles:
   - cli
 
-  tasks:
-  - include_role:
-      name: '{{ item }}'
-    with_first_found:
-      - files: 
-        - '{{ ansible_os_family }}'
-        paths:
-        - 'roles'
-        skip: true
