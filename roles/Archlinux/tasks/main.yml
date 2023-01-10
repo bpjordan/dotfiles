@@ -12,28 +12,15 @@
     pkg: '{{ item }}'
     state: present
   become: true
-  with_items:
-  - xorg
-  - xorg-xinit
-  - alacritty
-  - awesome
-  - picom
-  - gnu-free-fonts
-  - ttf-roboto
-  - archlinux-wallpaper
-  - nitrogen
-  - lightdm
-  - lightdm-webkit2-greeter
-  - librsvg
-  - firefox
+  with_items: '{{ pacman_packages }}'
+
 
 - name: Install AUR packages
   kewlfft.aur.aur:
     name: "{{ item }}"
-    use: yay
     state: present
-  with_items:
-   - vscodium-bin
+  with_items: '{{ aur_packages }}'
+
 - name: Enable session manager
   systemd:
     name: lightdm
@@ -42,12 +29,93 @@
 
 - name: Configure lightdm greeter
   lineinfile:
-    path: /etc/lightdm/lightdm.conf
+    path: "{{ item.file }}"
     search_string: "{{ item.param }}"
     line: "{{ item.param }}={{ item.value }}"
   become: true
   with_items:
     - param: greeter-session
       value: lightdm-webkit2-greeter
+      file: /etc/lightdm/lightdm.conf
     - param: user-session
       value: awesome
+      file: /etc/lightdm/lightdm.conf
+    - param: webkit_theme
+      value: reactive
+      file: /etc/lightdm/lightdm-webkit2-greeter.conf
+
+
+- name: Get root partition
+  set_fact:
+    root_drive: "{{ ansible_mounts|json_query('[mount == '/'].device') }}"
+
+- name: Get PARTUUID for root partition
+  shell: blkid {{ root_drive.device }} -s PARTUUID -o value
+  register: partuuid
+  changed_when: true
+
+- name: Create kernel cmdline template
+  set_fact:
+    base_cmdline: >
+      root=PARTUUID={{ partuuid.stdout }}
+      rw
+      rootflags={{ root_drive.options|regex_search('subvolid=[0-9]{3,4}') }}
+
+- name: Set kernel cmdline
+  file:
+    dest: /etc/kernel/cmdline
+    content: "{{ base_cmdline }} quiet bgrt_disable"
+  become: true
+  notify: build boot images
+
+- name: Set fallback kernel cmdline
+  file:
+    dest: /etc/kernel/cmdline_fallback
+    content: "{{ base_cmdline }} systemd.unit=multi-user.target"
+  become: true
+  notify: build boot images
+
+- name: Write UKI settings
+  lineinfile:
+    path: /etc/mkinitcpio.d/linux.preset
+    search_string: "{{ item.param }}"
+    line: "{{ item.param }}={{ item.value }}"
+    insertafter: "{{ item.after }}"
+    backup: true
+  become: true
+  with_items:
+    - param: ALL_microcode
+      value: '("/boot/intel-ucode.img")'
+      after: "^ALL_kver=.*"
+    - param: PRESETS
+      value: "('default' 'terminal' 'fallback')"
+      after: 
+    - param: default_uki
+      value: '"/boot/efi/EFI/arch/initramfs-linux.efi"'
+    - param: default_options
+      value: '"--splash /usr/share/systemd/bootctl/splash-arch.bmp"'
+    - param: terminal_image
+      value: '"/boot/initramfs-linux-terminal.img"'
+    - param: terminal_uki
+      value: '"/boot/efi/EFI/arch/initramfs-linux-terminal.efi"'
+    - param: terminal_options
+      value: '"--cmdline /etc/kernel/cmdline_fallback"'
+    - param: fallback_uki
+      value: '"/boot/efi/EFI/arch/initramfs-linux-fallback.efi"'
+    - param: fallback_options
+      value: '"-S autodetect --cmdline /etc/kernel/cmdline_fallback"'
+  notify: build boot images
+
+- name: Find microcode files
+  find:
+    path: /boot
+    pattern: "*-ucode.img"
+  register: ucode
+
+- name: Add ucode to UKI image spec
+  lineinfile:
+    path: /etc/mkinitcpio.d/linux.preset
+    search_string: ALL_microcode
+    line: "ALL_microcode=({{ ucode.files|map(attribute=path)|map('quote')|join(' ') }})"
+  become: true
+  notify: build boot images

@@ -1,0 +1,4 @@
+
+- name: build boot images
+  shell: mkinitcpio -p linux
+  become: true
