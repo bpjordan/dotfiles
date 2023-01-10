@@ -14,12 +14,26 @@
   become: true
   with_items: '{{ pacman_packages }}'
 
+- name: Create user for installing AUR packages
+  user: name=aur_builder
+  become: true
+
+- name: Add AUR user to sudoers
+  lineinfile:
+     path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+     state: present
+     line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+     validate: /usr/sbin/visudo -cf %s
+     create: yes
+  become: true
 
 - name: Install AUR packages
   kewlfft.aur.aur:
     name: "{{ item }}"
     state: present
   with_items: '{{ aur_packages }}'
+  become: true
+  become_user: aur_builder
 
 - name: Enable session manager
   systemd:
@@ -89,21 +103,28 @@
       after: "^ALL_kver=.*"
     - param: PRESETS
       value: "('default' 'terminal' 'fallback')"
-      after: 
+      after: "^# mkinitcpio preset file"
     - param: default_uki
       value: '"/boot/efi/EFI/arch/initramfs-linux.efi"'
+      after: default_image
     - param: default_options
       value: '"--splash /usr/share/systemd/bootctl/splash-arch.bmp"'
+      after: default_uki
     - param: terminal_image
       value: '"/boot/initramfs-linux-terminal.img"'
+      after: default_options
     - param: terminal_uki
       value: '"/boot/efi/EFI/arch/initramfs-linux-terminal.efi"'
+      after: terminal_image
     - param: terminal_options
       value: '"--cmdline /etc/kernel/cmdline_fallback"'
+      after: terminal_uki
     - param: fallback_uki
       value: '"/boot/efi/EFI/arch/initramfs-linux-fallback.efi"'
+      after: fallback_image
     - param: fallback_options
       value: '"-S autodetect --cmdline /etc/kernel/cmdline_fallback"'
+      after: fallback_uki
   notify: build boot images
 
 - name: Find microcode files
@@ -117,5 +138,6 @@
     path: /etc/mkinitcpio.d/linux.preset
     search_string: ALL_microcode
     line: "ALL_microcode=({{ ucode.files|map(attribute=path)|map('quote')|join(' ') }})"
+    insertafter: ALL_kver
   become: true
   notify: build boot images
