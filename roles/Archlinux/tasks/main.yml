@@ -48,13 +48,14 @@
     - NetworkManager.service
     - lightdm.service
     - docker.service
+    - libvirtd.service
 
 - name: Create main user
   user:
     name: "{{ arch_user }}"
     state: present
     shell: /usr/bin/zsh
-    groups: wheel, audio, video, optical, storage, docker
+    groups: wheel, audio, video, optical, storage, docker, libvirt
     generate_ssh_key: true
 
 - name: Add user to sudoers

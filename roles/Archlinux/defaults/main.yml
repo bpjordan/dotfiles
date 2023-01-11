@@ -8,6 +8,7 @@ pacman_packages:
   - bitwarden-cli
   - btrfs-progs
   - discord
+  - dnsmasq
   - docker
   - docker-compose
   - feh
@@ -17,6 +18,7 @@ pacman_packages:
   - go
   - gvim
   - gzip
+  - iptables-nft
   - librsvg
   - lightdm
   - lightdm-webkit2-greeter
@@ -55,9 +57,9 @@ pacman_packages:
   - zsh
 
 aur_packages:
- - vscodium-bin
- - lightdm-webkit2-theme-reactive
- - nerd-fonts-cascadia-code
- - nerd-fonts-droid-sans-mono
- - nerd-fonts-inconsolata-go
+  - vscodium-bin
+  - lightdm-webkit2-theme-reactive
+  - nerd-fonts-cascadia-code
+  - nerd-fonts-droid-sans-mono
+  - nerd-fonts-inconsolata-go
   - zoom
