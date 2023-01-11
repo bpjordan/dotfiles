@@ -82,6 +82,7 @@
   with_items:
   - awesome
   - alacritty
+  - backgrounds
 
 - name: zsh set as default shell
   user:
