@@ -1,6 +1,14 @@
 ---
 # tasks file for Archlinux
 #
+#
+- name: Remove conflicting packages
+  pacman:
+    pkg: '{{ item }}'
+    state: absent
+  become: true
+  with_items:
+    - iptables
 - name: Install GUI packages
   pacman:
     pkg: '{{ item }}'
