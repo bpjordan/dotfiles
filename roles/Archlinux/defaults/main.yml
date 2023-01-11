@@ -3,7 +3,6 @@ arch_user: bj
 pacman_packages:
   - alacritty
   - archlinux-wallpaper
-  - archlinux-wallpaper
   - awesome
   - base
   - bitwarden-cli
@@ -36,11 +35,11 @@ pacman_packages:
   - pulseaudio-equalizer
   - pulsemixer
   - python
+  - python-jmespath
   - python-pip
   - qemu-desktop
   - ranger
   - refind
-  - rofi
   - rofi
   - screengrab
   - snapper
@@ -53,7 +52,6 @@ pacman_packages:
   - xorg
   - xorg-xinit
   - zip
-  - zoom
   - zsh
 
 aur_packages:
@@ -62,3 +60,4 @@ aur_packages:
  - nerd-fonts-cascadia-code
  - nerd-fonts-droid-sans-mono
  - nerd-fonts-inconsolata-go
+  - zoom

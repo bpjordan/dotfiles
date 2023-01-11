@@ -24,6 +24,13 @@
      create: yes
   become: true
 
+- name: Install yay AUR helper
+  kewlfft.aur.aur:
+    name: yay
+    state: present
+  become: true
+  become_user: aur_builder
+
 - name: Install AUR packages
   kewlfft.aur.aur:
     name: "{{ item }}"
@@ -44,7 +51,7 @@
   lineinfile:
      path: /etc/sudoers.d/desktop_user
      state: present
-     line: "{{ user }} ALL=(ALL) NOPASSWD: ALL"
+     line: "{{ arch_user }} ALL=(ALL) NOPASSWD: ALL"
      validate: /usr/sbin/visudo -cf %s
      create: yes
   become: true
@@ -81,12 +88,12 @@
 
 - name: Get root partition
   set_fact:
-    root_drive: "{{ ansible_mounts|json_query('[mount == '/'].device') }}"
+    root_drive: "{{ ansible_mounts|json_query('[?mount == `/`]') | first }}"
 
 - name: Get PARTUUID for root partition
   shell: blkid {{ root_drive.device }} -s PARTUUID -o value
   register: partuuid
-  changed_when: true
+  changed_when: false
 
 - name: Create kernel cmdline template
   set_fact:
@@ -96,14 +103,14 @@
       rootflags={{ root_drive.options|regex_search('subvolid=[0-9]{3,4}') }}
 
 - name: Set kernel cmdline
-  file:
+  copy:
     dest: /etc/kernel/cmdline
     content: "{{ base_cmdline }} quiet bgrt_disable"
   become: true
   notify: build boot images
 
 - name: Set fallback kernel cmdline
-  file:
+  copy:
     dest: /etc/kernel/cmdline_fallback
     content: "{{ base_cmdline }} systemd.unit=multi-user.target"
   become: true
@@ -158,10 +165,16 @@
   lineinfile:
     path: /etc/mkinitcpio.d/linux.preset
     search_string: ALL_microcode
-    line: "ALL_microcode=({{ ucode.files|map(attribute=path)|map('quote')|join(' ') }})"
+    line: "ALL_microcode=({{ ucode.files|map(attribute='path')|map('quote')|join(' ') }})"
     insertafter: ALL_kver
   become: true
   notify: build boot images
+
+- name: Create directory for boot images
+  file:
+    path: /boot/efi/EFI/arch/
+    state: directory
+  become: true
 
 - name: Install refind
   command:
@@ -185,15 +198,15 @@
 
 - name: Copy refind theme files
   copy:
-    src: "{{ item }}"
-    dest: /boot/efi/EFI/refind/themes/refind-theme-regular/
+    src: "{{ item.src }}"
+    dest: /boot/efi/EFI/refind/{{ item.dest }}
   with_items:
     - src: refind-theme.conf
       dest: refind-theme.conf
-    - src: refind-theme-regular/fonts
-      dest: themes/refind-theme-regular/fonts
-    - src: refind-theme-regular/icons
-      dest: themes/refind-theme-regular/icons
+    - src: refind-theme-regular/fonts/
+      dest: themes/refind-theme-regular/fonts/
+    - src: refind-theme-regular/icons/
+      dest: themes/refind-theme-regular/icons/
   become: true
 
 - name: Configure refind
@@ -201,8 +214,6 @@
     path: /boot/efi/EFI/refind/refind.conf
     search_string: "{{ item.param }}"
     line: "{{ item.param }} {{ item.value }}"
-    insertafter: "{{ item.after }}"
-    backup: true
   become: true
   with_items:
     - param: timeout
