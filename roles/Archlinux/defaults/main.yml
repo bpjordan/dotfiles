@@ -23,6 +23,7 @@ pacman_packages:
   - libvirt
   - lightdm
   - lightdm-webkit2-greeter
+  - lxappearance
   - neofetch
   - network-manager-applet
   - networkmanager
