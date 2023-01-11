@@ -6,6 +6,7 @@
   pacman:
     pkg: '{{ item }}'
     state: absent
+    force: true
   become: true
   with_items:
     - iptables

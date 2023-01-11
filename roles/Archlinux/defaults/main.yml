@@ -20,7 +20,7 @@ pacman_packages:
   - gzip
   - iptables-nft
   - librsvg
-  - libvirtd
+  - libvirt
   - lightdm
   - lightdm-webkit2-greeter
   - neofetch
