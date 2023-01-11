@@ -1,3 +1,6 @@
 [submodule ".config/awesome/awesome-wm-widgets"]
 	path = .config/awesome/awesome-wm-widgets
 	url = https://github.com/streetturtle/awesome-wm-widgets.git
+[submodule "roles/Archlinux/files/refind-theme"]
+	path = roles/Archlinux/files/refind-theme
+	url = https://github.com/bobafetthotmail/refind-theme-regular.git

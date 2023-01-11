@@ -30,6 +30,8 @@
 
       - name: Run omz install script
         shell: /tmp/omz.sh --unattended
+        become: true
+        become_user: "{{ user }}"
   when: not omz.stat.exists
 
 - name: OMZ Plugins are installed & up to date

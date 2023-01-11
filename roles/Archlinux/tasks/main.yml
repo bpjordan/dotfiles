@@ -6,6 +6,7 @@
     pkg: '{{ item }}'
     state: present
   become: true
+  ignore_errors: true
   with_items: '{{ pacman_packages }}'
 
 - name: Create user for installing AUR packages
@@ -33,16 +34,26 @@
 
 - name: Create main user
   user:
-    name: "{{ user }}"
+    name: "{{ arch_user }}"
     state: present
     shell: /usr/bin/zsh
     groups: wheel, audio, video, optical, storage
     generate_ssh_key: true
 
+- name: Add user to sudoers
+  lineinfile:
+     path: /etc/sudoers.d/desktop_user
+     state: present
+     line: "{{ user }} ALL=(ALL) NOPASSWD: ALL"
+     validate: /usr/sbin/visudo -cf %s
+     create: yes
+  become: true
+
 - name: Create CLI environment for new user
-  include_role: cli
+  include_role:
+    name: cli
   vars:
-    user: "{{ user }}"
+    user: "{{ arch_user }}"
 
 - name: Enable session manager
   systemd:
@@ -140,6 +151,7 @@
   find:
     path: /boot
     pattern: "*-ucode.img"
+  become: true
   register: ucode
 
 - name: Add ucode to UKI image spec
@@ -150,3 +162,61 @@
     insertafter: ALL_kver
   become: true
   notify: build boot images
+
+- name: Install refind
+  command:
+    cmd: refind-install
+    creates: /boot/refind_linux.conf
+  become: true
+
+- name: Add manual boot stanzas to refind.conf
+  blockinfile:
+    path: /boot/efi/EFI/refind/refind.conf
+    block: |
+      menuentry "Arch Linux" {
+          loader   EFI/arch/initramfs-linux.efi
+          submenuentry "Boot to terminal" {
+              loader EFI/arch/initramfs-linux-terminal.efi
+          }
+          submenuentry "Boot using fallback initramfs" {
+              loader EFI/arch/initramfs-linux-fallback.efi
+          }
+      }
+
+- name: Copy refind theme files
+  copy:
+    src: "{{ item }}"
+    dest: /boot/efi/EFI/refind/themes/refind-theme-regular/
+  with_items:
+    - src: refind-theme.conf
+      dest: refind-theme.conf
+    - src: refind-theme-regular/fonts
+      dest: themes/refind-theme-regular/fonts
+    - src: refind-theme-regular/icons
+      dest: themes/refind-theme-regular/icons
+  become: true
+
+- name: Configure refind
+  lineinfile:
+    path: /boot/efi/EFI/refind/refind.conf
+    search_string: "{{ item.param }}"
+    line: "{{ item.param }} {{ item.value }}"
+    insertafter: "{{ item.after }}"
+    backup: true
+  become: true
+  with_items:
+    - param: timeout
+      value: "5"
+    - param: scanfor
+      value: manual,external,optical
+    - param: include
+      value: theme.conf
+
+- name: Configure touchpad & keyboard settings
+  copy:
+    src: "{{ item }}"
+    dest: /etc/X11/xorg.conf.d/{{ item }}
+  become: true
+  with_items:
+    - 30-touchpad.conf
+    - 90-custom-kbd.conf

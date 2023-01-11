@@ -1,3 +1,5 @@
+arch_user: bj
+
 pacman_packages:
   - alacritty
   - archlinux-wallpaper
@@ -23,7 +25,6 @@ pacman_packages:
   - network-manager-applet
   - networkmanager
   - networkmanager-openvpn
-  - nitrogen
   - nm-connection-editor
   - obsidian
   - partitionmanager
