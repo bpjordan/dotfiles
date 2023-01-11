@@ -53,6 +53,8 @@
       src: /home/{{ user }}/.dotfiles/bjordan.zsh-theme
       dest: /home/{{ user }}/.oh-my-zsh/custom/themes/bjordan.zsh-theme
       state: link
+      owner: "{{ user }}"
+      group: "{{ user }}"
 
 - name: Dotfiles are symlinked in home
   file:
@@ -60,6 +62,8 @@
       dest: "/home/{{ user }}/{{ item }}"
       state: link
       force: true
+      owner: "{{ user }}"
+      group: "{{ user }}"
   with_items:
       - .vimrc
       - .vim
@@ -72,6 +76,8 @@
     path: /home/{{ user }}/.config
     state: directory
     force: true
+    owner: "{{ user }}"
+    group: "{{ user }}"
 
 - name: Config files are symlinked
   file:
@@ -79,6 +85,8 @@
     dest: /home/{{ user }}/.config/{{ item }}
     state: link
     force: true
+    owner: "{{ user }}"
+    group: "{{ user }}"
   with_items:
   - awesome
   - alacritty
@@ -86,6 +94,6 @@
 
 - name: zsh set as default shell
   user:
-      name: "{{ ansible_env.USER }}"
+      name: "{{ user }}"
       shell: /usr/bin/zsh
   become: true

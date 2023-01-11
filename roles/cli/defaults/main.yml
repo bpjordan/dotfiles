@@ -1,2 +1,2 @@
 
-user: bj
+user: "{{ ansible_env.USER }}"
