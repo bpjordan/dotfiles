@@ -39,12 +39,22 @@
   become: true
   become_user: aur_builder
 
+- name: Enable services
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+  become: true
+  with_items:
+    - NetworkManager.service
+    - lightdm.service
+    - docker.service
+
 - name: Create main user
   user:
     name: "{{ arch_user }}"
     state: present
     shell: /usr/bin/zsh
-    groups: wheel, audio, video, optical, storage
+    groups: wheel, audio, video, optical, storage, docker
     generate_ssh_key: true
 
 - name: Add user to sudoers
@@ -61,12 +71,6 @@
     name: cli
   vars:
     user: "{{ arch_user }}"
-
-- name: Enable session manager
-  systemd:
-    name: lightdm
-    enabled: true
-  become: true
 
 - name: Configure lightdm greeter
   lineinfile:
@@ -125,9 +129,6 @@
     backup: true
   become: true
   with_items:
-    - param: ALL_microcode
-      value: '("/boot/intel-ucode.img")'
-      after: "^ALL_kver=.*"
     - param: PRESETS
       value: "('default' 'terminal' 'fallback')"
       after: "^# mkinitcpio preset file"
@@ -203,9 +204,9 @@
   with_items:
     - src: refind-theme.conf
       dest: refind-theme.conf
-    - src: refind-theme-regular/fonts/
+    - src: refind-theme/fonts/
       dest: themes/refind-theme-regular/fonts/
-    - src: refind-theme-regular/icons/
+    - src: refind-theme/icons/
       dest: themes/refind-theme-regular/icons/
   become: true
 

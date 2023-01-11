@@ -1,11 +1,4 @@
 
-- name: restart lightdm
-  systemd:
-    name: lightdm
-    state: restarted
-    enabled: true
-  become: true
-
 - name: build boot images
   shell: mkinitcpio -p linux
   become: true
