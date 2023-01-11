@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+# Simple script for adding several files or directories to the .dotfiles repo
+
+for FILE in $@; do
+    mv ~/"$FILE" ~/.dotfiles/"$FILE"
+    ln -s ~/.dotfiles/"$FILE" ~/"$FILE"
+    echo "Symlink created for ~/$FILE"
+done
+
+echo "Done creating symlinks. Don't forget to update the install script"

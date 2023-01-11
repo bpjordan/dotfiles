@@ -70,7 +70,8 @@
       - .bashrc
       - .gitconfig
       - .zshrc
-      
+      - .gtkrc-2.0
+
 - name: Config directory exists
   file:
     path: /home/{{ user }}/.config
@@ -91,6 +92,8 @@
   - awesome
   - alacritty
   - backgrounds
+  - gtk-3.0
+  - neofetch
 
 - name: zsh set as default shell
   user:
