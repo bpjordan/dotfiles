@@ -3,6 +3,8 @@ user_password: CHANGEME
 
 pacman_packages:
   - alacritty
+  - arc-gtk-theme
+  - arc-icon-theme
   - archlinux-wallpaper
   - awesome
   - base

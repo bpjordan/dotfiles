@@ -39,5 +39,5 @@
     - param: scanfor
       value: manual,external,optical
     - param: include
-      value: theme.conf
+      value: refind-theme.conf
   when: manual_stanzas
