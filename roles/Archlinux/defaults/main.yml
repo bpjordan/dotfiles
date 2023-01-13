@@ -20,6 +20,7 @@ pacman_packages:
   - git
   - gnu-free-fonts
   - go
+  - gparted
   - gvim
   - gzip
   - iptables-nft
@@ -36,7 +37,6 @@ pacman_packages:
   - networkmanager-openvpn
   - nm-connection-editor
   - obsidian
-  - partitionmanager
   - pavucontrol
   - picom
   - pulseaudio
