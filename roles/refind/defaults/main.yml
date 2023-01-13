@@ -1,0 +1,9 @@
+---
+# defaults file for refind
+
+refind_packages:
+  - refind
+
+efi_mount: /boot/efi
+
+manual_stanzas: false

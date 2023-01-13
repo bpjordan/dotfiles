@@ -99,6 +99,67 @@
       value: reactive
       file: /etc/lightdm/lightdm-webkit2-greeter.conf
 
+- name: Set up bootloader
+  include_role:
+    name: refind
+  vars:
+    manual_stanzas: true
+
+- name: Create directory for boot images
+  file:
+    path: /boot/efi/EFI/arch/
+    state: directory
+  become: true
+
+- name: Add manual boot stanzas to refind.conf
+  blockinfile:
+    path: /boot/efi/EFI/refind/refind.conf
+    block: |
+      menuentry "Arch Linux" {
+          loader   EFI/arch/initramfs-linux.efi
+          submenuentry "Boot to terminal" {
+              loader EFI/arch/initramfs-linux-terminal.efi
+          }
+          submenuentry "Boot using fallback initramfs" {
+              loader EFI/arch/initramfs-linux-fallback.efi
+          }
+      }
+
+- name: Copy refind theme files
+  copy:
+    src: "{{ item.src }}"
+    dest: /boot/efi/EFI/refind/{{ item.dest }}
+  with_items:
+    - src: refind-theme.conf
+      dest: refind-theme.conf
+    - src: refind-theme/fonts/
+      dest: themes/refind-theme-regular/fonts/
+    - src: refind-theme/icons/
+      dest: themes/refind-theme-regular/icons/
+  become: true
+
+- name: Configure refind
+  lineinfile:
+    path: /boot/efi/EFI/refind/refind.conf
+    search_string: "{{ item.param }}"
+    line: "{{ item.param }} {{ item.value }}"
+  become: true
+  with_items:
+    - param: timeout
+      value: "5"
+    - param: scanfor
+      value: manual,external,optical
+    - param: include
+      value: theme.conf
+
+- name: Configure touchpad & keyboard settings
+  copy:
+    src: "{{ item }}"
+    dest: /etc/X11/xorg.conf.d/{{ item }}
+  become: true
+  with_items:
+    - 30-touchpad.conf
+    - 90-custom-kbd.conf
 
 - name: Get root partition
   set_fact:
@@ -180,65 +241,3 @@
     insertafter: ALL_kver
   become: true
   notify: build boot images
-
-- name: Create directory for boot images
-  file:
-    path: /boot/efi/EFI/arch/
-    state: directory
-  become: true
-
-- name: Install refind
-  command:
-    cmd: refind-install
-    creates: /boot/refind_linux.conf
-  become: true
-
-- name: Add manual boot stanzas to refind.conf
-  blockinfile:
-    path: /boot/efi/EFI/refind/refind.conf
-    block: |
-      menuentry "Arch Linux" {
-          loader   EFI/arch/initramfs-linux.efi
-          submenuentry "Boot to terminal" {
-              loader EFI/arch/initramfs-linux-terminal.efi
-          }
-          submenuentry "Boot using fallback initramfs" {
-              loader EFI/arch/initramfs-linux-fallback.efi
-          }
-      }
-
-- name: Copy refind theme files
-  copy:
-    src: "{{ item.src }}"
-    dest: /boot/efi/EFI/refind/{{ item.dest }}
-  with_items:
-    - src: refind-theme.conf
-      dest: refind-theme.conf
-    - src: refind-theme/fonts/
-      dest: themes/refind-theme-regular/fonts/
-    - src: refind-theme/icons/
-      dest: themes/refind-theme-regular/icons/
-  become: true
-
-- name: Configure refind
-  lineinfile:
-    path: /boot/efi/EFI/refind/refind.conf
-    search_string: "{{ item.param }}"
-    line: "{{ item.param }} {{ item.value }}"
-  become: true
-  with_items:
-    - param: timeout
-      value: "5"
-    - param: scanfor
-      value: manual,external,optical
-    - param: include
-      value: theme.conf
-
-- name: Configure touchpad & keyboard settings
-  copy:
-    src: "{{ item }}"
-    dest: /etc/X11/xorg.conf.d/{{ item }}
-  become: true
-  with_items:
-    - 30-touchpad.conf
-    - 90-custom-kbd.conf
