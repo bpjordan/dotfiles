@@ -562,7 +562,7 @@ awful.rules.rules = {
         type = {
             "dialog"
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true, placement = awful.placement.centered }},
 
     -- @DOC_DIALOG_RULE@
     -- Add titlebars to normal clients and dialogs

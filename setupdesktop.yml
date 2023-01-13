@@ -4,13 +4,30 @@
 - name: Setup local environment for personal machine
   hosts: localhost
   connection: local
+  vars_prompt:
+    - name: username
+      prompt: Enter a username for the desktop user
+      private: false
+      default: bj
+
+    - name: password
+      prompt: Enter a password for this user
+      private: true
+      encrypt: sha512_crypt
+      confirm: true
+      salt_size: 7
 
   tasks:
   - include_role:
-      name: '{{ item }}'
+      name: '{{ os_role }}'
+    vars:
+      desktop_user: "{{ username }}"
+      user_password: "{{ password }}"
     with_first_found:
-      - files: 
+      - files:
         - '{{ ansible_os_family }}'
+        - cli
         paths:
         - 'roles'
-        skip: true
+    loop_control:
+      loop_var: os_role

@@ -6,7 +6,7 @@
     pkg: "{{ item }}"
     state: present
   become: true
-  with_items: "{{ refind_packages }}"
+  loop: "{{ refind_packages }}"
 
 - name: Run refind installer
   command:
@@ -18,7 +18,7 @@
   copy:
     src: "{{ item.src }}"
     dest: "{{ efi_mount }}/EFI/refind/{{ item.dest }}"
-  with_items:
+  loop:
     - src: refind-theme.conf
       dest: refind-theme.conf
     - src: refind-theme/fonts/
@@ -33,7 +33,7 @@
     search_string: "{{ item.param }}"
     line: "{{ item.param }} {{ item.value }}"
   become: true
-  with_items:
+  loop:
     - param: timeout
       value: "5"
     - param: scanfor

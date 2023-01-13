@@ -1,10 +1,12 @@
-arch_user: bj
+desktop_user: bj
+user_password: CHANGEME
 
 pacman_packages:
   - alacritty
   - archlinux-wallpaper
   - awesome
   - base
+  - base-devel
   - bitwarden-cli
   - btrfs-progs
   - discord
@@ -23,6 +25,8 @@ pacman_packages:
   - libvirt
   - lightdm
   - lightdm-webkit2-greeter
+  - linux
+  - linux-firmware
   - lxappearance
   - neofetch
   - network-manager-applet

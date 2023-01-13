@@ -8,7 +8,7 @@
     state: absent
     force: true
   become: true
-  with_items:
+  loop:
     - iptables
 - name: Install GUI packages
   pacman:
@@ -16,7 +16,7 @@
     state: present
   become: true
   ignore_errors: true
-  with_items: '{{ pacman_packages }}'
+  loop: '{{ pacman_packages }}'
 
 - name: Create user for installing AUR packages
   user:
@@ -44,7 +44,7 @@
   kewlfft.aur.aur:
     name: "{{ item }}"
     state: present
-  with_items: '{{ aur_packages }}'
+  loop: '{{ aur_packages }}'
   become: true
   become_user: aur_builder
 
@@ -53,7 +53,7 @@
     name: "{{ item }}"
     enabled: true
   become: true
-  with_items:
+  loop:
     - NetworkManager.service
     - lightdm.service
     - docker.service
@@ -61,7 +61,8 @@
 
 - name: Create main user
   user:
-    name: "{{ arch_user }}"
+    name: "{{ desktop_user }}"
+    password: "{{ user_password }}"
     state: present
     shell: /usr/bin/zsh
     groups: wheel, audio, video, optical, storage, docker, libvirt
@@ -71,7 +72,7 @@
   lineinfile:
      path: /etc/sudoers.d/desktop_user
      state: present
-     line: "{{ arch_user }} ALL=(ALL) NOPASSWD: ALL"
+     line: "{{ desktop_user }} ALL=(ALL) NOPASSWD: ALL"
      validate: /usr/sbin/visudo -cf %s
      create: yes
   become: true
@@ -80,7 +81,7 @@
   include_role:
     name: cli
   vars:
-    user: "{{ arch_user }}"
+    user: "{{ desktop_user }}"
 
 - name: Configure lightdm greeter
   lineinfile:
@@ -88,7 +89,7 @@
     search_string: "{{ item.param }}"
     line: "{{ item.param }}={{ item.value }}"
   become: true
-  with_items:
+  loop:
     - param: greeter-session
       value: lightdm-webkit2-greeter
       file: /etc/lightdm/lightdm.conf
@@ -129,7 +130,7 @@
   copy:
     src: "{{ item.src }}"
     dest: /boot/efi/EFI/refind/{{ item.dest }}
-  with_items:
+  loop:
     - src: refind-theme.conf
       dest: refind-theme.conf
     - src: refind-theme/fonts/
@@ -144,7 +145,7 @@
     search_string: "{{ item.param }}"
     line: "{{ item.param }} {{ item.value }}"
   become: true
-  with_items:
+  loop:
     - param: timeout
       value: "5"
     - param: scanfor
@@ -157,7 +158,7 @@
     src: "{{ item }}"
     dest: /etc/X11/xorg.conf.d/{{ item }}
   become: true
-  with_items:
+  loop:
     - 30-touchpad.conf
     - 90-custom-kbd.conf
 
@@ -199,7 +200,7 @@
     insertafter: "{{ item.after }}"
     backup: true
   become: true
-  with_items:
+  loop:
     - param: PRESETS
       value: "('default' 'terminal' 'fallback')"
       after: "^# mkinitcpio preset file"
