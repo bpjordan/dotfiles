@@ -127,33 +127,6 @@
       }
     marker: "#{mark} ANSIBLE MANAGED ARCH BOOT STANZA"
 
-- name: Copy refind theme files
-  copy:
-    src: "{{ item.src }}"
-    dest: /boot/efi/EFI/refind/{{ item.dest }}
-  loop:
-    - src: refind-theme.conf
-      dest: refind-theme.conf
-    - src: refind-theme/fonts/
-      dest: themes/refind-theme-regular/fonts/
-    - src: refind-theme/icons/
-      dest: themes/refind-theme-regular/icons/
-  become: true
-
-- name: Configure refind
-  lineinfile:
-    path: /boot/efi/EFI/refind/refind.conf
-    search_string: "{{ item.param }}"
-    line: "{{ item.param }} {{ item.value }}"
-  become: true
-  loop:
-    - param: timeout
-      value: "5"
-    - param: scanfor
-      value: manual,external,optical
-    - param: include
-      value: theme.conf
-
 - name: Configure touchpad & keyboard settings
   copy:
     src: "{{ item }}"
