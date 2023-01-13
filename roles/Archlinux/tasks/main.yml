@@ -125,7 +125,7 @@
               loader EFI/arch/initramfs-linux-fallback.efi
           }
       }
-    mark: "#{mark} ANSIBLE MANAGED ARCH BOOT STANZA"
+    marker: "#{mark} ANSIBLE MANAGED ARCH BOOT STANZA"
 
 - name: Copy refind theme files
   copy:
