@@ -155,7 +155,7 @@
 - name: Set kernel cmdline
   copy:
     dest: /etc/kernel/cmdline
-    content: "{{ base_cmdline }} quiet bgrt_disable"
+    content: "{{ base_cmdline }} quiet loglevel=3 systemd.show_status=auto rd.udev.log_level=3 bgrt_disable"
   become: true
   notify: build boot images
 

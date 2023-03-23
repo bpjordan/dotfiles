@@ -26,6 +26,7 @@ local fs_widget = require('awesome-wm-widgets.fs-widget.fs-widget')
 local calendar_widget = require("awesome-wm-widgets.calendar-widget.calendar")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 
 -- {{{ Error handling
 -- @DOC_ERROR_HANDLING@
@@ -74,9 +75,9 @@ modkey = "Mod4"
 -- @DOC_LAYOUT@
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.right,
     awful.layout.suit.floating,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral,
     -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
@@ -237,7 +238,7 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spacing = 10,
@@ -245,6 +246,11 @@ awful.screen.connect_for_each_screen(function(s)
             ram_widget({
                 color_used = beautiful.fg_normal,
                 color_free = beautiful.bg_focus,
+            }),
+            brightness_widget({
+                type = 'arc',
+                program = 'xbacklight',
+                size = 24,
             }),
             volume_widget{
                 widget_type = 'arc',
@@ -368,9 +374,9 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.util.spawn("rofi -show drun") end,
-              {description = "run dmenu", group = "launcher"}),
-    awful.key({ modkey, "Shift" },            ";",     function () awful.util.spawn("dmenu_run") end,
-              {description = "run dmenu", group = "launcher"}),
+              {description = "Launch applications", group = "launcher"}),
+    awful.key({ modkey },            "w",     function () awful.util.spawn("rofi -show window") end,
+              {description = "Switch to window", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -389,7 +395,16 @@ globalkeys = gears.table.join(
     -- Volume
     awful.key({}, "XF86AudioMute", function() volume_widget:toggle() end),
     awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:inc(5) end),
-    awful.key({}, "XF86AudioLowerVolume", function() volume_widget:dec(5) end)
+    awful.key({}, "XF86AudioLowerVolume", function() volume_widget:dec(5) end),
+
+    -- Brightness
+    awful.key({}, "XF86MonBrightnessUp", function () brightness_widget:inc() end),
+    awful.key({}, "XF86MonBrightnessDown", function () brightness_widget:dec() end),
+
+    -- Play controls
+    awful.key({}, "XF86AudioPrev", function() awful.util.spawn("playerctl previous") end),
+    awful.key({}, "XF86AudioPlay", function() awful.util.spawn("playerctl play-pause") end),
+    awful.key({}, "XF86AudioNext", function() awful.util.spawn("playerctl next") end)
 )
 
 -- @DOC_CLIENT_KEYBINDINGS@
