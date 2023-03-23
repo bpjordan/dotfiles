@@ -87,4 +87,17 @@ return {
       },
     },
   },
+  {
+    'ThePrimeagen/vim-be-good',
+    lazy = true,
+  },
+  {
+    'windwp/nvim-autopairs',
+    dependencies = {
+      'nvim-treesitter'
+    },
+    opts = {
+      check_ts = true
+    },
+  }
 }

@@ -22,6 +22,7 @@ require('lazy').setup('my.plugins', {})
 
 require('my.options')
 require('my.keymaps')
+require('my.filetree')
 require('my.lsp')
 
 -- vim: ts=2 sts=2 sw=2 et

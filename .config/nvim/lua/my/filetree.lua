@@ -1,15 +1,14 @@
 
+local api = require('nvim-tree.api')
+
 local function keymap_open_nvim_tree()
-  require('nvim-tree.api').tree.toggle({
-    find_file = true
-  })
+  api.tree.find_file()
+  api.tree.focus()
 end
 
-vim.keymap.set('n', 't', keymap_open_nvim_tree, { desc = "Toggle file [T]ree" })
+vim.keymap.set('n', 't', keymap_open_nvim_tree, { desc = "Focus file [T]ree" })
 
 local function startup_open_nvim_tree(data)
-
-  local api = require('nvim-tree.api')
 
   local isDirectory = vim.fn.isdirectory(data.file) == 1
   local isFile = vim.fn.filereadable(data.file) == 1
