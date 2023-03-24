@@ -85,6 +85,9 @@ return {
       filters = {
         dotfiles = true,
       },
+      diagnostics = {
+        enable = true,
+      }
     },
   },
   {

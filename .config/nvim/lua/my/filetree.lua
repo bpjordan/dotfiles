@@ -6,7 +6,7 @@ local function keymap_open_nvim_tree()
   api.tree.focus()
 end
 
-vim.keymap.set('n', 't', keymap_open_nvim_tree, { desc = "Focus file [T]ree" })
+vim.keymap.set('n', '<leader>t', keymap_open_nvim_tree, { desc = "Focus file [T]ree" })
 
 local function startup_open_nvim_tree(data)
 
