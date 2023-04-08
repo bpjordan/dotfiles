@@ -21,6 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('my.plugins', {})
 
 require('my.options')
+require('my.fugitive')
 require('my.keymaps')
 require('my.filetree')
 require('my.lsp')
