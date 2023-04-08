@@ -102,13 +102,24 @@ source $ZSH/oh-my-zsh.sh
 #
 
 export EDITOR=vim
+export GO111MODULE=on
 
 if [ -f ~/.bash_shortcuts ]; then
     . ~/.bash_shortcuts
 fi
 
+if [ -d "$HOME/.dotfiles/scripts" ]; then
+    export PATH="$HOME/.dotfiles/scripts:$PATH"
+fi
+
 if [ -f "$HOME/.cargo/env " ]; then
     . "$HOME/.cargo/env"
+fi
+
+if [ -d "$HOME/go/bin" ]; then
+    export GOROOT=/usr/local/go
+    export GOPATH=$HOME/go
+    export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
 fi
 
 if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
@@ -118,3 +129,7 @@ fi
 case $TERM in
     alacritty ) export COLORTERM=truecolor ;;
 esac
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
