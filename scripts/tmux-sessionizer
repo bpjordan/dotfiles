@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 #
 # Based on tmux-sessionizer by ThePrimeagen
+#
+search_path=${SESSIONIZER_SEARCH:=~/ ~/projects ~/.dotfiles}
 
 if [[ $# -eq 1 ]]; then
     selected=$1
 elif command -v fzf &> /dev/null; then
-    selected=$(find $SESSIONIZER_SEARCH -mindepth 1 -maxdepth 2 -type d | fzf)
+    selected=$(find $search_path -mindepth 1 -maxdepth 2 -type d | fzf)
 else
     echo '`fzf` not found and no directory was specified'
 	exit 1
@@ -23,11 +25,11 @@ tmux_pid=$(pgrep tmux)
 # If we are not in tmux already
 if [[ -z $TMUX ]] && [[ -z $tmux_pid ]]; then
     tmux new-session -s $selected_name -c $selected
-	exit 0
+    exit 0
 fi
 
 # If we are in tmux, but the session doesn't already exist
-if ! tmux has-session -t=$selected_name -c $selected; then
+if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
 fi
 
