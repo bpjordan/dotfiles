@@ -2,7 +2,7 @@
 #
 # Based on tmux-sessionizer by ThePrimeagen
 #
-search_path=${SESSIONIZER_SEARCH:=~/ ~/projects ~/.dotfiles}
+search_path=${SESSIONIZER_SEARCH:=$HOME/ $HOME/projects $HOME/.dotfiles}
 
 if [[ $# -eq 1 ]]; then
     selected=$1
