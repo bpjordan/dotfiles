@@ -110,6 +110,7 @@ fi
 
 if [ -d "$HOME/.dotfiles/scripts" ]; then
     export PATH="$HOME/.dotfiles/scripts:$PATH"
+    alias s=tmux-sessionizer
 fi
 
 if [ -f "$HOME/.cargo/env " ]; then
