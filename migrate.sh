@@ -1,6 +1,6 @@
 #!/bin/bash
 
-default=".vimrc .vim .bashrc .gitconfig .zshrc .config/nvim"
+default=".vimrc .vim .bashrc .gitconfig .zshrc .config/nvim .config/tmux"
 
 files="${@:-$default}"
 

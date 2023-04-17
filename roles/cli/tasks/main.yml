@@ -94,6 +94,8 @@
   - backgrounds
   - gtk-3.0
   - neofetch
+  - nvim
+  - tmux
 
 - name: zsh set as default shell
   user:
