@@ -67,9 +67,6 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    config = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
   },
 
   {
@@ -98,7 +95,7 @@ return {
   {
     'windwp/nvim-autopairs',
     dependencies = {
-      'nvim-treesitter'
+      'nvim-treesitter/nvim-treesitter'
     },
     opts = {
       check_ts = true
