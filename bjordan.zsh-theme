@@ -7,7 +7,9 @@ precmd() { vcs_info }
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats '%b %u%c%m'
+zstyle ':vcs_info:git:*' formats '%F{cyan}%b%F{reset} %u%c%m'
+zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset}'
+zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset}'
 
 ## Hook for showing information about the git remote
 zstyle ':vcs_info:git*+set-message:*' hooks git-remoteinfo
@@ -29,8 +31,8 @@ function +vi-git-remoteinfo() {
     )
 
     local -a gitstatus
-    (( $to_push_pull[1] )) && gitstatus+=( "↑")
-    (( $to_push_pull[2] )) && gitstatus+=( "↓")
+    (( $to_push_pull[1] )) && gitstatus+=( "%B%F{blue}↑%F{reset}")
+    (( $to_push_pull[2] )) && gitstatus+=( "%B%F{blue}↓%F{reset}")
 
     # adds to %m
     hook_com[misc]+=${(j:/:)gitstatus}
