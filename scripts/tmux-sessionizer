@@ -10,7 +10,7 @@ elif command -v fzf &> /dev/null; then
     selected=$(find $search_path -mindepth 1 -maxdepth 2 -type d | fzf)
 else
     echo '`fzf` not found and no directory was specified'
-	exit 1
+    exit 1
 fi
 
 if [[ -z $selected ]]; then
