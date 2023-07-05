@@ -70,7 +70,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions zsh-syntax-highlighting shrink-path sudo gitfast)
+plugins=(zsh-autosuggestions zsh-syntax-highlighting shrink-path sudo gitfast git-auto-fetch)
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 source $ZSH/oh-my-zsh.sh
