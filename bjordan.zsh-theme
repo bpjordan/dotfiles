@@ -50,9 +50,9 @@ function +vi-git-remoteinfo() {
 # build prompt
 PROMPT=''
 if [[ -v WSL_DISTRO_NAME ]]; then
-    PROMPT+="${WSL_DISTRO_NAME}[WSL]%F{reset}:"
+    PROMPT+="%F{magenta}${WSL_DISTRO_NAME}[WSL]%F{reset}:"
 elif [[ -v SSH_CLIENT ]]; then
-    PROMPT+="%F{magenta}%n@%2m[SSH]%F{reset}:"
+    PROMPT+="%F{magenta}%n@%m[SSH]%F{reset}:"
 fi
 
 # PROMPT+='%F{reset}:%F{red}$(shrink_path -f) %B%F{cyan}%# %b%F{reset}'
