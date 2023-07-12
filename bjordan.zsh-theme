@@ -47,6 +47,14 @@ function +vi-git-remoteinfo() {
     fi
 }
 
+### Refresh prompt
+# refresh prompt every TMOUT seconds
+TMOUT=1
+TRAPALRM() {
+    vcs_info
+    zle reset-prompt
+}
+
 # build prompt
 PROMPT=''
 if [[ -v WSL_DISTRO_NAME ]]; then
