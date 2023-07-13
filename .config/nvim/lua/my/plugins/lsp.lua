@@ -23,6 +23,9 @@ return { -- LSP Configuration & Plugins
   {
     'windwp/nvim-autopairs'
   },
-
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  }
 }
 
