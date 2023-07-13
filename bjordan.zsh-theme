@@ -3,7 +3,6 @@
 ### Git Integration
 
 autoload -Uz vcs_info
-precmd() { vcs_info }
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
@@ -47,12 +46,22 @@ function +vi-git-remoteinfo() {
     fi
 }
 
+precmd() { vcs_info }
+
 ### Refresh prompt
 # refresh prompt every TMOUT seconds
 TMOUT=1
 TRAPALRM() {
-    vcs_info
-    zle reset-prompt
+    case "$WIDGET" in
+        expand-or-complete|self-insert|up-line-or-beginning-search|down-line-or-beginning-search|backward-delete-char|.history-incremental-search-backward|.history-incremental-search-forward)
+            :
+            ;;
+
+        *)
+            vcs_info
+            zle reset-prompt
+            ;;
+    esac
 }
 
 # build prompt
