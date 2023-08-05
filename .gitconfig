@@ -1,9 +1,20 @@
 [user]
 	email = 80419011+bpjordan@users.noreply.github.com
 	name = Bronson Jordan
+
+[core]
+	editor = vim
+	pager = less -FX
+
+[alias]
+	graph = log --graph --decorate=full --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative --all
+	jsondiff = diff --color-words=([^[:alnum:]]|[^[:space:]])
+
 [init]
 	defaultBranch = main
+
 [pull]
 	rebase = true
+
 [push]
 	autoSetupRemote = true
