@@ -5,9 +5,13 @@
 search_path=${SESSIONIZER_SEARCH:=$HOME/ $HOME/projects $HOME/.dotfiles}
 
 if [[ $# -eq 1 ]]; then
-    selected=$1
+    if command -v realpath; then
+        selected=$(realpath "$1")
+    else
+        selected="$1"
+    fi
 elif command -v fzf &> /dev/null; then
-    selected=$(find $search_path -mindepth 1 -maxdepth 2 -type d | fzf)
+    selected=$(find $search_path -maxdepth 2 -type d | sort | uniq | fzf)
 else
     echo '`fzf` not found and no directory was specified'
     exit 1
