@@ -107,5 +107,6 @@ return {
     opts = {
       check_ts = true
     },
-  }
+  },
+  'fladson/vim-kitty'
 }
