@@ -7,7 +7,7 @@
 	pager = less -FX
 
 [alias]
-	graph = log --graph --decorate=full --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative --all
+	graph = log --graph --decorate=full --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative
 	jsondiff = diff --color-words=([^[:alnum:]]|[^[:space:]])
 
 [init]
