@@ -61,7 +61,7 @@ beautiful.init(require('theme'))
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "wezterm"
 editor = "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -686,5 +686,5 @@ spawn_single_client("picom", "-b")
 spawn_single_client("nm-applet")
 spawn_single_client("lxsession")
 spawn_single_client("firefox")
-spawn_single_client("kitty")
+spawn_single_client("wezterm")
 
