@@ -19,7 +19,7 @@ __wezterm_set_user_var() {
   fi
 }
 
-if [[ "$TERM" -ne wezterm ]]; then
+if [[ "$TERM_PROGRAM" != WezTerm ]]; then
     echo 'This script is only compatible with the wezterm multiplexer'
     exit 1
 fi
@@ -44,5 +44,3 @@ if [[ -z $selected ]]; then
 fi
 
 __wezterm_set_user_var SESSIONIZER_DIR "$selected"
-
-tail -f /dev/null
