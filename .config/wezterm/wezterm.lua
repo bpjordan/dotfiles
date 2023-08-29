@@ -16,6 +16,10 @@ wezterm.on('update-right-status', function(window)
     })
 end)
 
+local function basename(path)
+    return string.gsub(path, '(.*[/\\])(.*)[/\\]?$', '%2')
+end
+
 wezterm.on('user-var-changed', function(window, pane, name, value)
     if name == 'SESSIONIZER_DIR' then
 
@@ -24,7 +28,7 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
             return
         end
 
-        local basename = string.gsub(value, '(.*[/\\])(.*)[/\\]?$', '%2')
+        local basename = basename(value)
 
         if not basename then
             wezterm.log_error("Sessionizer couldn't get basename of dir `"..value.."`")
@@ -111,9 +115,13 @@ return {
     use_fancy_tab_bar = false,
     -- config.hide_tab_bar_if_only_one_tab = true
 
+    default_workspace = basename(wezterm.home_dir),
+
     window_padding = {
         top = 0,
         bottom = 0,
+        left = 0,
+        right = 0,
     },
 
     leader = {key = ' ', mods = 'CTRL', timeout_milliseconds = 1000},
