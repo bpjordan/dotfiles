@@ -13,29 +13,7 @@ return {
   { 'folke/which-key.nvim', opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
-
-  { -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
+    config = true,
   },
 
   { -- Add indentation guides even on blank lines
@@ -108,5 +86,16 @@ return {
       check_ts = true
     },
   },
-  'fladson/vim-kitty'
+  'fladson/vim-kitty',
+  {
+    "giusgad/pets.nvim",
+    dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+    opts = {
+      row = 6,
+      column = 15,
+      default_pet = "dog",
+      default_style = "black",
+      random = false,
+    }
+  }
 }
