@@ -102,6 +102,11 @@ local keys = {
         key = 'w',
         mods = 'LEADER',
         action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' }
+    },
+    {
+        key = 'l',
+        mods = 'LEADER',
+        action = act.ShowLauncherArgs { flags = 'FUZZY|DOMAINS|COMMANDS' }
     }
 }
 
@@ -110,6 +115,7 @@ return {
 
     font = wezterm.font('Inconsolata Go Nerd Font', {weight = 'Medium'}),
     font_size = 20,
+    warn_about_missing_glyphs = false,
 
     tab_bar_at_bottom = true,
     use_fancy_tab_bar = false,
