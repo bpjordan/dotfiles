@@ -111,7 +111,8 @@ local keys = {
 }
 
 return {
-    window_background_opacity = 0.5,
+    window_background_opacity = 0.7,
+    color_scheme = 'tokyonight_night',
 
     font = wezterm.font('Inconsolata Go Nerd Font', {weight = 'Medium'}),
     font_size = 20,
