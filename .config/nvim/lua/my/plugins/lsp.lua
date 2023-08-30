@@ -34,6 +34,16 @@ return { -- LSP Configuration & Plugins
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'SmiteshP/nvim-navic',
+    opts = {
+      lsp = {
+        auto_attach = true,
+      },
+      highlight = true,
+      click = true,
+    }
   }
 }
 

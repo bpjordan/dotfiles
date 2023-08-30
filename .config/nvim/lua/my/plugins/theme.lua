@@ -36,6 +36,9 @@ return {
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
+    dependencies = {
+      'SmiteshP/nvim-navic'
+    },
     opts = {
       options = {
         theme = 'tokyonight',
@@ -46,6 +49,9 @@ return {
         'trouble',
         'fugitive',
       },
+      winbar = {
+        lualine_b = { {"require'nvim-navic'.get_location()"} }
+      }
     },
   },
 }
