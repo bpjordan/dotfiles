@@ -85,6 +85,28 @@ local keys = {
         action = act.ActivatePaneDirection 'Right',
     },
 
+    -- Pane resizing binds
+    {
+        key = 'h',
+        mods = 'ALT|SHIFT',
+        action = act.AdjustPaneSize {'Left', 5},
+    },
+    {
+        key = 'j',
+        mods = 'ALT|SHIFT',
+        action = act.AdjustPaneSize {'Down', 5},
+    },
+    {
+        key = 'k',
+        mods = 'ALT|SHIFT',
+        action = act.AdjustPaneSize {'Up', 5},
+    },
+    {
+        key = 'l',
+        mods = 'ALT|SHIFT',
+        action = act.AdjustPaneSize {'Right', 5},
+    },
+
     {
         key = 's',
         mods = 'LEADER',
@@ -101,14 +123,22 @@ local keys = {
     {
         key = 'w',
         mods = 'LEADER',
-        action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' }
+        action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES|DOMAINS' }
     },
     {
         key = 'l',
         mods = 'LEADER',
-        action = act.ShowLauncherArgs { flags = 'FUZZY|DOMAINS|COMMANDS' }
+        action = act.ShowLauncherArgs { flags = 'FUZZY|COMMANDS' }
     }
 }
+
+for i = 1, 8 do
+    table.insert(keys, {
+        key = tostring(i),
+        mods = 'LEADER',
+        action = act.ActivateTab(i - 1)
+    })
+end
 
 return {
     window_background_opacity = 0.7,
