@@ -10,7 +10,7 @@ wezterm.on('update-status', function(window)
 end)
 
 wezterm.on('update-right-status', function(window)
-    local time = wezterm.strftime '%b %m %H:%M:%S'
+    local time = wezterm.strftime '%b %d %H:%M:%S'
     window:set_right_status(wezterm.format {
         { Text = time }
     })
