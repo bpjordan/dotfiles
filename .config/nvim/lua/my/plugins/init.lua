@@ -79,7 +79,6 @@ return {
       check_ts = true
     },
   },
-  'fladson/vim-kitty',
   {
     "giusgad/pets.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
@@ -89,6 +88,13 @@ return {
       default_pet = "dog",
       default_style = "black",
       random = false,
+    }
+  },
+  {
+    'tpope/vim-dadbod',
+    dependencies = {
+      'kristijanhusak/vim-dadbod-ui',
+      'kristijanhusak/vim-dadbod-completion',
     }
   }
 }
