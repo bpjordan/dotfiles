@@ -3,8 +3,14 @@ return {
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
-  'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  {
+    'tpope/vim-fugitive',
+      dependencies = {
+      'tpope/vim-rhubarb',
+    },
+    cmd = 'Git',
+    cond = require('my.utils').is_git
+  },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -14,6 +20,7 @@ return {
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     config = true,
+    cond = require('my.utils').is_git
   },
 
   { -- Add indentation guides even on blank lines
@@ -29,16 +36,6 @@ return {
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-  -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
-
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -49,6 +46,8 @@ return {
 
   {
     'nvim-tree/nvim-tree.lua',
+    cmd = 'NvimTree',
+    keys = '<leader>t',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
@@ -68,7 +67,7 @@ return {
   },
   {
     'ThePrimeagen/vim-be-good',
-    lazy = true,
+    cmd = 'VimBeGood',
   },
   {
     'windwp/nvim-autopairs',
@@ -82,6 +81,7 @@ return {
   {
     "giusgad/pets.nvim",
     dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+    cmd = { 'PetsNew', 'PetsNewCustom' },
     opts = {
       row = 6,
       column = 15,
@@ -91,10 +91,11 @@ return {
     }
   },
   {
-    'tpope/vim-dadbod',
+    'kristijanhusak/vim-dadbod-ui',
+    cmd = 'DBUI',
     dependencies = {
-      'kristijanhusak/vim-dadbod-ui',
       'kristijanhusak/vim-dadbod-completion',
-    }
+      'tpope/vim-dadbod',
+    },
   }
 }

@@ -6,20 +6,6 @@ return { -- LSP Configuration & Plugins
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      {
-        'j-hui/fidget.nvim',
-        opts = {
-          window = {
-            blend = 0,
-          },
-        },
-        tag = 'legacy'
-      },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
@@ -29,14 +15,18 @@ return { -- LSP Configuration & Plugins
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
   {
-    'windwp/nvim-autopairs'
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true,
   },
   {
     'folke/trouble.nvim',
+    cmd = 'Trouble',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
   {
     'SmiteshP/nvim-navic',
+    lazy = true,
     opts = {
       lsp = {
         auto_attach = true,
