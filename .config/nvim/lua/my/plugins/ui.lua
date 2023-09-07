@@ -1,30 +1,11 @@
 
 return {
-  -- {
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function (_, opts)
-  --     require('onedark').setup(opts)
-  --     require('onedark').load()
-  --   end,
-  --
-  --   opts = {
-  --     style = 'warmer',
-  --     transparent = true,
-  --
-  --     lualine = {
-  --       transparent = true
-  --     },
-  --   },
-  --
-  -- },
-  --
   {
     'folke/tokyonight.nvim',
     priority = 1000,
     config = function (_, opts)
       require('tokyonight').setup(opts)
-      vim.cmd.colorscheme('tokyonight')
+      vim.cmd.colorscheme 'tokyonight'
     end,
     opts = {
       style = 'moon',
@@ -90,6 +71,7 @@ return {
 
   {
     'nvim-telescope/telescope.nvim',
+    event = "VeryLazy",
     config = function (_, opts)
       local telescope = require('telescope')
       telescope.setup(opts)

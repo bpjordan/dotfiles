@@ -49,97 +49,6 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
     end
 end)
 
-local keys = {
-    {
-        key = '\\',
-        mods = 'LEADER',
-        action = act.SplitPane{
-            direction = 'Right',
-        }
-    },
-    {
-        key = '-',
-        mods = 'LEADER',
-        action = act.SplitPane{
-            direction = 'Down',
-        }
-    },
-    {
-        key = 'h',
-        mods = 'ALT',
-        action = act.ActivatePaneDirection 'Left',
-    },
-    {
-        key = 'j',
-        mods = 'ALT',
-        action = act.ActivatePaneDirection 'Up',
-    },
-    {
-        key = 'k',
-        mods = 'ALT',
-        action = act.ActivatePaneDirection 'Down',
-    },
-    {
-        key = 'l',
-        mods = 'ALT',
-        action = act.ActivatePaneDirection 'Right',
-    },
-
-    -- Pane resizing binds
-    {
-        key = 'h',
-        mods = 'ALT|SHIFT',
-        action = act.AdjustPaneSize {'Left', 5},
-    },
-    {
-        key = 'j',
-        mods = 'ALT|SHIFT',
-        action = act.AdjustPaneSize {'Down', 5},
-    },
-    {
-        key = 'k',
-        mods = 'ALT|SHIFT',
-        action = act.AdjustPaneSize {'Up', 5},
-    },
-    {
-        key = 'l',
-        mods = 'ALT|SHIFT',
-        action = act.AdjustPaneSize {'Right', 5},
-    },
-
-    {
-        key = 's',
-        mods = 'LEADER',
-        action = act.SpawnCommandInNewTab {
-            args = {wezterm.home_dir .. '/.dotfiles/scripts/wezterm-sessionizer'}
-        }
-    },
-
-    {
-        key = 'L',
-        mods = 'LEADER',
-        action = wezterm.action.ShowDebugOverlay
-    },
-    {
-        key = 'w',
-        mods = 'LEADER',
-        action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES|DOMAINS' }
-    },
-    {
-        key = 'l',
-        mods = 'LEADER',
-        action = act.ShowLauncherArgs { flags = 'FUZZY|COMMANDS' }
-    }
-}
-
-for i = 1, 8 do
-    table.insert(keys, {
-        key = tostring(i),
-        mods = 'LEADER',
-        action = act.ActivateTab(i - 1)
-    })
-end
-
 return {
     window_background_opacity = 0.7,
     color_scheme = 'tokyonight_night',
@@ -150,7 +59,6 @@ return {
 
     tab_bar_at_bottom = true,
     use_fancy_tab_bar = false,
-    -- config.hide_tab_bar_if_only_one_tab = true
 
     default_workspace = basename(wezterm.home_dir),
 
@@ -161,7 +69,7 @@ return {
         right = 0,
     },
 
-    leader = {key = ' ', mods = 'CTRL', timeout_milliseconds = 1000},
+    leader = {key = ' ', mods = 'CTRL', timeout_milliseconds = 5000},
 
-    keys = keys,
+    keys = require 'keymaps',
 }
