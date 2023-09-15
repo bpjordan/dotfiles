@@ -133,8 +133,32 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'path' },
   },
 }
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'cmdline' },
+    { name = 'path' },
+  },
+})
+
+cmp.setup.cmdline({'/', '?'}, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' },
+  },
+})
+
+cmp.setup.filetype('gitcommit', {
+  sources = {
+    { name = 'git' },
+    { name = 'conventionalcommits' },
+    { name = 'buffer' },
+  }
+})
 
 -- If you want insert `(` after select function or method item
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
