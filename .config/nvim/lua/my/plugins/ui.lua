@@ -30,6 +30,30 @@ return {
         'trouble',
         'fugitive',
       },
+      sections = {
+        lualine_a = {'mode'},
+        lualine_b = {
+          'branch',
+          'diff',
+          'diagnostics',
+          {
+            require("my.utils").lualine_reg,
+            icon = {'', color={fg = 'red'}}
+          }
+        },
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+      },
       winbar = {
         lualine_b = { {"require'nvim-navic'.get_location()"} }
       }

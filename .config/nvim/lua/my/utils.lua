@@ -14,4 +14,10 @@ M.is_git = function (dir)
   return git_dir_cache[cwd]
 end
 
+M.lualine_reg = function()
+
+  local reg = vim.fn.reg_recording()
+  return reg
+end
+
 return M
