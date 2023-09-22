@@ -50,7 +50,10 @@ return { -- LSP Configuration & Plugins
         json = { { 'jq', 'prettierd', 'prettier' } },
       },
       notify_on_error = true,
-      format_on_save = function()
+      format_on_save = function(bufnr)
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
         return {
           timeout_ms = 500,
           lsp_fallback = true,
