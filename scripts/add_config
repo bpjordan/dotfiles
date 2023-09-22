@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Simple script for adding several files or directories to the .dotfiles repo
 
