@@ -1,4 +1,3 @@
-
 return { -- LSP Configuration & Plugins
   {
     'neovim/nvim-lspconfig',
@@ -23,7 +22,7 @@ return { -- LSP Configuration & Plugins
   },
   {
     'windwp/nvim-autopairs',
-    event = "InsertEnter",
+    event = 'InsertEnter',
     config = true,
   },
   {
@@ -40,15 +39,15 @@ return { -- LSP Configuration & Plugins
       },
       highlight = true,
       click = true,
-    }
+    },
   },
   {
-    "stevearc/conform.nvim",
+    'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        rust = { "rustfmt" },
-        javascript = { { "eslint_d", "prettierd", "prettier" } },
-        json = { { "jq", "prettierd", "prettier" } },
+        rust = { 'rustfmt' },
+        javascript = { { 'eslint_d', 'prettierd', 'prettier' } },
+        json = { { 'jq', 'prettierd', 'prettier' } },
       },
       notify_on_error = true,
       format_on_save = function()
@@ -58,7 +57,6 @@ return { -- LSP Configuration & Plugins
         }
       end,
     },
-    event = "BufWritePre",
+    event = 'BufWritePre',
   },
 }
-

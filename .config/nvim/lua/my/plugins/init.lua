@@ -1,15 +1,14 @@
-
 return {
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
   {
     'tpope/vim-fugitive',
-      dependencies = {
+    dependencies = {
       'tpope/vim-rhubarb',
     },
     cmd = 'Git',
-    cond = require('my.utils').is_git
+    cond = require('my.utils').is_git,
   },
 
   -- Detect tabstop and shiftwidth automatically
@@ -20,7 +19,7 @@ return {
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     config = true,
-    cond = require('my.utils').is_git
+    cond = require('my.utils').is_git,
   },
 
   { -- Add indentation guides even on blank lines
@@ -35,7 +34,6 @@ return {
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
-
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -62,7 +60,7 @@ return {
       diagnostics = {
         enable = true,
         show_on_dirs = true,
-      }
+      },
     },
   },
   {
@@ -72,23 +70,23 @@ return {
   {
     'windwp/nvim-autopairs',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter'
+      'nvim-treesitter/nvim-treesitter',
     },
     opts = {
-      check_ts = true
+      check_ts = true,
     },
   },
   {
-    "giusgad/pets.nvim",
-    dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+    'giusgad/pets.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
     cmd = { 'PetsNew', 'PetsNewCustom' },
     opts = {
       row = 6,
       column = 15,
-      default_pet = "dog",
-      default_style = "black",
+      default_pet = 'dog',
+      default_style = 'black',
       random = false,
-    }
+    },
   },
   {
     'kristijanhusak/vim-dadbod-ui',
@@ -97,5 +95,5 @@ return {
       'kristijanhusak/vim-dadbod-completion',
       'tpope/vim-dadbod',
     },
-  }
+  },
 }
