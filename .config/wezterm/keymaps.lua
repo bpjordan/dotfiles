@@ -31,12 +31,12 @@ local keys = {
   {
     key = 'j',
     mods = 'ALT',
-    action = act.ActivatePaneDirection('Up'),
+    action = act.ActivatePaneDirection('Down'),
   },
   {
     key = 'k',
     mods = 'ALT',
-    action = act.ActivatePaneDirection('Down'),
+    action = act.ActivatePaneDirection('Up'),
   },
   {
     key = 'l',
