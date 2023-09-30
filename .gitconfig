@@ -3,7 +3,7 @@
 	name = Bronson Jordan
 
 [core]
-	editor = vim
+	editor = nvim
 	pager = less -F
 
 [alias]
