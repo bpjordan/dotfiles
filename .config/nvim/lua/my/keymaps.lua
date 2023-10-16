@@ -8,6 +8,7 @@ vim.keymap.set('n', 'Q', '<Nop>')
 
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'G', 'Gzz')
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv")
@@ -119,19 +120,19 @@ vim.keymap.set('n', '<leader>q', require('trouble').open, { desc = 'Open diagnos
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
 -- Autoformatting commands
-vim.api.nvim_create_user_command("Format", function(args)
+vim.api.nvim_create_user_command('Format', function(args)
   local range = nil
   if args.count ~= -1 ~= -1 then
     local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
     range = {
       start = { args.line1, 0 },
-      ["end"] = { args.line2, end_line:len() },
+      ['end'] = { args.line2, end_line:len() },
     }
   end
-  require('conform').format({ async = true, lsp_fallback = true, range = range })
-end, { desc = "Run formatter" })
+  require('conform').format { async = true, lsp_fallback = true, range = range }
+end, { desc = 'Run formatter' })
 
-vim.api.nvim_create_user_command("FormatDisable", function(args)
+vim.api.nvim_create_user_command('FormatDisable', function(args)
   if args.bang then
     vim.b.disable_autoformat = true
   else
@@ -142,7 +143,7 @@ end, {
   bang = true,
 })
 
-vim.api.nvim_create_user_command("FormatEnable", function()
+vim.api.nvim_create_user_command('FormatEnable', function()
   vim.b.disable_autoformat = false
   vim.g.disable_autoformat = false
-end, { desc = "Re-enable autoformatting on save" })
+end, { desc = 'Re-enable autoformatting on save' })

@@ -47,8 +47,10 @@ return { -- LSP Configuration & Plugins
       formatters_by_ft = {
         rust = { 'rustfmt' },
         javascript = { { 'eslint_d', 'prettierd', 'prettier' } },
+        css = { { 'eslint_d', 'prettierd', 'prettier' } },
         json = { { 'jq', 'prettierd', 'prettier' } },
         lua = { 'stylua' },
+        markdown = { 'fold', 'markdownlint' },
         ['_'] = { 'trim_whitespace' },
       },
       notify_on_error = true,
@@ -59,6 +61,12 @@ return { -- LSP Configuration & Plugins
           lsp_fallback = true,
         }
       end,
+      formatters = {
+        fold = {
+          command = 'fold',
+          args = { '-s' },
+        },
+      },
     },
     event = 'BufWritePre',
   },
