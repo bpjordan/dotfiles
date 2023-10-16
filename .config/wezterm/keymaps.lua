@@ -74,6 +74,14 @@ local keys = {
   },
 
   {
+    key = 'r',
+    mods = 'LEADER',
+    action = act.SpawnCommandInNewTab {
+      args = { 'ranger' },
+    },
+  },
+
+  {
     key = 'L',
     mods = 'LEADER',
     action = wezterm.action.ShowDebugOverlay,
