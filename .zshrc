@@ -124,6 +124,10 @@ if [ -d "$HOME/go/bin" ]; then
     export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
 fi
 
+if [[ "${TERM_PROGRAM}" == "WezTerm" ]] && infocmp wezterm &> /dev/null; then
+    export TERM=wezterm
+fi
+
 case $TERM in
     alacritty ) export COLORTERM=truecolor ;;
 esac
