@@ -1,3 +1,17 @@
+local servers = {
+  gopls = {},
+  rust_analyzer = {},
+  tsserver = {},
+  lua_ls = {
+    settings = {
+      Lua = {
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+      },
+    },
+  },
+}
+
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -31,24 +45,6 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
-local servers = {
-  gopls = {},
-  rust_analyzer = {},
-  tsserver = {},
-
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-}
-
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -68,10 +64,16 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
+    local server = servers[server_name]
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
+      on_attach = function(ev, bufnr)
+        on_attach(ev, bufnr)
+        if server and server.on_attach then
+          server.on_attach(ev, bufnr)
+        end
+      end,
+      settings = server and server.settings,
     }
   end,
 }
