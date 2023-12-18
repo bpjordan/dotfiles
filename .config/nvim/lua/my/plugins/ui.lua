@@ -55,6 +55,10 @@ return {
       },
       winbar = {
         lualine_b = { { "require'nvim-navic'.get_location()" } },
+        lualine_y = { {
+          require('my.utils').lualine_lsp_attached,
+          icon = { '󱩾' },
+        } },
       },
     },
   },

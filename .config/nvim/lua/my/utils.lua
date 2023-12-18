@@ -18,4 +18,16 @@ M.lualine_reg = function()
   return reg
 end
 
+M.lualine_lsp_attached = function()
+  local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
+
+  if #clients == 0 then return '' end
+
+  local main_client = clients[1].name
+
+  if #clients > 1 then return string.format('%s [+%d]', main_client, #clients - 1) end
+
+  return main_client
+end
+
 return M
