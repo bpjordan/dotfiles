@@ -2,6 +2,9 @@ local servers = {
   gopls = {},
   rust_analyzer = {},
   tsserver = {},
+  jdtls = {
+    env = { JAVA_HOME = '/usr/lib/jvm/java-1.17.0-openjdk-amd64/' },
+  },
   lua_ls = {
     settings = {
       Lua = {
@@ -58,22 +61,20 @@ require('mason').setup()
 -- Ensure the servers above are installed
 local mason_lspconfig = require('mason-lspconfig')
 
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
+mason_lspconfig.setup()
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    local server = servers[server_name]
+    local config = servers[server_name]
     require('lspconfig')[server_name].setup {
+      cmd = config and config.cmd,
+      settings = config and config.settings,
+      cmd_env = config and config.env,
       capabilities = capabilities,
       on_attach = function(ev, bufnr)
         on_attach(ev, bufnr)
-        if server and server.on_attach then
-          server.on_attach(ev, bufnr)
-        end
+        if config and config.on_attach then config.on_attach(ev, bufnr) end
       end,
-      settings = server and server.settings,
     }
   end,
 }
