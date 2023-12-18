@@ -24,6 +24,23 @@ local keys = {
   },
 
   {
+    key = 'T',
+    mods = 'LEADER | SHIFT',
+    action = wezterm.action_callback(function(_, pane) pane:move_to_new_tab():activate() end),
+  },
+
+  {
+    key = 'r',
+    mods = 'LEADER',
+    action = act.PromptInputLine {
+      description = 'Rename tab',
+      action = wezterm.action_callback(function(window, _, line)
+        if line then window:active_tab():set_title(line) end
+      end),
+    },
+  },
+
+  {
     key = 'h',
     mods = 'ALT',
     action = act.ActivatePaneDirection('Left'),
@@ -74,7 +91,7 @@ local keys = {
   },
 
   {
-    key = 'r',
+    key = 'f',
     mods = 'LEADER',
     action = act.SpawnCommandInNewTab {
       args = { 'ranger' },

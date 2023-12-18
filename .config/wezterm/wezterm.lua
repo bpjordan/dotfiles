@@ -49,7 +49,7 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
 end)
 
 return {
-  window_background_opacity = 0.7,
+  window_background_opacity = 0.9,
   color_scheme = 'tokyonight_night',
 
   font = wezterm.font('Inconsolata Go Nerd Font', { weight = 'Medium' }),
