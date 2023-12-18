@@ -30,4 +30,15 @@ M.lualine_lsp_attached = function()
   return main_client
 end
 
+M.lualine_diff_source = function()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.modified,
+      removed = gitsigns.removed,
+    }
+  end
+end
+
 return M

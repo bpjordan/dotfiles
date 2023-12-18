@@ -33,7 +33,7 @@ return {
         lualine_a = { 'mode' },
         lualine_b = {
           'branch',
-          'diff',
+          { 'diff', source = require('my.utils').lualine_diff_source },
           'diagnostics',
           {
             require('my.utils').lualine_reg,
