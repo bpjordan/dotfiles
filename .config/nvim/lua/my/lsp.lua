@@ -2,9 +2,6 @@ local servers = {
   gopls = {},
   rust_analyzer = {},
   tsserver = {},
-  jdtls = {
-    env = { JAVA_HOME = '/usr/lib/jvm/java-1.17.0-openjdk-amd64/' },
-  },
   lua_ls = {
     settings = {
       Lua = {
@@ -14,6 +11,9 @@ local servers = {
     },
   },
 }
+
+local has_local, local_servers = pcall(require, 'local.lsp')
+if has_local then servers = vim.tbl_deep_extend('force', servers, local_servers) end
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
