@@ -54,11 +54,23 @@ return {
         lualine_z = {},
       },
       winbar = {
-        lualine_b = { { "require'nvim-navic'.get_location()" } },
-        lualine_y = { {
-          require('my.utils').lualine_lsp_attached,
-          icon = { '󱩾' },
-        } },
+        lualine_a = {},
+        lualine_c = { { "require'nvim-navic'.get_location()", padding = 0 } },
+        lualine_y = {
+          {
+            require('my.utils').lualine_lsp_attached,
+            icon = '󰺯',
+          },
+          {
+            require('my.utils').lualine_formatter_attached,
+            icon = '󱩽',
+            color = function()
+              if vim.b.disable_autoformat or vim.g.disable_autoformat then
+                return 'lualine_b_diagnostics_error_normal'
+              end
+            end,
+          },
+        },
       },
     },
   },

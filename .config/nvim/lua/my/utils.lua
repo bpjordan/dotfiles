@@ -30,6 +30,21 @@ M.lualine_lsp_attached = function()
   return main_client
 end
 
+M.lualine_formatter_attached = function()
+  local conform = require('conform')
+  if conform.will_fallback_lsp() then return 'lsp' end
+
+  local formatters = conform.list_formatters(0)
+
+  if #formatters == 0 then return '' end
+
+  local main_formatter = formatters[1].name
+
+  if #formatters > 1 then return string.format('%s [+%d]', main_formatter, #formatters - 1) end
+
+  return main_formatter
+end
+
 M.lualine_diff_source = function()
   local gitsigns = vim.b.gitsigns_status_dict
   if gitsigns then
