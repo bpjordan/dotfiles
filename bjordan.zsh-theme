@@ -6,9 +6,10 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats '%F{cyan}%b%F{reset} %u%c%m'
-zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset}'
-zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset}'
+zstyle ':vcs_info:git:*' actionformats '%u%c%m%F{cyan}%b(%B%a%%b)%F{reset}'
+zstyle ':vcs_info:git:*' formats '%u%c%m%F{cyan}%b%F{reset}'
+zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset} '
+zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset} '
 
 ## Hook for showing information about the git remote
 zstyle ':vcs_info:git*+set-message:*' hooks git-remoteinfo
@@ -30,11 +31,12 @@ function +vi-git-remoteinfo() {
     )
 
     local -a gitstatus
-    (( $to_push_pull[1] )) && gitstatus+=( "%B%F{blue}↑%F{reset}")
-    (( $to_push_pull[2] )) && gitstatus+=( "%B%F{blue}↓%F{reset}")
+    (( $to_push_pull[1] )) && gitstatus+=( "%B%F{blue}↑%F{reset}%b" )
+    (( $to_push_pull[2] )) && gitstatus+=( "%B%F{blue}↓%F{reset}%b" )
 
     # adds to %m
-    hook_com[misc]+=${(j:/:)gitstatus}
+    hook_com[misc]=''
+    [[ ! -z $gitstatus ]] && hook_com[misc]+="${(j:/:)gitstatus} "
 
     ### show remote branch if it is different from local branch
     local remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
@@ -75,4 +77,4 @@ fi
 # PROMPT+='%F{reset}:%F{red}$(shrink_path -f) %B%F{cyan}%# %b%F{reset}'
 PROMPT+='%F{red}$(shrink_path -f) %B%F{cyan}%# %b%f'
 
-RPROMPT='%(?.%F{green}✓%F{reset}. %? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.) ${vcs_info_msg_0_}'
+RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}. %? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
