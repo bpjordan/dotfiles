@@ -48,7 +48,7 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
   end
 end)
 
-return {
+local conf = {
   window_background_opacity = 0.9,
   color_scheme = 'tokyonight_night',
 
@@ -70,5 +70,10 @@ return {
 
   leader = { key = ' ', mods = 'CTRL', timeout_milliseconds = 5000 },
 
-  keys = require('keymaps'),
+  keys = require('my.keymaps'),
 }
+
+local has_local, local_conf = pcall(require, 'local')
+if has_local then require('my.utils').deep_merge(conf, local_conf) end
+
+return conf
