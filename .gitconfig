@@ -18,3 +18,12 @@
 
 [push]
 	autoSetupRemote = true
+
+[diff]
+	tool = nvim
+
+[merge]
+	tool = nvim
+
+[difftool "nvim"]
+	cmd = nvim -d $LOCAL $REMOTE
