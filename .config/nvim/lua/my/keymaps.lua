@@ -21,7 +21,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.highlight.on_yank() end,
+  callback = vim.highlight.on_yank,
   group = highlight_group,
   pattern = '*',
 })
@@ -130,7 +130,7 @@ vim.api.nvim_create_user_command('Format', function(args)
     }
   end
   require('conform').format { async = true, lsp_fallback = true, range = range }
-end, { desc = 'Run formatter' })
+end, { desc = 'Run formatter', range = '%' })
 
 vim.api.nvim_create_user_command('FormatDisable', function(args)
   if args.bang then

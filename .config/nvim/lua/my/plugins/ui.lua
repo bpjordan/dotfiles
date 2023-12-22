@@ -10,6 +10,10 @@ return {
       style = 'moon',
       transparent = true,
       dim_inactive = true,
+      on_highlights = function(hl, co)
+        hl.NavicText.bg = co.bg_dark
+        hl.NavicSeparator.bg = co.bg_dark
+      end,
     },
   },
 
@@ -55,7 +59,7 @@ return {
       },
       winbar = {
         lualine_a = {},
-        lualine_c = { { "require'nvim-navic'.get_location()", padding = 0 } },
+        lualine_c = { { "require'nvim-navic'.get_location()" } },
         lualine_y = {
           {
             require('my.utils').lualine_lsp_attached,
@@ -119,6 +123,7 @@ return {
     end,
     opts = {
       defaults = {
+        path_display = { 'smart' },
         mappings = {
           i = {
             ['<C-u>'] = false,
