@@ -77,4 +77,4 @@ fi
 # PROMPT+='%F{reset}:%F{red}$(shrink_path -f) %B%F{cyan}%# %b%F{reset}'
 PROMPT+='%F{red}$(shrink_path -f) %B%F{cyan}%# %b%f'
 
-RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}. %? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
+RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}.%? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
