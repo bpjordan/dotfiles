@@ -19,7 +19,7 @@ M.lualine_reg = function()
 end
 
 M.lualine_lsp_attached = function()
-  local clients = vim.lsp.get_active_clients { bufnr = 0 }
+  local clients = vim.lsp.get_clients { bufnr = 0 }
 
   if #clients == 0 then return '' end
 

@@ -81,7 +81,6 @@ return {
 
   {
     'folke/noice.nvim',
-    event = 'VeryLazy',
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -90,6 +89,12 @@ return {
           ['vim.lsp.util.stylize_markdown'] = true,
           ['cmp.entry.get_documentation'] = true,
         },
+      },
+      routes = {
+        {
+          view = 'split',
+          filter = { min_height = 20 }
+        }
       },
       views = {
         mini = {
