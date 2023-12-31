@@ -3,6 +3,7 @@ local servers = {
   rust_analyzer = { install = true },
   tsserver = {},
   lua_ls = {
+    install = true,
     settings = {
       Lua = {
         workspace = { checkThirdParty = false },
@@ -10,7 +11,14 @@ local servers = {
         hint = { enable = true, paramName = 'Literal' },
       },
     },
-    install = true,
+  },
+  jdtls = {
+    settings = {
+      java = {
+        format = { enabled = false },
+        signatureHelp = { enabled = true },
+      },
+    },
   },
 }
 
