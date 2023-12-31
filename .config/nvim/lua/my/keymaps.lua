@@ -46,6 +46,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+---@diagnostic disable-next-line: missing-fields
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
@@ -147,3 +148,17 @@ vim.api.nvim_create_user_command('FormatEnable', function()
   vim.b.disable_autoformat = false
   vim.g.disable_autoformat = false
 end, { desc = 'Re-enable autoformatting on save' })
+
+vim.api.nvim_create_user_command('Share', function()
+  ---@diagnostic disable-next-line: missing-fields
+  require('tokyonight.config').extend { transparent = false }
+  vim.cmd.colorscheme('tokyonight')
+  vim.opt.relativenumber = false
+end, { desc = 'Adjust UI for easier screen sharing' })
+
+vim.api.nvim_create_user_command('Unshare', function()
+  ---@diagnostic disable-next-line: missing-fields
+  require('tokyonight.config').extend { transparent = true }
+  vim.cmd.colorscheme('tokyonight')
+  vim.opt.relativenumber = true
+end, { desc = 'Adjust UI for easier screen sharing' })

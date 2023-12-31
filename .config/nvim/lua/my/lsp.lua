@@ -57,7 +57,14 @@ local on_attach = function(client, bufnr)
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-  if vim.lsp.inlay_hint and client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(bufnr, true) end
+  if vim.lsp.inlay_hint and client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(bufnr, true)
+    nmap(
+      '<leader>it',
+      function() vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr)) end,
+      '[I]nline Hint [T]oggle'
+    )
+  end
 end
 
 -- Setup neovim lua configuration

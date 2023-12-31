@@ -93,8 +93,8 @@ return {
       routes = {
         {
           view = 'split',
-          filter = { min_height = 20 }
-        }
+          filter = { min_height = 20 },
+        },
       },
       views = {
         mini = {
