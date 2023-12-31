@@ -1,23 +1,25 @@
 local servers = {
   gopls = {},
-  rust_analyzer = {},
+  rust_analyzer = { install = true },
   tsserver = {},
   lua_ls = {
     settings = {
       Lua = {
         workspace = { checkThirdParty = false },
         telemetry = { enable = false },
+        hint = { enable = true, paramName = 'Literal' },
       },
     },
+    install = true,
   },
 }
 
-local has_local, local_servers = pcall(require, 'local.lsp')
-if has_local then servers = vim.tbl_deep_extend('force', servers, local_servers) end
+local has_local, local_config = pcall(require, 'local.lsp')
+if has_local and local_config.servers then servers = vim.tbl_deep_extend('force', servers, local_config.servers) end
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -46,6 +48,8 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+  if vim.lsp.inlay_hint and client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(bufnr, true) end
 end
 
 -- Setup neovim lua configuration
@@ -55,8 +59,16 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+local ensure_installed = {}
+if vim.iter then
+  ensure_installed = vim.iter.filter(
+    function(server_name) return servers[server_name].install end,
+    vim.tbl_keys(servers)
+  )
+end
+
 -- Setup mason so it can manage external tooling
-require('mason').setup()
+require('mason').setup { ensure_installed = ensure_installed }
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require('mason-lspconfig')
