@@ -44,6 +44,21 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc
 vim.keymap.set('n', '<leader>sG', require('telescope.builtin').live_grep, { desc = '[S]earch with [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
+-- stylua: ignore start
+vim.keymap.set('n', '<leader>ha', function () require('harpoon'):list():append() end, {desc = '[H]arpoon: [A]dd to list'})
+vim.keymap.set('n', '<leader>hd', function () require('harpoon'):list():remove() end, {desc = '[H]arpoon: [D]elete from list'})
+vim.keymap.set('n', '<leader>1', function () require('harpoon'):list():select(1) end, {desc = 'Harpoon: Select [1]'})
+vim.keymap.set('n', '<leader>2', function () require('harpoon'):list():select(2) end, {desc = 'Harpoon: Select [2]'})
+vim.keymap.set('n', '<leader>3', function () require('harpoon'):list():select(3) end, {desc = 'Harpoon: Select [3]'})
+vim.keymap.set('n', '<leader>4', function () require('harpoon'):list():select(4) end, {desc = 'Harpoon: Select [4]'})
+-- stylua: ignore end
+vim.keymap.set(
+  'n',
+  '<leader><space>',
+  function() require('harpoon').ui:toggle_quick_menu(require('harpoon'):list()) end,
+  { desc = 'Harpoon: Open UI' }
+)
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 ---@diagnostic disable-next-line: missing-fields
