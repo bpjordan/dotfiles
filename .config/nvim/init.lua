@@ -17,10 +17,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup('my.plugins', {})
+require('lazy').setup('my.plugins', {
+  install = { colorscheme = { 'tokyonight' } },
+})
 
 require('my.options')
-require('my.fugitive')
 require('my.keymaps')
 require('my.filetree')
 require('my.lsp')

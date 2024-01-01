@@ -10,8 +10,8 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'G', 'Gzz')
 
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { silent = true })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -19,16 +19,15 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = vim.highlight.on_yank,
-  group = highlight_group,
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
   pattern = '*',
 })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers, { desc = 'Find existing [B]uffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -133,12 +132,33 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', require('trouble').open, { desc = 'Open diagnostics list' })
 
 -- Git keymaps
-vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+vim.keymap.set('n', '<leader>gs', vim.cmd.Git, { desc = '[G]it [S]tatus' })
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  group = vim.api.nvim_create_augroup('window_keymaps', { clear = true }),
+  pattern = '*',
+  callback = function()
+    if vim.bo.ft ~= 'fugitive' then return end
+
+    vim.keymap.set(
+      'n',
+      '<leader>p',
+      function() vim.cmd.Git { args = 'pull', bang = true } end,
+      { buffer = true, desc = 'Git [P]ull' }
+    )
+
+    vim.keymap.set(
+      'n',
+      '<leader>P',
+      function() vim.cmd.Git { args = 'push', bang = true } end,
+      { buffer = true, desc = 'Git [P]ush' }
+    )
+  end,
+})
 
 -- Autoformatting commands
 vim.api.nvim_create_user_command('Format', function(args)
   local range = nil
-  if args.count ~= -1 ~= -1 then
+  if args.count ~= -1 then
     local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
     range = {
       start = { args.line1, 0 },
@@ -176,4 +196,4 @@ vim.api.nvim_create_user_command('Unshare', function()
   require('tokyonight.config').extend { transparent = true }
   vim.cmd.colorscheme('tokyonight')
   vim.opt.relativenumber = true
-end, { desc = 'Adjust UI for easier screen sharing' })
+end, { desc = 'Revert UI adjustments from Share' })
