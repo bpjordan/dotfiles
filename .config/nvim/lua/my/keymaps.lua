@@ -58,6 +58,14 @@ vim.keymap.set(
   { desc = 'Harpoon: Open UI' }
 )
 
+-- file tree
+vim.keymap.set(
+  'n',
+  '<leader>ft',
+  function() require('nvim-tree.api').tree.open { find_file = true } end,
+  { desc = 'Open [F]ile [T]ree' }
+)
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 ---@diagnostic disable-next-line: missing-fields

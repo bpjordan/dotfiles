@@ -2,10 +2,6 @@ return {
   {
     'folke/tokyonight.nvim',
     priority = 1000,
-    config = function(_, opts)
-      require('tokyonight').setup(opts)
-      vim.cmd.colorscheme('tokyonight')
-    end,
     opts = {
       style = 'moon',
       transparent = true,
@@ -23,6 +19,7 @@ return {
     dependencies = {
       'SmiteshP/nvim-navic',
     },
+    event = 'UIEnter',
     opts = {
       options = {
         theme = 'tokyonight',
@@ -81,6 +78,7 @@ return {
 
   {
     'folke/noice.nvim',
+    event = 'UIEnter',
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

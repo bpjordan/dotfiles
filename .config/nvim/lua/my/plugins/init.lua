@@ -20,6 +20,7 @@ return {
     'lewis6991/gitsigns.nvim',
     config = true,
     cond = require('my.utils').is_git,
+    event = 'UIEnter',
   },
 
   { -- Add indentation guides even on blank lines
@@ -38,6 +39,7 @@ return {
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -46,10 +48,10 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     cmd = 'NvimTree',
-    keys = '<leader>t',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end,
     opts = {
       sort_by = 'case_sensitive',
       renderer = {
@@ -62,6 +64,14 @@ return {
         enable = true,
         show_on_dirs = true,
       },
+      actions = {
+        change_dir = { enable = false },
+        expand_all = { exclude = { '.git', 'target', 'build', 'node_modules' } },
+        open_file = { quit_on_open = true },
+      },
+    },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
     },
   },
   {
