@@ -41,6 +41,18 @@ local keys = {
   },
 
   {
+    key = '=',
+    mods = 'ALT',
+    action = act.IncreaseFontSize,
+  },
+
+  {
+    key = '-',
+    mods = 'ALT',
+    action = act.DecreaseFontSize,
+  },
+
+  {
     key = 'h',
     mods = 'ALT',
     action = act.ActivatePaneDirection('Left'),
@@ -60,7 +72,8 @@ local keys = {
     mods = 'ALT',
     action = act.ActivatePaneDirection('Right'),
   },
-  -- Pane resizing binds
+
+  -- Pane resizing
   {
     key = 'h',
     mods = 'ALT|SHIFT',
