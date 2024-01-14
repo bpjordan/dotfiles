@@ -205,3 +205,9 @@ vim.api.nvim_create_user_command('Unshare', function()
   vim.cmd.colorscheme('tokyonight')
   vim.opt.relativenumber = true
 end, { desc = 'Revert UI adjustments from Share' })
+
+vim.api.nvim_create_user_command(
+  'HarpoonClear',
+  function() require('harpoon'):list():clear() end,
+  { desc = 'Clear Harpoon main list' }
+)

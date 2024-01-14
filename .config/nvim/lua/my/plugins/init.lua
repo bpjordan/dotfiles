@@ -7,7 +7,7 @@ return {
     dependencies = {
       'tpope/vim-rhubarb',
     },
-    cmd = 'Git',
+    cmd = { 'Git', 'Gvdiffsplit' },
     cond = require('my.utils').is_git,
   },
 
@@ -86,6 +86,7 @@ return {
     opts = {
       check_ts = true,
     },
+    event = 'InsertEnter',
   },
   {
     'giusgad/pets.nvim',

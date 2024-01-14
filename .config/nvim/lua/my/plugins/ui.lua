@@ -88,12 +88,12 @@ return {
           ['cmp.entry.get_documentation'] = true,
         },
       },
-      routes = {
-        {
-          view = 'split',
-          filter = { min_height = 20 },
-        },
-      },
+      -- routes = {
+      --   {
+      --     view = 'split',
+      --     filter = { min_height = 20 },
+      --   },
+      -- },
       views = {
         mini = {
           win_options = {

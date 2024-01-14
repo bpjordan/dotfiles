@@ -22,8 +22,11 @@
 [diff]
 	tool = nvim
 
-[merge]
-	tool = nvim
-
 [difftool "nvim"]
-	cmd = nvim -d $LOCAL $REMOTE
+	cmd = nvim -d "$LOCAL" "$REMOTE"
+
+[merge]
+	tool = fugitive
+
+[mergetool "fugitive"]
+	cmd = nvim -c "Gvdiffsplit!" "$MERGED"
