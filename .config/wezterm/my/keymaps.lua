@@ -116,6 +116,12 @@ local keys = {
     mods = 'LEADER',
     action = wezterm.action.ShowDebugOverlay,
   },
+
+  {
+    key = 'L',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.ReloadConfiguration,
+  },
   {
     key = 'w',
     mods = 'LEADER',
