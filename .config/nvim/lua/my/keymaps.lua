@@ -173,7 +173,13 @@ vim.api.nvim_create_user_command('Format', function(args)
       ['end'] = { args.line2, end_line:len() },
     }
   end
-  require('conform').format { async = true, lsp_fallback = true, range = range }
+  require('conform').format({ async = true, lsp_fallback = true, range = range }, function(err, did_edit)
+    if err then
+      vim.notify('Format failed: ' .. err)
+    elseif not range then
+      vim.b.disable_autoformat = false
+    end
+  end)
 end, { desc = 'Run formatter', range = '%' })
 
 vim.api.nvim_create_user_command('FormatDisable', function(args)
@@ -187,10 +193,10 @@ end, {
   bang = true,
 })
 
-vim.api.nvim_create_user_command('FormatEnable', function()
+vim.api.nvim_create_user_command('FormatEnable', function(args)
   vim.b.disable_autoformat = false
-  vim.g.disable_autoformat = false
-end, { desc = 'Re-enable autoformatting on save' })
+  if not args.bang then vim.g.disable_autoformat = false end
+end, { desc = 'Re-enable autoformatting on save', bang = true })
 
 vim.api.nvim_create_user_command('Share', function()
   ---@diagnostic disable-next-line: missing-fields
@@ -211,3 +217,21 @@ vim.api.nvim_create_user_command(
   function() require('harpoon'):list():clear() end,
   { desc = 'Clear Harpoon main list' }
 )
+
+vim.api.nvim_create_autocmd('BufRead', {
+  group = vim.api.nvim_create_augroup('format-check', { clear = true }),
+  pattern = '*',
+  callback = function(e)
+    -- Checking immediately upon BufReadPost can sometimes cause concurrent modification errors
+    vim.schedule(function()
+      require('conform').format({ dry_run = true, async = true, quiet = true }, function(err, changed)
+        if err then
+          vim.notify('Error checking formatters: ' .. err, vim.log.levels.WARN)
+        elseif changed then
+          vim.b[e.buf].disable_autoformat = true
+          vim.notify('Buffer is unformatted; autoformatting disabled')
+        end
+      end)
+    end)
+  end,
+})

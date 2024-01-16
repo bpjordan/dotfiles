@@ -114,6 +114,14 @@ return {
       'rcarriga/nvim-notify',
     },
   },
+  {
+    'rcarriga/nvim-notify',
+    lazy = true,
+    opts = {
+      render = 'compact',
+      stages = 'fade',
+    },
+  },
 
   {
     'nvim-telescope/telescope.nvim',
