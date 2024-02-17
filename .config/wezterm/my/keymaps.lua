@@ -30,6 +30,12 @@ local keys = {
   },
 
   {
+    key = 'x',
+    mods = 'LEADER',
+    action = act.CloseCurrentPane { confirm = true }
+  },
+
+  {
     key = 'r',
     mods = 'LEADER',
     action = act.PromptInputLine {
