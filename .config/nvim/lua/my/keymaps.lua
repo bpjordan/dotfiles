@@ -218,20 +218,24 @@ vim.api.nvim_create_user_command(
   { desc = 'Clear Harpoon main list' }
 )
 
-vim.api.nvim_create_autocmd('BufRead', {
+vim.api.nvim_create_autocmd({ 'BufRead', 'LspAttach' }, {
   group = vim.api.nvim_create_augroup('format-check', { clear = true }),
   pattern = '*',
   callback = function(e)
-    -- Checking immediately upon BufReadPost can sometimes cause concurrent modification errors
+    if e.event == 'LspAttach' and not require('conform').will_fallback_lsp { bufnr = e.buf } then return end
+
+    -- Defer since checking immediately upon BufReadPost can sometimes cause concurrent modification errors
     vim.schedule(function()
-      require('conform').format({ dry_run = true, async = true, quiet = true }, function(err, changed)
-        if err then
-          vim.notify('Error checking formatters: ' .. err, vim.log.levels.WARN)
-        elseif changed then
-          vim.b[e.buf].disable_autoformat = true
-          vim.notify('Buffer is unformatted; autoformatting disabled')
+      require('conform').format(
+        { bufnr = e.buf, dry_run = true, async = true, quiet = true, lsp_fallback = true },
+        function(err, changed)
+          if err then
+            vim.notify('Error checking formatters: ' .. err, vim.log.levels.WARN)
+          else
+            vim.b[e.buf].disable_autoformat = changed
+          end
         end
-      end)
+      )
     end)
   end,
 })
