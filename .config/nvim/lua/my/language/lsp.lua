@@ -29,11 +29,11 @@ function M.setup(servers)
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
     if vim.lsp.inlay_hint and client.server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(bufnr, true)
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
     nmap(
       '<leader>it',
-      function() vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr)) end,
+      function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(bufnr), { bufnr = bufnr }) end,
       '[I]nlay Hint [T]oggle'
     )
 
@@ -45,12 +45,7 @@ function M.setup(servers)
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
   local ensure_installed = nil
-  if vim.iter then
-    ensure_installed = vim.iter.filter(
-      function(server_name) return servers[server_name].install end,
-      vim.tbl_keys(servers)
-    )
-  end
+  if vim.iter then ensure_installed = vim.iter(servers):filter(function(_, config) return config.install end) end
 
   require('mason-lspconfig').setup {
     ensure_installed = ensure_installed,

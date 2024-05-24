@@ -45,11 +45,14 @@ return { -- LSP Configuration & Plugins
     opts = {
       formatters_by_ft = {
         rust = { 'rustfmt' },
-        javascript = { { 'eslint_d', 'prettierd', 'prettier' } },
+        javascript = { { 'prettier', 'eslint_d', 'prettierd' } },
+        typescript = { { 'prettier', 'eslint_d', 'prettierd' } },
         css = { { 'eslint_d', 'prettierd', 'prettier' } },
         json = { { 'jq', 'prettierd', 'prettier' } },
         lua = { 'stylua' },
         markdown = { 'fold', 'markdownlint' },
+        python = { 'black' },
+        yaml = { 'trim_whitespace' },
         ['_'] = { 'trim_whitespace' },
       },
       notify_on_error = true,
