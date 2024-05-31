@@ -139,3 +139,10 @@ export BAT_PAGER="less -F"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+tf_bin=$(command -v terraform)
+if [[ -n "$tf_bin" ]]; then
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C "$tf_bin" terraform
+    alias tf=terraform
+fi
