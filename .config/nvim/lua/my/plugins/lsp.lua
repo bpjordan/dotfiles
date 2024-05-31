@@ -40,36 +40,5 @@ return { -- LSP Configuration & Plugins
       click = true,
     },
   },
-  {
-    'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        rust = { 'rustfmt' },
-        javascript = { { 'prettier', 'eslint_d', 'prettierd' } },
-        typescript = { { 'prettier', 'eslint_d', 'prettierd' } },
-        css = { { 'eslint_d', 'prettierd', 'prettier' } },
-        json = { { 'jq', 'prettierd', 'prettier' } },
-        lua = { 'stylua' },
-        markdown = { 'fold', 'markdownlint' },
-        python = { 'black' },
-        yaml = { 'trim_whitespace' },
-        ['_'] = { 'trim_whitespace' },
-      },
-      notify_on_error = true,
-      format_on_save = function(bufnr)
-        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return end
-        return {
-          timeout_ms = 500,
-          lsp_fallback = true,
-        }
-      end,
-      formatters = {
-        fold = {
-          command = 'fold',
-          args = { '-s' },
-        },
-      },
-    },
-    event = 'BufWritePre',
-  },
+  'stevearc/conform.nvim',
 }
