@@ -134,7 +134,3 @@ if ! shopt -oq posix; then
 fi
 
 PROMPT_DIRTRIM=4
-
-if [ -f /usr/bin/neofetch ] && ! [ -n "$TMUX" ]; then
-    /usr/bin/neofetch --disable packages
-fi
