@@ -230,7 +230,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'LspAttach' }, {
         { bufnr = e.buf, dry_run = true, async = true, quiet = true, lsp_fallback = true },
         function(err, changed)
           if err then
-            vim.notify('Error checking formatters: ' .. err, vim.log.levels.WARN)
+            vim.notify('Error checking formatters: ' .. tostring(err), vim.log.levels.WARN)
           else
             vim.b[e.buf].disable_autoformat = changed
           end
