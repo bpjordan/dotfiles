@@ -38,8 +38,8 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' actionformats '%u%c%m%F{cyan}%b(%B%a%%b)%F{reset}'
-zstyle ':vcs_info:git:*' formats '%u%c%m%F{cyan}%b%F{reset}'
+zstyle ':vcs_info:git:*' actionformats '%u%c%m%F{cyan}%b(%B%a%%b)%F{reset}'
+zstyle ':vcs_info:git:*' formats '%u%c%m%F{yellow} %F{cyan}%b%F{reset}'
 zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset} '
 zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset} '
 
