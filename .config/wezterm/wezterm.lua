@@ -27,18 +27,18 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
       return
     end
 
-    local basename = basename(value)
+    local short = basename(value)
 
-    if not basename then
+    if not short then
       wezterm.log_error("Sessionizer couldn't get basename of dir `" .. value .. '`')
       return
     end
 
-    wezterm.log_info('Sessionizer switching to `', basename, '`')
+    wezterm.log_info('Sessionizer switching to `', short, '`')
 
     window:perform_action(
       act.SwitchToWorkspace {
-        name = basename,
+        name = short,
         spawn = {
           cwd = value,
         },
@@ -47,6 +47,9 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
     )
   end
 end)
+
+local term = 'xterm-256color'
+if os.execute('infocmp wezterm') then term = 'wezterm' end
 
 local conf = {
   window_background_opacity = 0.9,
@@ -58,6 +61,8 @@ local conf = {
 
   tab_bar_at_bottom = true,
   use_fancy_tab_bar = false,
+
+  term = term,
 
   default_workspace = basename(wezterm.home_dir),
 
