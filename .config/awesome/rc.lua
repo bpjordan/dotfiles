@@ -242,7 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spacing = 10,
-            cpu_widget(),
+            -- cpu_widget(),
             ram_widget({
                 color_used = beautiful.fg_normal,
                 color_free = beautiful.bg_focus,
@@ -687,4 +687,5 @@ spawn_single_client("nm-applet")
 spawn_single_client("lxsession")
 spawn_single_client("firefox")
 spawn_single_client("wezterm")
+spawn_single_client("udiskie", "--no-automount --tray")
 
