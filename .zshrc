@@ -11,6 +11,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 
+zinit snippet OMZP::git-auto-fetch
+
 autoload -U compinit && compinit
 
 bindkey -e
