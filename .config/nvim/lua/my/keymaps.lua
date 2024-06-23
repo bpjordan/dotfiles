@@ -58,13 +58,8 @@ vim.keymap.set(
   { desc = 'Harpoon: Open UI' }
 )
 
--- file tree
-vim.keymap.set(
-  'n',
-  '<leader>ft',
-  function() require('nvim-tree.api').tree.open { find_file = true } end,
-  { desc = 'Open [F]ile [T]ree' }
-)
+-- -- file tree
+vim.keymap.set('n', '<leader>f', require('oil').open_float, { desc = 'Open [F]ile tree' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`

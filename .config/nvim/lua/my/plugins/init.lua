@@ -46,33 +46,8 @@ return {
   },
 
   {
-    'nvim-tree/nvim-tree.lua',
-    cmd = 'NvimTree',
-    init = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-    end,
-    opts = {
-      sort_by = 'case_sensitive',
-      renderer = {
-        group_empty = true,
-      },
-      filters = {
-        dotfiles = false,
-      },
-      diagnostics = {
-        enable = true,
-        show_on_dirs = true,
-      },
-      actions = {
-        change_dir = { enable = false },
-        expand_all = { exclude = { '.git', 'target', 'build', 'node_modules' } },
-        open_file = { quit_on_open = true },
-      },
-    },
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
+    'stevearc/oil.nvim',
+    config = true,
   },
   {
     'ThePrimeagen/vim-be-good',
