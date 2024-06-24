@@ -135,7 +135,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set(
   'n',
   '<leader>q',
-  function() require('trouble').open('diagnostics') end,
+  function() require('trouble').toggle('diagnostics') end,
   { desc = 'Open diagnostics list' }
 )
 

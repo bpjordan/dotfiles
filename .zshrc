@@ -41,7 +41,7 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' actionformats '%u%c%m %F{cyan}%b(%B%a%%b)%F{reset}'
+zstyle ':vcs_info:git:*' actionformats '%u%c%m%F{yellow} %F{cyan}%b(%B%a%%b)%F{reset}'
 zstyle ':vcs_info:git:*' formats '%u%c%m%F{yellow} %F{cyan}%b%F{reset}'
 zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset} '
 zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset} '
@@ -165,7 +165,11 @@ esac
 
 export PATH="$HOME/.local/bin:$PATH"
 
-export BAT_PAGER="less -F"
+export BAT_PAGER="less -FR"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 tf_bin=$(command -v terraform)
 if [[ -n "$tf_bin" ]]; then
