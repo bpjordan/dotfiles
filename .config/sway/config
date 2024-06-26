@@ -1,0 +1,64 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term wezterm
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $rofi_cmd rofi -terminal '$term'
+set $menu $rofi_cmd -show drun | xargs swaymsg exec --
+
+output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
+
+### Input configuration
+#
+# Example configuration:
+#
+input "type:touchpad" {
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+}
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+gaps inner 5
+gaps outer 5
+default_border pixel
+default_floating_border normal
+titlebar_padding 1
+titlebar_border_thickness 0
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+  position top
+
+    status_command i3status-rs
+    font pango:Droid SansM Nerd Font 12
+
+    tray_padding 4
+
+    colors {
+      statusline #ffffff
+      background #323232
+      inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+include /etc/sway/config.d/*
+include ~/.config/sway/keys
+include ~/.config/sway/config.d/*
+
+exec udiskie --no-automount --tray
