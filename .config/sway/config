@@ -13,7 +13,7 @@ set $term wezterm
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $rofi_cmd rofi -terminal '$term'
-set $menu $rofi_cmd -show drun | xargs swaymsg exec --
+set $menu $rofi_cmd -show combi -combi-modes 'window,run' -modes combi
 
 output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
 
@@ -21,12 +21,14 @@ output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
 #
 # Example configuration:
 #
-input "type:touchpad" {
+input type:touchpad {
   dwt enabled
   tap enabled
   natural_scroll enabled
   middle_emulation enabled
 }
+
+input type:keyboard xkb_options caps:escape_shifted_capslock
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -38,6 +40,8 @@ default_floating_border normal
 titlebar_padding 1
 titlebar_border_thickness 0
 
+for_window [shell="xwayland"] title_format "[XWayland] %title"
+
 #
 # Status Bar:
 #
@@ -45,20 +49,24 @@ titlebar_border_thickness 0
 bar {
   position top
 
-    status_command i3status-rs
-    font pango:Droid SansM Nerd Font 12
+  swaybar_command waybar
+}
 
-    tray_padding 4
-
-    colors {
-      statusline #ffffff
-      background #323232
-      inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+seat seat0 xcursor_theme 'Catppuccin-Mocha-Light'
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adapta-Nokto-Eta'
+    gsettings set $gnome-schema icon-theme 'Arc'
+    gsettings set $gnome-schema color-scheme prefer-dark
+    gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Light'
+    gsettings set $gnome-schema font-name 'RobotoMono Nerd Font'
 }
 
 include /etc/sway/config.d/*
 include ~/.config/sway/keys
 include ~/.config/sway/config.d/*
 
-exec udiskie --no-automount --tray
+exec udiskie --no-automount --smart-tray
+exec blueman-applet
+exec nm-applet
+exec swaync
