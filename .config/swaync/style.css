@@ -1,7 +1,4 @@
 
-/* background-color: rgba(43, 48, 59, 0.5); */
-/* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-
 @define-color cc-bg rgba(43, 48, 59, 1);
 @define-color cc-border rgba(100, 114, 125, 0.5);
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
