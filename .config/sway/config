@@ -1,26 +1,17 @@
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
+
 set $mod Mod4
-# Home row direction keys, like vim
+
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
+
 set $term wezterm
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $rofi_cmd rofi -terminal '$term'
 set $menu $rofi_cmd -show combi -combi-modes 'window,run' -modes combi
 
 output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
 
-### Input configuration
-#
-# Example configuration:
-#
 input type:touchpad {
   dwt enabled
   tap enabled
@@ -29,28 +20,28 @@ input type:touchpad {
 }
 
 input type:keyboard xkb_options caps:escape_shifted_capslock
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 focus_follows_mouse no
 
 gaps inner 5
 gaps outer 5
 default_border pixel
-default_floating_border normal
+default_floating_border pixel
 titlebar_padding 1
 titlebar_border_thickness 0
 
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+for_window [window_type="dialog"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_role="pop-up"] floating enable
+
+# Firefox picture-in-picture video
+for_window [title="Picture-in-Picture" app_id="firefox"] floating enable, resize set 25 ppt 25 ppt, move position 75 ppt 75 ppt, sticky enable
+
+
 bar {
   position top
-
   swaybar_command waybar
 }
 

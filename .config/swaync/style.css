@@ -1,5 +1,5 @@
 
-@define-color cc-bg rgba(43, 48, 59, 1);
+@define-color cc-bg rgba(34, 45, 50, 0.9);
 @define-color cc-border rgba(100, 114, 125, 0.5);
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
 @define-color noti-bg rgba(48, 48, 48, 0.8);
@@ -69,6 +69,26 @@
   box-shadow: none;
 }
 
+
+/* Inhibitors widget */
+.widget-inhibitors {
+  margin: 8px;
+  font-size: 1.5rem;
+}
+
+.widget-inhibitors > button {
+  font-size: initial;
+  color: @text-color;
+  text-shadow: none;
+  background: @noti-bg;
+  border: 1px solid @noti-border-color;
+  box-shadow: none;
+  border-radius: 12px;
+}
+
+.widget-inhibitors > button:hover {
+  background: @noti-bg-hover;
+}
 /*** Widgets ***/
 /* Title widget */
 .widget-title {
@@ -192,20 +212,6 @@
   /* style given to the active toggle button */
 }
 
-/* Menubar widget */
-
-.widget-menubar {
-  background: transparent;
-  padding: 4px 8px;
-  margin: 4px 8px;
-  border-radius: 12px;
-}
-
-.widget-menubar > box > .menu-button-bar > button {
-  border-radius: 12px;
-  background: @noti-bg;
-}
-
 /* .AnyName { Name defined in config after #
   background-color: @noti-bg;
   padding: 8px;
@@ -231,7 +237,7 @@
 .widget-volume {
   background: transparent;
   padding: 4px 8px;
-  margin: 4px 8px;
+  margin: 2px 8px;
   border-radius: 12px;
 }
 
@@ -251,26 +257,22 @@
 .widget-backlight {
   background: transparent;
   padding: 4px 8px;
-  margin: 4px 8px;
+  margin: 2px 8px;
   border-radius: 12px;
 }
 
-/* Inhibitors widget */
-.widget-inhibitors {
-  margin: 8px;
-  font-size: 1.5rem;
+/* Menubar widget */
+
+.widget-menubar {
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin: 2px 8px;
+  margin-bottom: 4px;
 }
 
-.widget-inhibitors > button {
-  font-size: initial;
-  color: @text-color;
-  text-shadow: none;
+.widget-menubar > box > .menu-button-bar > button {
+  border-radius: 12px;
   background: @noti-bg;
-  border: 1px solid @noti-border-color;
-  box-shadow: none;
-  border-radius: 12px;
 }
 
-.widget-inhibitors > button:hover {
-  background: @noti-bg-hover;
-}
