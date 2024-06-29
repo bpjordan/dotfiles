@@ -1,8 +1,8 @@
 
-    /* background-color: rgba(43, 48, 59, 0.5); */
-    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
+/* background-color: rgba(43, 48, 59, 0.5); */
+/* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
 
-@define-color cc-bg rgba(43, 48, 59, 0.7);
+@define-color cc-bg rgba(43, 48, 59, 1);
 @define-color cc-border rgba(100, 114, 125, 0.5);
 @define-color noti-border-color rgba(255, 255, 255, 0.15);
 @define-color noti-bg rgba(48, 48, 48, 0.8);
@@ -17,6 +17,10 @@
 @define-color text-color-disabled rgb(150, 150, 150);
 @define-color bg-selected rgb(0, 128, 255);
 
+* {
+  font-family: Droid SansM Nerd Font ;
+}
+
 @import 'notifications.css';
 
 .control-center {
@@ -26,16 +30,19 @@
   border-color: @noti-border-color;
   border: 3px solid @cc-border;
   border-radius: 12px;
+  margin: 3px;
 }
 
 .control-center .control-center-list-placeholder {
   /* The placeholder when there are no notifications */
   opacity: 1;
+  min-height: 200px;
 }
 
 .control-center .control-center-list {
   /* List of notifications */
   background: transparent;
+  min-height: 200em;
 }
 
 .control-center .control-center-list .notification {
@@ -189,6 +196,14 @@
 }
 
 /* Menubar widget */
+
+.widget-menubar {
+  background: transparent;
+  padding: 4px 8px;
+  margin: 4px 8px;
+  border-radius: 12px;
+}
+
 .widget-menubar > box > .menu-button-bar > button {
   border-radius: 12px;
   background: @noti-bg;
@@ -217,15 +232,15 @@
 
 /* Volume widget */
 .widget-volume {
-  background-color: @noti-bg;
-  padding: 8px;
-  margin: 8px;
+  background: transparent;
+  padding: 4px 8px;
+  margin: 4px 8px;
   border-radius: 12px;
 }
 
 .widget-volume > box > button {
-  background: transparent;
-  border: none;
+  border-radius: 12px;
+  background: @noti-bg;
 }
 
 .per-app-volume {
@@ -237,9 +252,9 @@
 
 /* Backlight widget */
 .widget-backlight {
-  background-color: @noti-bg;
-  padding: 8px;
-  margin: 8px;
+  background: transparent;
+  padding: 4px 8px;
+  margin: 4px 8px;
   border-radius: 12px;
 }
 

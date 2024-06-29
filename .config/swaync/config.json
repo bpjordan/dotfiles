@@ -22,14 +22,14 @@
   "hide-on-action": false,
   "script-fail-notify": true,
   "widgets": [
-    "menubar",
-    "volume",
-    "backlight",
     "mpris",
     "title",
     "dnd",
     "notifications",
-    "label"
+    "label",
+    "volume",
+    "backlight",
+    "menubar"
   ],
   "widget-config": {
     "title": {
