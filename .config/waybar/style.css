@@ -1,3 +1,4 @@
+
 * {
     font-family: Droid SansM Nerd Font ;
     font-size: 14px;
@@ -69,14 +70,13 @@ button:hover {
 #pulseaudio,
 #wireplumber,
 #custom-media,
-#tray,
 #mode,
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
 #custom-notification,
 #mpd {
-    padding: 0 10px;
+    padding: 0 7px;
     background-color: transparent;
     color: #ffffff;
 }
@@ -122,7 +122,7 @@ button:hover {
     background-color: #f53c3c;
     color: #ffffff;
     animation-name: blink;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: steps(12);
     animation-iteration-count: infinite;
     animation-direction: alternate;

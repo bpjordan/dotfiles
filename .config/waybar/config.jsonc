@@ -8,16 +8,18 @@
   "modules-left": [
     "sway/workspaces",
     "sway/mode",
-    "sway/scratchpad",
+    "sway/scratchpad"
+  ],
+  "modules-center": [
     "sway/window"
   ],
-  "modules-center": [],
   "modules-right": [
     "mpris",
     "pulseaudio",
-    "network",
+    "pulseaudio#mic",
+    // "network",
     // "group/hardware",
-    "backlight",
+    // "backlight",
     "tray",
     "battery",
     "clock",
@@ -37,7 +39,7 @@
     "disable-scroll": true,
     "all-outputs": true,
     "warp-on-scroll": false,
-    "format": "{icon} ",
+    "format": "{icon}",
     "persistent_workspaces": {
       "1": [],
       "2": [],
@@ -47,11 +49,11 @@
       "6": []
     },
     "format-icons": {
-      "1": "",
-      "2": "󰈹",
-      "3": "",
-      "4": "",
-      "5": "",
+      "1": " ",
+      "2": "󰈹 ",
+      "3": " ",
+      "4": " ",
+      "5": " ",
       "urgent": "",
       // "focused": "",
       "default": ""
@@ -70,9 +72,14 @@
     "tooltip": true,
     "tooltip-format": "{app}: {title}"
   },
+  "sway/window": {
+    "max-length": 75,
+    "icon": true,
+    "icon-size": 18
+  },
   "tray": {
     "icon-size": 21,
-    "spacing": 10
+    "spacing": 7
   },
   "clock": {
     // "timezone": "America/New_York",
@@ -118,10 +125,10 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon} ",
-    "format-charging": "{capacity}%  ",
-    "format-plugged": "{capacity}%  ",
-    "format-alt": "{time} {icon} ",
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
     "tooltip-format-charging": "Charging",
     "tooltip-format-plugged": "Fully Charged",
     "format-icons": [
@@ -140,12 +147,10 @@
     "format-disconnected": "󰲛"
   },
   "pulseaudio": {
-    "format": "{volume}% {icon} {format_source}",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": "",
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": "",
     "format-icons": {
       "headphone": "",
       "phone": "",
@@ -157,7 +162,15 @@
         ""
       ]
     },
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol -t 3"
+  },
+  "pulseaudio#mic": {
+    "format": "{format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4"
   },
   "mpris": {
     "format": "{player_icon} {status_icon} {dynamic}",

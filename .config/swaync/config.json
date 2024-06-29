@@ -2,11 +2,9 @@
   "$schema": "/etc/xdg/swaync/configSchema.json",
   "positionX": "right",
   "positionY": "top",
-  "cssPriority": "user",
   "control-center-width": 380,
-  "control-center-height": 860,
   "control-center-margin-top": 2,
-  "control-center-margin-bottom": 2,
+  "control-center-margin-bottom": 20,
   "control-center-margin-right": 1,
   "control-center-margin-left": 0,
   "notification-window-width": 400,
@@ -23,26 +21,15 @@
   "hide-on-clear": false,
   "hide-on-action": false,
   "script-fail-notify": true,
-  "scripts": {
-    "example-script": {
-      "exec": "echo 'Do something...'",
-      "urgency": "Normal"
-    }
-  },
-  "notification-visibility": {
-    "example-name": {
-      "state": "muted",
-      "urgency": "Low",
-      "app-name": "Spotify"
-    }
-  },
   "widgets": [
-    "label",
-    "buttons-grid",
+    "menubar",
+    "volume",
+    "backlight",
     "mpris",
     "title",
     "dnd",
-    "notifications"
+    "notifications",
+    "label"
   ],
   "widget-config": {
     "title": {
@@ -63,27 +50,35 @@
     },
     "volume": {
       "label": "󰕾",
+      "expand-button-label": "󰄽",
+      "collapse-button-label": "󰄼",
       "show-per-app": true
     },
+    "menubar": {
+      "menu#power": {
+        "label": " ",
+        "actions": [
+          {
+            "label": "󰗽",
+            "command": "swaymsg exit"
+          },
+          {
+            "label": "󰜉",
+            "command": "reboot"
+          },
+          {
+            "label": "󰐥",
+            "command": "shutdown now"
+          }
+        ]
+      }
+    },
+    "backlight": {
+      "label": "󰃝",
+      "min": 5
+    },
     "buttons-grid": {
-      "actions": [
-        {
-          "label": " ",
-          "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-        },
-        {
-          "label": "",
-          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        },
-        {
-          "label": " ",
-          "command": "nm-connection-editor"
-        },
-        {
-          "label": "󰂯",
-          "command": "blueman-manager"
-        }
-      ]
+      "actions": []
     }
   }
 }
