@@ -39,7 +39,6 @@ for_window [window_role="pop-up"] floating enable
 # Firefox picture-in-picture video
 for_window [title="Picture-in-Picture" app_id="firefox"] floating enable, resize set 25 ppt 25 ppt, move position 75 ppt 75 ppt, sticky enable
 
-
 bar {
   position top
   swaybar_command waybar
