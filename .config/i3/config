@@ -15,17 +15,22 @@ bar {
 
   workspace_min_width 25
 
-  padding 0 5
+  padding 0 10 0 5
 
   colors {
-    background #222d32d0
+    background #222d32b0
     statusline #ffffffff
+    focused_background #222d32d0
+
+    focused_workspace #ffffff #64727D #ffffff
+    inactive_workspace #222d32b0 #222d32b0 #ffffff
   }
 
 }
 
+exec_always --no-startup-id feh --no-fehbg --bg-scale $(find $confdir/backgrounds -type f | shuf -n1)
+exec_always --no-startup-id ~/.dotfiles/scripts/i3-autotile -w 1 3 5 7 9
 exec --no-startup-id $compositor
 exec --no-startup-id udiskie --no-automount --smart-tray
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet
-exec_always --no-startup-id feh --no-fehbg --bg-scale $(find $confdir/backgrounds -type f | shuf -n1)

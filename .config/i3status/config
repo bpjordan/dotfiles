@@ -4,13 +4,7 @@ general {
 
 order += "volume master"
 order += "battery all"
-
-battery all {
-  format = "%status %percentage"
-  status_full = " "
-  status_bat = " "
-  status_chr = " "
-}
+order += "tztime local"
 
 volume master {
   format = "  %volume"
@@ -18,4 +12,18 @@ volume master {
   device = "pulse"
   separator_block_width = 30
   min_width = 7
+}
+
+battery all {
+  integer_battery_capacity = true
+  format = "%status %percentage"
+  status_full = " "
+  status_bat = " "
+  status_chr = " "
+  separator_block_width = 30
+}
+
+tztime local {
+  format = "%H:%M:%S"
+  separator_block_width = 30
 }

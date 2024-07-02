@@ -1,3 +1,5 @@
+// vim: set ft=rasi:
+
 configuration {
   font: "Droid SansM Nerd Font 14";
   show-icons: true;
@@ -9,19 +11,21 @@ configuration {
 
   display-combi: "Run";
 
-  window {
-    show-icons: false;
-  }
+  monitor: "primary";
 
-  timeout {
-    action: "kb-cancel";
-    delay:  0;
-  }
-
-  filebrowser {
-    directories-first: true;
-    sorting-method:    "name";
-  }
+  // window {
+  //   show-icons: false;
+  // }
+  //
+  // timeout {
+  //   action: "kb-cancel";
+  //   delay:  0;
+  // }
+  //
+  // filebrowser {
+  //   directories-first: true;
+  //   sorting-method:    "name";
+  // }
 }
 
 @theme "Adapta-Nokto"
