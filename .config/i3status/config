@@ -2,6 +2,7 @@ general {
   colors = true
 }
 
+order += "volume master"
 order += "battery all"
 
 battery all {
@@ -9,4 +10,12 @@ battery all {
   status_full = " "
   status_bat = " "
   status_chr = " "
+}
+
+volume master {
+  format = "  %volume"
+  format_muted = " "
+  device = "pulse"
+  separator_block_width = 30
+  min_width = 7
 }

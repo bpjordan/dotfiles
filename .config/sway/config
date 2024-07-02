@@ -1,9 +1,17 @@
 
 set $term wezterm
 set $rofi_base rofi -terminal '$term'
-set $menu $rofi_base -show combi -combi-modes 'window,drun' -combi-modi 'window,drun'
+set $menu $rofi_base -show combi
 
-output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
+set $reload_cmd reload
+set $exit_cmd swaynag -t warning -m 'Logout and exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
+
+set $confdir ~/.dotfiles/.config
+include '$confdir/common/i3/*'
+include /etc/sway/config.d/*
+include ~/.config/sway/config.local.d/*
+
+output * bg `find $confdir/backgrounds -type f | shuf -n 1` fill
 
 input type:touchpad {
   dwt enabled
@@ -29,13 +37,6 @@ bar {
   position top
   swaybar_command waybar
 }
-
-set $reload_cmd reload
-
-set $confdir ~/.dotfiles/.config
-include '$confdir/common/i3/*'
-include /etc/sway/config.d/*
-include ~/.config/sway/config.local.d/*
 
 exec udiskie --no-automount --smart-tray
 exec blueman-applet

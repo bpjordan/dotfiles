@@ -12,15 +12,15 @@ set $right l
 # Basics:
 #
 # Start a terminal
-bindsym $mod+Return exec "$term"
+bindsym $mod+Return exec $term
 
 # Kill focused window
 bindsym $mod+Shift+q kill
 
 # Start your launcher
-bindsym $mod+r exec "$menu"
+bindsym $mod+r exec $menu
 
-bindsym $mod+Escape exec 'swaync-client -t'
+bindsym $mod+Escape exec swaync-client -t
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -33,7 +33,7 @@ floating_modifier $mod
 bindsym $mod+Shift+r reload
 
 # Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'"
+bindsym $mod+Shift+e exec $exit_cmd
 #
 # Moving around:
 #
@@ -147,13 +147,13 @@ mode "resize" {
 }
 # bindsym $mod+r mode "resize"
 
-bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
-bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
-bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
-bindsym XF86AudioMicMute exec 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
-bindsym XF86MonBrightnessDown exec 'brightnessctl set 5%-'
-bindsym XF86MonBrightnessUp exec 'brightnessctl set 5%+'
-bindsym XF86AudioPlay exec 'playerctl play-pause'
-bindsym XF86AudioNext exec 'playerctl next'
-bindsym XF86AudioPrev exec 'playerctl previous'
-bindsym XF86Search exec 'bemenu-run'
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec bemenu-run

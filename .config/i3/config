@@ -1,6 +1,7 @@
 
 set $term wezterm
 set $menu rofi -show combi
+set $compositor compton
 
 set $confdir ~/.dotfiles/.config
 include $confdir/common/i3/*
@@ -10,8 +11,11 @@ bar {
   i3bar_command i3bar --transparency
   status_command i3status
   position top
-  workspace_buttons no
   output primary
+
+  workspace_min_width 25
+
+  padding 0 5
 
   colors {
     background #222d32d0
@@ -20,8 +24,8 @@ bar {
 
 }
 
-exec --no-startup-id compton
+exec --no-startup-id $compositor
 exec --no-startup-id udiskie --no-automount --smart-tray
 exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet
-exec_always --no-startup-id feh --no-fehbg --bg-scale $confdir/backgrounds/theoneelizabethlikes.jpg
+exec_always --no-startup-id feh --no-fehbg --bg-scale $(find $confdir/backgrounds -type f | shuf -n1)
