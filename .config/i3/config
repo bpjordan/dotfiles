@@ -1,0 +1,27 @@
+
+set $term wezterm
+set $menu rofi -show combi
+
+set $confdir ~/.dotfiles/.config
+include $confdir/common/i3/*
+include $confdir/i3/config.local.d/*
+
+bar {
+  i3bar_command i3bar --transparency
+  status_command i3status
+  position top
+  workspace_buttons no
+  output primary
+
+  colors {
+    background #222d32d0
+    statusline #ffffffff
+  }
+
+}
+
+exec --no-startup-id compton
+exec --no-startup-id udiskie --no-automount --smart-tray
+exec --no-startup-id blueman-applet
+exec --no-startup-id nm-applet
+exec_always --no-startup-id feh --no-fehbg --bg-scale $confdir/backgrounds/theoneelizabethlikes.jpg

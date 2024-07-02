@@ -1,14 +1,7 @@
 
-set $mod Mod4
-
-set $left h
-set $down j
-set $up k
-set $right l
-
 set $term wezterm
-set $rofi_cmd rofi -terminal '$term'
-set $menu $rofi_cmd -show combi -combi-modes 'window,run' -modes combi
+set $rofi_base rofi -terminal '$term'
+set $menu $rofi_base -show combi -combi-modes 'window,drun' -combi-modi 'window,drun'
 
 output * bg ~/.config/backgrounds/theoneelizabethlikes.jpg fill
 
@@ -22,13 +15,6 @@ input type:touchpad {
 input type:keyboard xkb_options caps:escape_shifted_capslock
 
 focus_follows_mouse no
-
-gaps inner 5
-gaps outer 5
-default_border pixel
-default_floating_border pixel
-titlebar_padding 1
-titlebar_border_thickness 0
 
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
@@ -44,18 +30,11 @@ bar {
   swaybar_command waybar
 }
 
-seat seat0 xcursor_theme 'Catppuccin-Mocha-Light'
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Adapta-Nokto-Eta'
-    gsettings set $gnome-schema icon-theme 'Arc'
-    gsettings set $gnome-schema color-scheme prefer-dark
-    gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Light'
-    gsettings set $gnome-schema font-name 'RobotoMono Nerd Font'
-}
+set $reload_cmd reload
 
+set $confdir ~/.dotfiles/.config
+include '$confdir/common/i3/*'
 include /etc/sway/config.d/*
-include ~/.config/sway/keys
 include ~/.config/sway/config.local.d/*
 
 exec udiskie --no-automount --smart-tray

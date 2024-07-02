@@ -1,0 +1,14 @@
+# vim: set ft=i3config:
+
+gaps inner 5
+gaps outer 5
+default_border pixel
+default_floating_border pixel
+font pango:Droid SansM Nerd Font 12
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always gsettings set $gnome-schema gtk-theme 'Adapta-Nokto-Eta'
+exec_always gsettings set $gnome-schema icon-theme 'Arc'
+exec_always gsettings set $gnome-schema color-scheme prefer-dark
+exec_always gsettings set $gnome-schema cursor-theme 'Catppuccin-Mocha-Light'
+exec_always gsettings set $gnome-schema font-name 'RobotoMono Nerd Font'

@@ -1,0 +1,12 @@
+general {
+  colors = true
+}
+
+order += "battery all"
+
+battery all {
+  format = "%status %percentage"
+  status_full = " "
+  status_bat = " "
+  status_chr = " "
+}
