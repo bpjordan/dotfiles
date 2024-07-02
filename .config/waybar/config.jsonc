@@ -115,11 +115,11 @@
       "tooltip-format-charging": "Charging - {capacity}%",
       "tooltip-format-plugged": "Fully Charged",
       "format-icons": [
-        "",
-        "",
-        "",
-        "",
-        ""
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
       ]
     },
     "network": {
