@@ -23,7 +23,9 @@ bar {
     focused_background #222d32d0
 
     focused_workspace #ffffff #64727D #ffffff
+    active_workspace #ffffff #222d32b0  #ffffff
     inactive_workspace #222d32b0 #222d32b0 #ffffff
+    urgent_workspace #ff0000 #222d32b0 #ff0000
   }
 
 }
