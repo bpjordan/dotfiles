@@ -16,9 +16,9 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-window#waybar.empty {
-    background-color: transparent;
-}
+/* window#waybar.empty { */
+/*     background-color: transparent; */
+/* } */
 
 button {
     /* Use box-shadow instead of border so the text isn't offset */
@@ -60,11 +60,11 @@ button:hover {
 }
 
 #pulseaudio.output.muted {
-    color: red;
+    color: #f53c3c;
 }
 
 #pulseaudio.mic.source-muted {
-    color: red;
+    color: #f53c3c;
 }
 
 #clock,
@@ -115,9 +115,20 @@ button:hover {
 /* } */
 /**/
 /* #battery.charging, #battery.plugged { */
-/*     color: #ffffff; */
-/*     background-color: #26A65B; */
+/*     color: #26a65b; */
 /* } */
+/**/
+#battery.full {
+    color: #26a65b;
+}
+
+#battery.warn {
+    color: #ff9800;
+}
+
+#battery.bad, #battery.critical.charging {
+    color: #f53c3c;
+}
 
 @keyframes blink {
     to {

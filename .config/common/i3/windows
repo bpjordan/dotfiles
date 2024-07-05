@@ -1,5 +1,7 @@
 # vim: set ft=i3config:
 
+exec_always --no-startup-id ~/.dotfiles/scripts/i3-autotile -w 1 3 5 7 9
+
 for_window [window_type="dialog"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [window_role="pop-up"] floating enable

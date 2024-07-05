@@ -40,6 +40,7 @@
   /* List of notifications */
   background: transparent;
   min-height: 200em;
+  height: auto;
 }
 
 .control-center .control-center-list .notification {
