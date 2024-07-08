@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    up)
+        pactl set-sink-volume @DEFAULT_SINK@ +5%
+        ;;
+    down)
+        pactl set-sink-volume @DEFAULT_SINK@ -5%
+        ;;
+    mute)
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        ;;
+    *)
+        echo "invalid action $1" >&2
+        exit 1
+        ;;
+esac
+
+if command -v pamixer &> /dev/null; then
+    volume=$(pamixer --get-volume)
+    mute=$(pamixer --get-mute)
+else
+    pastat="$(pactl list sinks)"
+    volume="$(echo "$pastat" | grep '^[[:space:]]Volume:' | sed 's,.* \([0-9][0-9]*\)%.*,\1,')"
+    mute="$(echo "$pastat" | grep '^[[:space:]]Mute:' | sed 's,.*Mute: \([a-z]\+\),\1,')"
+fi
+
+if [[ -z "$volume" || -z "$mute" ]]; then
+    exit 1
+fi
+
+if [[ "$mute" == "true" || "$mute" == "yes" || $volume -le 0 ]]; then
+    notify-send -a volnotify -i audio-volume-muted -h string:x-canonical-private-synchronous:volnotify "Muted" 
+    exit 0
+fi
+
+if (( "$volume" > 100 )); then
+    icon=audio-volume-high-danger
+elif (( "$volume" > 70 )); then
+    icon=audio-volume-high
+elif (( "$volume" > 40 )); then
+    icon=audio-volume-medium
+else
+    icon=audio-volume-low
+fi
+
+notify-send -a volnotify -i $icon -h int:value:$volume -h int:transient:1 -h string:x-canonical-private-synchronous:volnotify "Volume" 

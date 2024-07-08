@@ -7,6 +7,7 @@ set $reload_cmd reload
 set $exit_cmd swaynag -t warning -m 'Logout and exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'
 
 set $confdir ~/.dotfiles/.config
+set $scriptdir ~/.dotfiles/scripts
 include '$confdir/common/i3/*'
 include /etc/sway/config.d/*
 include ~/.config/sway/config.local.d/*
@@ -25,10 +26,6 @@ input type:keyboard xkb_options caps:escape_shifted_capslock
 focus_follows_mouse no
 
 for_window [shell="xwayland"] title_format "[XWayland] %title"
-
-for_window [window_type="dialog"] floating enable
-for_window [window_role="dialog"] floating enable
-for_window [window_role="pop-up"] floating enable
 
 # Firefox picture-in-picture video
 for_window [title="Picture-in-Picture" app_id="firefox"] floating enable, resize set 25 ppt 25 ppt, move position 75 ppt 75 ppt, sticky enable

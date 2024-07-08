@@ -31,6 +31,9 @@
     # screen width minus the width defined in within the geometry option.
     geometry = "400x5-20+30"
 
+    width = (250, 400)
+    height = 250
+
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
 
@@ -58,6 +61,8 @@
 
     # Horizontal padding.
     horizontal_padding = 8
+
+    gap_size = 5
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
@@ -276,19 +281,19 @@
     context = ctrl+shift+period
 
 [urgency_low]
+    background = "#222d32"
+    foreground = "#ffffff"
+    timeout = 10
+    # Icon for notifications with normal urgency, uncomment to enable
+    #icon = /path/to/icon
+
+[urgency_normal]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#222222"
     foreground = "#ffffff"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
-    #icon = /path/to/icon
-
-[urgency_normal]
-    background = "#222d32"
-    foreground = "#ffffff"
-    timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_critical]

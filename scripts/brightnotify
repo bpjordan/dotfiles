@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    up)
+        brightnessctl s +5%
+        ;;
+    down)
+        brightnessctl s 5%-
+        ;;
+    *)
+        echo "invalid action $1" >&2
+        exit 1
+        ;;
+esac
+
+brightness=$(( $(brightnessctl g) * 100 / $(brightnessctl m) ))
+
+notify-send -a brightnotify -i display-brightness -h int:value:$brightness -h int:transient:1 -h string:x-canonical-private-synchronous:volnotify "Brightness" 

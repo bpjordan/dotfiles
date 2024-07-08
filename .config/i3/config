@@ -31,6 +31,7 @@ bar {
 }
 
 exec_always --no-startup-id feh --no-fehbg --bg-scale $(find $confdir/backgrounds -type f | shuf -n1)
+exec --no-startup-id dunst
 exec --no-startup-id $compositor
 exec --no-startup-id udiskie --no-automount --smart-tray
 exec --no-startup-id blueman-applet
