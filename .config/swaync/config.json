@@ -30,7 +30,7 @@
     "label",
     "volume",
     "backlight",
-    "menubar"
+    "buttons-grid"
   ],
   "widget-config": {
     "title": {
@@ -55,6 +55,30 @@
       "collapse-button-label": "󰄼",
       "show-per-app": true
     },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "󰗽",
+          "command": "swaymsg exit"
+        },
+        {
+          "label": "",
+          "command": "swaylock"
+        },
+        {
+          "label": "",
+          "command": "systemctl suspend-then-hibernate"
+        },
+        {
+          "label": "󰜉",
+          "command": "reboot"
+        },
+        {
+          "label": "󰐥",
+          "command": "shutdown now"
+        }
+      ]
+    },
     "menubar": {
       "menu#power": {
         "label": " ",
@@ -77,9 +101,6 @@
     "backlight": {
       "label": "󰃝",
       "min": 5
-    },
-    "buttons-grid": {
-      "actions": []
     }
   }
 }

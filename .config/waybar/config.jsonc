@@ -164,7 +164,6 @@
       "dynamic-order": [
         "title",
         "artist",
-        "album",
         "position",
         "length"
       ],
@@ -173,10 +172,10 @@
         "title",
         "position",
         "length",
-        "artist",
-        "album"
+        "artist"
       ],
       "title-len": 30,
+      "artist-len": 30,
       "status-icons": {
         "playing": "▶",
         "paused": ""
