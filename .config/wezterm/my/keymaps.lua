@@ -138,6 +138,11 @@ local keys = {
     mods = 'LEADER',
     action = act.ShowLauncherArgs { flags = 'FUZZY|COMMANDS' },
   },
+  {
+    key = 'w',
+    mods = 'SUPER',
+    action = act.DisableDefaultAssignment
+  }
 }
 
 for i = 1, 8 do
