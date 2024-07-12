@@ -14,7 +14,7 @@ configuration {
 
   display-combi: "Run";
 
-  monitor: "primary";
+  monitor: "-1";
 
   // window {
   //   show-icons: false;

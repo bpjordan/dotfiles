@@ -148,7 +148,7 @@ local keys = {
 for i = 1, 8 do
   table.insert(keys, {
     key = tostring(i),
-    mods = 'LEADER',
+    mods = 'ALT',
     action = act.ActivateTab(i - 1),
   })
 end
