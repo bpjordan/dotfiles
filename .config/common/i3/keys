@@ -21,6 +21,7 @@ bindsym $mod+Shift+q kill
 
 # Start your launcher
 bindsym $mod+r exec $menu
+bindsym $mod+Shift+s exec rofi -show sc
 
 bindsym $mod+Escape exec swaync-client -t
 

@@ -5,7 +5,7 @@ configuration {
   show-icons: true;
   icon-theme: "Arc";
 
-  modi: "combi,window,drun,run,ssh";
+  modi: "combi,sc,run,ssh";
 
   combi-modes: "window,drun";
   combi-modi: "window,drun";
@@ -53,7 +53,6 @@ mainbox {
 }
 
 listview {
-  require-input: true;
   lines: 10;
   fixed-height: false;
   spacing: 10px;
