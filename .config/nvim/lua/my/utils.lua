@@ -31,11 +31,9 @@ M.lualine_lsp_attached = function()
 end
 
 M.lualine_formatter_attached = function()
-  local conform = require('conform')
-  if conform.will_fallback_lsp() then return 'lsp' end
+  local formatters, lsp_fallback = require('conform').list_formatters_to_run(0)
 
-  local formatters = conform.list_formatters(0)
-
+  if lsp_fallback then return 'lsp' end
   if #formatters == 0 then return '' end
 
   local main_formatter = formatters[1].name

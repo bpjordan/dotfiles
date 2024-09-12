@@ -222,7 +222,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'LspAttach' }, {
   group = vim.api.nvim_create_augroup('format-check', { clear = true }),
   pattern = '*',
   callback = function(e)
-    if e.event == 'LspAttach' and not require('conform').will_fallback_lsp { bufnr = e.buf } then return end
+    if e.event == 'LspAttach' and not select(2, require('conform').list_formatters_to_run(e.buf)) then return end
 
     -- Defer since checking immediately upon BufReadPost can sometimes cause concurrent modification errors
     vim.schedule(function()
