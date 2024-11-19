@@ -9,6 +9,10 @@ function M.setup(formatters)
   require('conform').setup {
     formatters_by_ft = formatters,
     notify_on_error = true,
+    default_format_opts = {
+      lsp_format = 'fallback',
+      stop_after_first = true,
+    },
     format_on_save = function(bufnr)
       if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then return nil end
       return {

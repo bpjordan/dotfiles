@@ -24,14 +24,17 @@ require('my.language.lsp').setup {
 
 require('my.language.format').setup {
   rust = { 'rustfmt' },
-  javascript = { { 'prettier', 'eslint_d', 'prettierd' } },
-  typescript = { { 'prettier', 'eslint_d', 'prettierd' } },
-  css = { { 'eslint_d', 'prettierd', 'prettier' } },
-  json = { { 'jq', 'prettierd', 'prettier' } },
+  javascript = { 'prettier', 'eslint_d', 'prettierd' },
+  typescript = { 'prettier', 'eslint_d', 'prettierd' },
+  java = { 'google-java-format' },
+  css = { 'eslint_d', 'prettierd', 'prettier' },
+  json = { 'jq', 'prettierd', 'prettier' },
   lua = { 'stylua' },
   markdown = { 'markdownlint' },
   python = { 'black' },
   yaml = { 'trim_whitespace' },
+  terraform = { 'terraform_fmt' },
+  hcl = { 'terragrunt_hclfmt', 'hcl' },
   ['_'] = { 'trim_whitespace' },
 }
 
