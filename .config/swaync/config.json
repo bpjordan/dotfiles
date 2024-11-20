@@ -62,8 +62,8 @@
           "command": "swaymsg exit"
         },
         {
-          "label": "",
-          "command": "swaylock"
+          "label": "󰒲",
+          "command": "systemctl hibernate"
         },
         {
           "label": "",
