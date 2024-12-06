@@ -9,6 +9,7 @@
 [alias]
 	graph = log --graph --decorate=full --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=relative
 	jsondiff = diff --color-words=([^[:alnum:]]|[^[:space:]])
+	prune-branches = "!f() { git fetch --prune && git branch -v | grep '\\[gone\\]' | cut -d ' ' -f 3 | xargs -r git branch -D; }; f"
 
 [init]
 	defaultBranch = main
