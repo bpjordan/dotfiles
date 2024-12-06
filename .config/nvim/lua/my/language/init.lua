@@ -1,3 +1,9 @@
+vim.filetype.add {
+  pattern = {
+    ['.*/templates/.*%.ya?ml'] = 'helm',
+  },
+}
+
 require('my.language.lsp').setup {
   gopls = {},
   rust_analyzer = { install = true },
