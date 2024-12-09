@@ -47,7 +47,7 @@ zstyle ':vcs_info:git:*' stagedstr '%F{green}●%F{reset} '
 zstyle ':vcs_info:git:*' unstagedstr '%F{red}●%F{reset} '
 
 ## Hook for showing information about the git remote
-zstyle ':vcs_info:git*+set-message:*' hooks git-remoteinfo
+zstyle ':vcs_info:git*+set-message:*' hooks git-remoteinfo git-stashinfo
 
 function +vi-git-remoteinfo() {
 ### exit early if not in a remote tracking branch
@@ -82,6 +82,14 @@ fi
       hook_com[branch]="${hook_com[branch]}[${remote}]"
     fi
   }
+
+function +vi-git-stashinfo() {
+  local -a stashes
+  if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
+    stashes=$(git stash list 2>/dev/null | wc -l)
+    hook_com[misc]+="%F{yellow}%F{reset}%b "
+  fi
+}
 
   precmd() { vcs_info }
 
