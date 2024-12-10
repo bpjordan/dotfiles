@@ -86,7 +86,6 @@ fi
 function +vi-git-stashinfo() {
   local -a stashes
   if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
-    stashes=$(git stash list 2>/dev/null | wc -l)
     hook_com[misc]+="%F{yellow}%F{reset}%b "
   fi
 }
