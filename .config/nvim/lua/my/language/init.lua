@@ -4,6 +4,8 @@ vim.filetype.add {
   },
 }
 
+require('my.language.notebook').setup()
+
 require('my.language.lsp').setup {
   gopls = {},
   rust_analyzer = { install = true },

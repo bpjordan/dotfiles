@@ -136,6 +136,43 @@ PROMPT+='%F{red}$(prompt_pwd) %B%F{cyan}%# %b%f'
 
 RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}.%? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
 
+##########################
+#
+# Python venv integration
+#
+##########################
+
+export VENV_HOME="$HOME/.local/state/venvs"
+[[ -d "$VENV_HOME" ]] || mkdir -p "$VENV_HOME"
+
+lsvenv () {
+  ls -1 "$VENV_HOME"
+}
+
+venv () {
+  if [[ $# -eq 1 ]]; then
+    source "$VENV_HOME/$1/bin/activate"
+  else
+    echo "$0 <venv>: Activate venv"
+  fi
+}
+
+mkvenv () {
+  if [[ $# -eq 1 ]]; then
+    python3 -m venv "$VENV_HOME/$1"
+  else
+    echo "$0 <venv>: Create venv"
+  fi
+}
+
+rmvenv () {
+  if [[ $# -eq 1 ]]; then
+    rm -r "$VENV_HOME/$1"
+  else
+    echo "$0 <venv>: Remove venv"
+  fi
+}
+
 #######################
 #
 # PEFERENCES
