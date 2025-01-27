@@ -63,11 +63,11 @@
         },
         {
           "label": "󰒲",
-          "command": "systemctl hibernate"
+          "command": "swaymsg exec 'swaylock -f -c 000000 && systemctl hibernate'"
         },
         {
           "label": "",
-          "command": "systemctl suspend-then-hibernate"
+          "command": "swaymsg exec 'swaylock -f -c 000000 && systemctl suspend-then-hibernate'"
         },
         {
           "label": "󰜉",
