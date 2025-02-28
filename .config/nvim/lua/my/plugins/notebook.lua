@@ -15,6 +15,8 @@ return {
       vim.g.molten_image_provider = 'none'
       vim.g.molten_virt_text_output = true
       vim.g.molten_output_win_max_height = 20
+      vim.g.molten_auto_open_output = false
+      vim.g.molten_virt_lines_off_by_1 = true
     end,
   },
   {
@@ -35,14 +37,14 @@ return {
           enabled = true,
         },
       },
-      -- keymap = {
-      --   -- NOTE: setup your own keymaps:
-      --   hover = 'H',
-      --   definition = 'gd',
-      --   rename = '<leader>rn',
-      --   references = 'gr',
-      --   format = '<leader>gf',
-      -- },
+      keymap = {
+        -- NOTE: setup your own keymaps:
+        hover = 'K',
+        definition = '<leader>gd',
+        rename = '<leader>rn',
+        references = '<leader>gr',
+        format = '<leader>gf',
+      },
       codeRunner = {
         enabled = true,
         default_method = 'molten',
