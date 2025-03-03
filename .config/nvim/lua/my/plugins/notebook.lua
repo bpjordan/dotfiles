@@ -17,6 +17,7 @@ return {
       vim.g.molten_output_win_max_height = 20
       vim.g.molten_auto_open_output = false
       vim.g.molten_virt_lines_off_by_1 = true
+      vim.g.molten_auto_init_behavior = 'raise'
     end,
   },
   {
@@ -31,7 +32,7 @@ return {
         chunks = 'all',
         diagnostics = {
           enabled = true,
-          triggers = { 'BufWritePost' },
+          triggers = { 'BufWritePost', 'InsertLeave' },
         },
         completion = {
           enabled = true,
@@ -57,6 +58,12 @@ return {
       style = 'markdown',
       output_extension = 'md',
       force_ft = 'markdown',
+    },
+  },
+  {
+    'jbyuki/nabla.nvim',
+    keys = {
+      { 'L', function() require('nabla').popup() end, desc = 'View [L]aTeX Equation' },
     },
   },
 }
