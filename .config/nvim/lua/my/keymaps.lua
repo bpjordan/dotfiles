@@ -58,6 +58,8 @@ vim.keymap.set(
   { desc = 'Harpoon: Open UI' }
 )
 
+vim.keymap.set('n', '<leader>;', function() require('quarto.runner').run_cell() end, { desc = 'Run Code Cell' })
+
 -- -- file tree
 vim.keymap.set('n', '<leader>f', require('oil').open_float, { desc = 'Open [F]ile tree' })
 

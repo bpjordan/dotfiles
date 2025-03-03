@@ -59,6 +59,10 @@ return {
         lualine_c = { { "require'nvim-navic'.get_location()" } },
         lualine_y = {
           {
+            require('molten.status').kernels,
+            icon = '󰺿',
+          },
+          {
             require('my.utils').lualine_lsp_attached,
             icon = '󰺯',
           },
