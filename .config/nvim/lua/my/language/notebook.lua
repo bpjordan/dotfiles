@@ -5,16 +5,17 @@ local function auto_init_molten(e)
     if require('molten.status').kernels() ~= '' then return end
     local kernels = vim.fn.MoltenAvailableKernels()
 
-    local has_kernel, kernel_name = pcall(function()
-      local meta = vim.json.decode(io.open(e.file, 'r'):read('a'))['metadata']
-      return meta.kernelspec.name
-    end)
+    local kernel_name = nil
+    local venv = os.getenv('VIRTUAL_ENV')
+    if venv ~= nil then kernel_name = string.match(venv, '/.+/(.+)') end
 
-    if not has_kernel or not vim.tbl_contains(kernels, kernel_name) then
-      kernel_name = nil
-      local venv = os.getenv('VIRTUAL_ENV')
-      if venv ~= nil then kernel_name = string.match(venv, '/.+/(.+)') end
+    if not vim.tbl_contains(kernels, kernel_name) then
+      _, kernel_name = pcall(function()
+        local meta = vim.json.decode(io.open(e.file, 'r'):read('a'))['metadata']
+        return meta.kernelspec.name
+      end)
     end
+
     if kernel_name ~= nil and vim.tbl_contains(kernels, kernel_name) then
       vim.cmd.MoltenInit(kernel_name)
       vim.cmd.MoltenImportOutput()
