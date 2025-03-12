@@ -66,7 +66,7 @@
           "command": "swaymsg exec 'swaylock -f -c 000000 && systemctl hibernate'"
         },
         {
-          "label": "",
+          "label": "",
           "command": "swaymsg exec 'swaylock -f -c 000000 && systemctl suspend-then-hibernate'"
         },
         {
@@ -78,25 +78,6 @@
           "command": "shutdown now"
         }
       ]
-    },
-    "menubar": {
-      "menu#power": {
-        "label": " ",
-        "actions": [
-          {
-            "label": "󰗽",
-            "command": "swaymsg exit"
-          },
-          {
-            "label": "󰜉",
-            "command": "reboot"
-          },
-          {
-            "label": "󰐥",
-            "command": "shutdown now"
-          }
-        ]
-      }
     },
     "backlight": {
       "label": "󰃝",
