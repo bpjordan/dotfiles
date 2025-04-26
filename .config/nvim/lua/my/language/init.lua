@@ -38,7 +38,7 @@ require('my.language.format').setup {
   css = { 'eslint_d', 'prettierd', 'prettier' },
   json = { 'jq', 'prettierd', 'prettier' },
   lua = { 'stylua' },
-  markdown = { 'prettierd', 'prettier', 'markdownlint' },
+  markdown = { 'markdownlint' },
   python = { 'black' },
   yaml = { 'trim_whitespace' },
   terraform = { 'terraform_fmt' },
