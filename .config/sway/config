@@ -2,6 +2,7 @@
 set $term wezterm
 set $rofi_base rofi -terminal '$term'
 set $menu $rofi_base -show combi
+set $locker swaylock
 
 set $reload_cmd reload
 set $exit_cmd swaynag -t warning -m 'Logout and exit Sway?' -B 'Yes, exit sway' 'swaymsg exit'

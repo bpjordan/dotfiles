@@ -8,6 +8,9 @@ set $up k
 set $right l
 
 set $scriptdir ~/.dotfiles/scripts
+set $python ~/.local/state/venvs/i3/bin/python
+
+exec $python $scriptdir/i3-autotile
 
 ### Key bindings
 #
@@ -24,6 +27,8 @@ bindsym $mod+r exec $menu
 bindsym $mod+Shift+s exec rofi -show sc
 
 bindsym $mod+Escape exec swaync-client -t
+
+bindsym $mod+Shift+Escape exec $locker
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
