@@ -1,0 +1,47 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = '$username$hostname$directory$all$character'
+right_format = '$git_status$git_branch$status$jobs'
+
+[aws]
+disabled = true
+format = '(\[[$symbol($profile:)($region)(\[$duration\])]($style)\])'
+symbol = " "
+
+[directory]
+truncation_length = 1
+fish_style_pwd_dir_length = 1
+style = "bold red"
+
+[ruby]
+symbol = " "
+format = '(\[[$symbol$version]($style)\])'
+
+[rust]
+format = '(\[[$symbol$version]($style)\])'
+
+[package]
+format = '(\[[$symbol$version]($style)\])'
+
+[kubernetes]
+disabled = false
+symbol = "☸ "
+format = '(\[[$symbol$context(\($namespace\))]($style)\])'
+style = "blue bold"
+
+[git_branch]
+format = '([$symbol](yellow)[$branch(:$remote_branch)]($style) )'
+symbol = " "
+style = "cyan"
+
+[git_status]
+format = '([$all_status]($style)[$ahead_behind](blue) )'
+
+[status]
+disabled = false
+format = '([$symbol\[$status\]]($style) )'
+success_style = "green"
+symbol = "⨯"
+
+[cmd_duration]
+format = '(\[[$duration]($style)\] )'

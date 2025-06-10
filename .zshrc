@@ -90,8 +90,6 @@ function +vi-git-stashinfo() {
   fi
 }
 
-  precmd() { vcs_info }
-
 ### Refresh prompt
 # refresh prompt every TMOUT seconds
 TMOUT=1
@@ -109,50 +107,9 @@ TRAPALRM() {
 }
 
 
-###########
-#
-# PROMPT
-#
-###########
-
-setopt prompt_subst
-
-prompt_pwd () {
-  # https://stackoverflow.com/a/73590795
-  local p=${${PWD:/~/\~}/#~\//\~/}
-  print "${(@j[/]M)${(@s[/]M)p##*/}##(.|)?}$p:t"
-}
-
-# build prompt
-PROMPT=''
-if [[ -v WSL_DISTRO_NAME ]]; then
-  PROMPT+="%F{magenta}${WSL_DISTRO_NAME}[WSL]%F{reset}:"
-elif [[ -v SSH_CLIENT ]]; then
-  PROMPT+="%F{magenta}%n@%m[SSH]%F{reset}:"
-fi
-
-# PROMPT+='%F{reset}:%F{red}$(shrink_path -f) %B%F{cyan}%# %b%F{reset}'
-PROMPT+='%F{red}$(prompt_pwd) %B%F{cyan}%# %b%f'
-
-RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}.%? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
-
-#######################
-#
-# PEFERENCES
-#
-#######################
-
-export EDITOR=vim
-export GO111MODULE=on
-
-if [ -f ~/.bash_shortcuts ]; then
-  . ~/.bash_shortcuts
-fi
-
-if [ -d "$HOME/.dotfiles/scripts" ]; then
-  export PATH="$HOME/.dotfiles/scripts:$PATH"
-  alias s=tmux-sessionizer
-fi
+######################
+# PATH
+######################
 
 [ -f "$HOME/.cargo/env " ] && . "$HOME/.cargo/env"
 
@@ -160,6 +117,11 @@ if [ -d "$HOME/go/bin" ]; then
   export GOROOT=/usr/local/go
   export GOPATH=$HOME/go
   export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+fi
+
+if [ -d "$HOME/.dotfiles/scripts" ]; then
+  export PATH="$HOME/.dotfiles/scripts:$PATH"
+  alias s=tmux-sessionizer
 fi
 
 # if [[ ! ( -v SSH_CLIENT ) && ( "${TERM_PROGRAM}" == "WezTerm" ) ]] && infocmp wezterm &> /dev/null; then
@@ -171,9 +133,6 @@ case $TERM in
 esac
 
 export PATH="$HOME/.local/bin:$PATH"
-
-export BAT_PAGER="less -FR"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -187,3 +146,54 @@ fi
 
 mise_bin="$HOME/.local/bin/mise"
 [[ -x "$mise_bin" ]] && eval "$($mise_bin activate zsh)"
+
+#######################
+# PREFERENCES
+#######################
+
+export EDITOR=vim
+export GO111MODULE=on
+
+if [ -f ~/.bash_shortcuts ]; then
+  . ~/.bash_shortcuts
+fi
+
+export BAT_PAGER="less -FR"
+
+if command -v eza &> /dev/null ; then
+  alias ls=eza
+fi
+
+###########
+#
+# PROMPT
+#
+###########
+
+if command -v starship &> /dev/null ; then
+  eval "$(starship init zsh)"
+else
+  setopt prompt_subst
+  precmd() { vcs_info }
+
+  prompt_pwd () {
+    # https://stackoverflow.com/a/73590795
+    local p=${${PWD:/~/\~}/#~\//\~/}
+    print "${(@j[/]M)${(@s[/]M)p##*/}##(.|)?}$p:t"
+  }
+
+  # build prompt
+  PROMPT=''
+  if [[ -v WSL_DISTRO_NAME ]]; then
+    PROMPT+="%F{magenta}${WSL_DISTRO_NAME}[WSL]%F{reset}:"
+  elif [[ -v SSH_CLIENT ]]; then
+    PROMPT+="%F{magenta}%n@%m[SSH]%F{reset}:"
+  fi
+
+  # PROMPT+='%F{reset}:%F{red}$(shrink_path -f) %B%F{cyan}%# %b%F{reset}'
+  PROMPT+='%F{red}$(prompt_pwd) %B%F{cyan}%# %b%f'
+
+  RPROMPT='${vcs_info_msg_0_} %(?.%F{green}✓%F{reset}.%? %F{red}%B⨯%b%F{reset})%(1j. %j%F{yellow}%B⚙%b%F{reset}.)'
+
+fi
+
