@@ -14,6 +14,12 @@
 [init]
 	defaultBranch = main
 
+[commit]
+	verbose = true
+
+[branch]
+	sort = committerdate
+
 [pull]
 	rebase = true
 
@@ -22,6 +28,8 @@
 
 [diff]
 	tool = nvim
+	colorMoved = true
+	algorithm = histogram
 
 [difftool "nvim"]
 	cmd = nvim -d "$LOCAL" "$REMOTE"
