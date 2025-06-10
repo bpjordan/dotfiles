@@ -33,11 +33,9 @@ function M.setup(servers)
     end
     nmap(
       '<leader>it',
-      function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(bufnr), { bufnr = bufnr }) end,
+      function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }, { bufnr = bufnr }) end,
       '[I]nlay Hint [T]oggle'
     )
-
-    if has_local and local_config.on_attach then local_config.on_attach(client, bufnr) end
   end
 
   -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -49,17 +47,22 @@ function M.setup(servers)
 
   require('mason-lspconfig').setup {
     ensure_installed = ensure_installed,
+    automatic_installation = false,
     handlers = {
       function(server_name)
         local config = servers[server_name]
         require('lspconfig')[server_name].setup {
           cmd = config and config.cmd,
           settings = config and config.settings,
+          root_dir = config and config.root_dir,
+          init_options = config and config.init_options,
           cmd_env = config and config.env,
           capabilities = capabilities,
+          single_file_support = config and config.single_file_support,
           on_attach = function(ev, bufnr)
             on_attach(ev, bufnr)
             if config and config.on_attach then config.on_attach(ev, bufnr) end
+            if has_local and local_config.on_attach then local_config.on_attach(ev, bufnr) end
           end,
         }
       end,

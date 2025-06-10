@@ -184,3 +184,6 @@ if [[ -n "$tf_bin" ]]; then
   complete -o nospace -C "$tf_bin" terraform
   alias tf=terraform
 fi
+
+mise_bin="$HOME/.local/bin/mise"
+[[ -x "$mise_bin" ]] && eval "$($mise_bin activate zsh)"

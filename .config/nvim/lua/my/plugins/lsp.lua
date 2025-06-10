@@ -41,4 +41,5 @@ return { -- LSP Configuration & Plugins
     },
   },
   'stevearc/conform.nvim',
+  'nanotee/sqls.nvim',
 }
