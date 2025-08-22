@@ -20,7 +20,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = vim.highlight.on_yank,
+  callback = vim.hl.on_yank,
   group = vim.api.nvim_create_augroup('highlight_yank', {}),
   pattern = '*',
 })
@@ -58,6 +58,8 @@ vim.keymap.set(
   { desc = 'Harpoon: Open UI' }
 )
 
+vim.keymap.set('n', '<leader>;', function() require('quarto.runner').run_cell() end, { desc = 'Run Code Cell' })
+
 -- -- file tree
 vim.keymap.set('n', '<leader>f', require('oil').open_float, { desc = 'Open [F]ile tree' })
 
@@ -65,9 +67,6 @@ vim.keymap.set('n', '<leader>f', require('oil').open_float, { desc = 'Open [F]il
 -- See `:help nvim-treesitter`
 ---@diagnostic disable-next-line: missing-fields
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
-
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
 
@@ -217,25 +216,3 @@ vim.api.nvim_create_user_command(
   function() require('harpoon'):list():clear() end,
   { desc = 'Clear Harpoon main list' }
 )
-
-vim.api.nvim_create_autocmd({ 'BufRead', 'LspAttach' }, {
-  group = vim.api.nvim_create_augroup('format-check', { clear = true }),
-  pattern = '*',
-  callback = function(e)
-    if e.event == 'LspAttach' and not select(2, require('conform').list_formatters_to_run(e.buf)) then return end
-
-    -- Defer since checking immediately upon BufReadPost can sometimes cause concurrent modification errors
-    vim.schedule(function()
-      require('conform').format(
-        { bufnr = e.buf, dry_run = true, async = true, quiet = true, lsp_fallback = true },
-        function(err, changed)
-          if err then
-            vim.notify('Error checking formatters: ' .. tostring(err), vim.log.levels.WARN)
-          else
-            vim.b[e.buf].disable_autoformat = changed
-          end
-        end
-      )
-    end)
-  end,
-})
