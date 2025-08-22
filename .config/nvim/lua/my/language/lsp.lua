@@ -1,6 +1,7 @@
 local M = {}
 
-function M.setup(servers)
+function M.setup(opts)
+  local servers = opts.servers
   local has_local, local_config = pcall(require, 'local.lsp')
   if has_local and local_config.servers then servers = vim.tbl_deep_extend('force', servers, local_config.servers) end
 
@@ -68,6 +69,31 @@ function M.setup(servers)
       end,
     },
   }
+
+  if opts.manual_servers and vim.fn.has('nvim-0.11') then
+    for server, config in pairs(opts.manual_servers) do
+      if not config then goto continue end
+      if config.path and not vim.uv.fs_stat(config.path) then goto continue end
+      if config.condition and not config.condition() then goto continue end
+
+      vim.lsp.config(server, {
+        cmd = config.cmd,
+        settings = config.settings,
+        root_dir = config.root_dir,
+        init_options = config.init_options,
+        cmd_env = config.env,
+        capabilities = capabilities,
+        single_file_support = config.single_file_support,
+        on_attach = function(ev, bufnr)
+          on_attach(ev, bufnr)
+          if config and config.on_attach then config.on_attach(ev, bufnr) end
+          if has_local and local_config.on_attach then local_config.on_attach(ev, bufnr) end
+        end,
+      })
+
+      ::continue::
+    end
+  end
 end
 
 return M

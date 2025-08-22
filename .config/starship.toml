@@ -9,7 +9,7 @@ format = '(\[[$symbol($profile:)($region)(\[$duration\])]($style)\])'
 symbol = " "
 
 [directory]
-truncation_length = 1
+truncation_length = 3
 fish_style_pwd_dir_length = 1
 style = "bold red"
 
@@ -19,6 +19,29 @@ format = '(\[[$symbol$version]($style)\])'
 
 [rust]
 format = '(\[[$symbol$version]($style)\])'
+
+[dotnet]
+format = '(\[[$symbol$version( 󰓾 $tfm)]($style)\])'
+detect_extensions = [ "csproj", "fsproj", "xproj", "sln" ]
+
+[lua]
+symbol = " "
+format = '(\[[$symbol$version]($style)\])'
+
+[nodejs]
+format = '(\[[$symbol$version]($style)\])'
+
+[gradle]
+symbol = " "
+format = '(\[[$symbol$version]($style)\])'
+
+[java]
+symbol = " "
+format = '(\[[$symbol$version]($style)\])'
+
+[python]
+symbol = " "
+format = '(\[[$symbol$version(\($virtualenv\))]($style)\])'
 
 [package]
 format = '(\[[$symbol$version]($style)\])'

@@ -134,3 +134,4 @@ if ! shopt -oq posix; then
 fi
 
 PROMPT_DIRTRIM=4
+export PATH="$PATH:/opt/mssql-tools18/bin"

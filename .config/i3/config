@@ -1,5 +1,5 @@
 
-set $term wezterm
+set $term ghostty
 set $menu rofi -show combi
 set $compositor compton
 set $locker i3lock -c 000000

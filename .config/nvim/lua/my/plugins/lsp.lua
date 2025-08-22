@@ -3,8 +3,17 @@ return { -- LSP Configuration & Plugins
     'williamboman/mason-lspconfig',
     dependencies = {
       'neovim/nvim-lspconfig',
-      { 'williamboman/mason.nvim', config = true },
+      { 'williamboman/mason.nvim' },
       { 'folke/neodev.nvim', config = true },
+    },
+  },
+  {
+    'williamboman/mason.nvim',
+    opts = {
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry',
+      },
     },
   },
 
@@ -42,4 +51,17 @@ return { -- LSP Configuration & Plugins
   },
   'stevearc/conform.nvim',
   'nanotee/sqls.nvim',
+  {
+    'seblyng/roslyn.nvim',
+    ft = 'cs',
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+      -- your configuration comes here; leave empty for default settings
+    },
+  },
+  {
+    'tpope/vim-rails',
+    ft = 'ruby',
+  },
 }
