@@ -5,22 +5,19 @@ local lualine_lsp_attached = function()
 
   local main_client = clients[1].name
 
+  if main_client == 'efm' and #clients > 1 then main_client = clients[2].name end
+
   if #clients > 1 then return string.format('%s [+%d]', main_client, #clients - 1) end
 
   return main_client
 end
 
 local lualine_formatter_attached = function()
-  local formatters, lsp_fallback = require('conform').list_formatters_to_run(0)
+  local clients = vim.lsp.get_clients { bufnr = 0, method = 'textDocument/formatting' }
 
-  if lsp_fallback then return 'lsp' end
-  if #formatters == 0 then return '' end
+  if #clients == 0 then return '' end
 
-  local main_formatter = formatters[1].name
-
-  if #formatters > 1 then return string.format('%s [+%d]', main_formatter, #formatters - 1) end
-
-  return main_formatter
+  return clients[1].name
 end
 
 local lualine_reg = function() return vim.fn.reg_recording() end
@@ -83,7 +80,7 @@ require('lualine').setup {
         lualine_formatter_attached,
         icon = '󱩽',
         color = function()
-          if vim.b.disable_autoformat or vim.g.disable_autoformat then return 'lualine_b_diagnostics_error_normal' end
+          if require('lsp-format').disabled then return 'lualine_b_diagnostics_error_normal' end
         end,
       },
     },

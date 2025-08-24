@@ -10,13 +10,14 @@ vim.pack.add {
   'https://github.com/echasnovski/mini.nvim',
   'https://github.com/lukas-reineke/indent-blankline.nvim',
   'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/lukas-reineke/lsp-format.nvim',
+  'https://github.com/creativenull/efmls-configs-nvim',
   'https://github.com/nvim-treesitter/nvim-treesitter',
   'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   'https://github.com/stevearc/oil.nvim',
   'https://github.com/tpope/vim-dadbod',
   'https://github.com/kristijanhusak/vim-dadbod-ui',
   'https://github.com/kristijanhusak/vim-dadbod-completion',
-  'https://github.com/stevearc/conform.nvim',
   'https://github.com/nvim-lualine/lualine.nvim',
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/nvim-telescope/telescope.nvim',
@@ -26,7 +27,6 @@ vim.pack.add {
 
 vim.lsp.enable {
   'bashls',
-  'black',
   'clangd',
   'dockerls',
   'gopls',
@@ -36,4 +36,5 @@ vim.lsp.enable {
   'rust_analyzer',
   'ts_ls',
   'yamlls',
+  'efm',
 }
