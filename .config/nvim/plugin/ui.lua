@@ -11,8 +11,15 @@ require('tokyonight').setup {
 vim.cmd.colorscheme('tokyonight')
 
 require('mini.icons').setup {}
+-- require('mini.cursorword').setup {}
+require('mini.diff').setup {
+  view = {
+    style = 'sign',
+    signs = { add = '▎', change = '▎', delete = '_' },
+  },
+}
+
 require('which-key').setup {}
-require('gitsigns').setup {}
 require('ibl').setup {
   indent = {
     char = '┊',
