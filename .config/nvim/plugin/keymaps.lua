@@ -44,12 +44,13 @@ vim.keymap.set('n', '<leader>sG', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- stylua: ignore start
-vim.keymap.set('n', '<leader>ha', function () require('harpoon'):list():add() end, {desc = '[H]arpoon: [A]dd to list'})
-vim.keymap.set('n', '<leader>hd', function () require('harpoon'):list():remove() end, {desc = '[H]arpoon: [D]elete from list'})
-vim.keymap.set('n', '<leader>1', function () require('harpoon'):list():select(1) end, {desc = 'Harpoon: Select [1]'})
-vim.keymap.set('n', '<leader>2', function () require('harpoon'):list():select(2) end, {desc = 'Harpoon: Select [2]'})
-vim.keymap.set('n', '<leader>3', function () require('harpoon'):list():select(3) end, {desc = 'Harpoon: Select [3]'})
-vim.keymap.set('n', '<leader>4', function () require('harpoon'):list():select(4) end, {desc = 'Harpoon: Select [4]'})
+vim.keymap.set('n', '<leader>ha', function() require('harpoon'):list():add() end, { desc = '[H]arpoon: [A]dd to list' })
+vim.keymap.set('n', '<leader>hd', function() require('harpoon'):list():remove() end,
+  { desc = '[H]arpoon: [D]elete from list' })
+vim.keymap.set('n', '<leader>1', function() require('harpoon'):list():select(1) end, { desc = 'Harpoon: Select [1]' })
+vim.keymap.set('n', '<leader>2', function() require('harpoon'):list():select(2) end, { desc = 'Harpoon: Select [2]' })
+vim.keymap.set('n', '<leader>3', function() require('harpoon'):list():select(3) end, { desc = 'Harpoon: Select [3]' })
+vim.keymap.set('n', '<leader>4', function() require('harpoon'):list():select(4) end, { desc = 'Harpoon: Select [4]' })
 -- stylua: ignore end
 vim.keymap.set(
   'n',
@@ -128,8 +129,18 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set(
+  'n',
+  '[d',
+  function() vim.diagnostic.jump { count = 1, float = true } end,
+  { desc = 'Go to previous diagnostic message' }
+)
+vim.keymap.set(
+  'n',
+  ']d',
+  function() vim.diagnostic.jump { count = -1, float = true } end,
+  { desc = 'Go to next diagnostic message' }
+)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set(
   'n',
@@ -158,6 +169,42 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
       '<leader>P',
       function() vim.cmd.Git { args = 'push', bang = true } end,
       { buffer = true, desc = 'Git [P]ush' }
+    )
+  end,
+})
+
+vim.lsp.config('*', {
+  on_attach = function(client, bufnr)
+    local nmap = function(keys, func, desc)
+      if desc then desc = 'LSP: ' .. desc end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+
+    -- See `:help K` for why this keymap
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+    if vim.lsp.inlay_hint and client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+    nmap(
+      '<leader>it',
+      function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }, { bufnr = bufnr }) end,
+      '[I]nlay Hint [T]oggle'
     )
   end,
 })
